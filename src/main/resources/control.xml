@@ -6,9 +6,9 @@
 
 <struts>
     
-    <package name="elesur.action" namespace="/" extends="struts-default,json-default">
+    <package name="com.election.action" namespace="/" extends="struts-default,json-default">
         
-        <action name="*Search" method="{1}" class="elesur.action.SearchAction">
+        <action name="*Login" method="{1}" class="com.election.action.LoginAction">
             <result name="view">/login.jsp</result>
             <result name="viewpopup">/viewdetails.jsp</result>
             <result name="loginmessage">/login.jsp</result>

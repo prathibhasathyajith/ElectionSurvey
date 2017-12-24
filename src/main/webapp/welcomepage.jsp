@@ -79,11 +79,7 @@
                     <img src="resources/images/mapmaker.png" width="512" height="auto" onclick="myFunction()"/>
                 </div>
                 <div class="col-md-3"></div>
-                <div id="box">
-                    <div id="text1" class="text">Mobile</div>
-                    <div id="text2" class="text">Revenue</div>
-                    <div id="text3" class="text">Survey</div>
-                </div>
+                
             </div>
         </div>
 

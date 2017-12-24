@@ -6,7 +6,7 @@
     </filter>
     <listener>
         <description>HibernateListener</description>
-        <listener-class>elesur.listener.HibrenateListener</listener-class>
+        <listener-class>com.election.listener.HibrenateListener</listener-class>
     </listener>
     <filter-mapping>
         <filter-name>struts2</filter-name>

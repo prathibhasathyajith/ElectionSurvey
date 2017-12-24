@@ -40,12 +40,12 @@ made subject to such option by the copyright holder.
 Contributor(s):
 -->
 <hibernate-reverse-engineering>
-  <schema-selection match-catalog="survey3"/>
-  <table-filter match-name="local_authority"/>
+  <schema-selection match-catalog="ELCT_Survey"/>
+  <table-filter match-name="candidate"/>
+  <table-filter match-name="candidate_list"/>
   <table-filter match-name="user"/>
-  <table-filter match-name="survey_data"/>
-  <table-filter match-name="gnd"/>
-  <table-filter match-name="user_type"/>
-  <table-filter match-name="social_media_type"/>
-  <table-filter match-name="revenue_source"/>
+  <table-filter match-name="election_survery"/>
+  <table-filter match-name="party"/>
+  <table-filter match-name="service_list"/>
+  <table-filter match-name="party_la"/>
 </hibernate-reverse-engineering>

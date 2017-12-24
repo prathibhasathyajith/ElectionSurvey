@@ -1,39 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-    <session-factory>
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <!--<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/survey3?zeroDateTimeBehavior=convertToNull&amp;autoReconnect=true</property>-->
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/survey4?autoReconnect=true&amp;useSSL=false</property>
-        <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password"/>
-        <!--<property name="hibernate.connection.isolation">1</property>-->
-        <!--<property name="hibernate.connection.datasource">MRSJNDI2</property>-->
-        <!--<property name="hibernate.connection.verifyServerCertificate">false</property>-->
-        <!--<property name="hibernate.connection.requireSSL">false</property>-->
-        <property name="hibernate.connection.autocommit">true</property>
-        <property name="hibernate.cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
-        <!-- Enable Hibernate's automatic session context management, in this case the session will be close after each 
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <!--<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/survey3?zeroDateTimeBehavior=convertToNull&amp;autoReconnect=true</property>-->
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ELCT_Survey?autoReconnect=true&amp;useSSL=false</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.password">password</property>
+    <!--<property name="hibernate.connection.isolation">1</property>-->
+    <!--<property name="hibernate.connection.datasource">MRSJNDI2</property>-->
+    <!--<property name="hibernate.connection.verifyServerCertificate">false</property>-->
+    <!--<property name="hibernate.connection.requireSSL">false</property>-->
+    <property name="hibernate.connection.autocommit">true</property>
+    <property name="hibernate.cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+    <!-- Enable Hibernate's automatic session context management, in this case the session will be close after each 
         transaction! -->
-        <property name="current_session_context_class">thread</property>
-        <property name="show_sql">false</property>
-        <!-- auto create tables -->
-        <property name="hbm2ddl.auto">none</property>
-    
-        <mapping class="elesur.mapping.UserAnswer"/>
-        <mapping class="elesur.mapping.UserType"/>
-        <mapping class="elesur.mapping.Question"/>
-        <mapping class="elesur.mapping.User"/>
-        <mapping class="elesur.mapping.Answer"/>
-        <mapping class="elesur.mapping.SocialMediaType"/>
-        <mapping class="elesur.mapping.RevenueSource"/>
-        <mapping class="elesur.mapping.LocalAuthority"/>
-        <mapping class="elesur.mapping.District"/>
-        <mapping class="elesur.mapping.Gnd"/>
-        <mapping class="elesur.mapping.SurveyData"/>
-        <mapping class="elesur.mapping.Province"/>
+    <property name="current_session_context_class">thread</property>
+    <property name="show_sql">false</property>
+    <!-- auto create tables -->
+    <property name="hbm2ddl.auto">none</property>
 
-
-    </session-factory>
+    <mapping class="com.election.mapping.ServiceList"/>
+    <mapping class="com.election.mapping.CandidateList"/>
+    <mapping class="com.election.mapping.PartyLa"/>
+    <mapping class="com.election.mapping.ElectionSurvery"/>
+    <mapping class="com.election.mapping.Candidate"/>
+    <mapping class="com.election.mapping.User"/>
+    <mapping class="com.election.mapping.Party"/>
+  </session-factory>
 </hibernate-configuration>
