@@ -9,23 +9,19 @@
     <package name="com.election.action" namespace="/" extends="struts-default,json-default">
         
         <action name="*Login" method="{1}" class="com.election.action.LoginAction">
-            <result name="view">/login.jsp</result>
-            <result name="viewpopup">/viewdetails.jsp</result>
+            <result name="loginsuccess">/WEB-INF/pages/home.jsp</result>
             <result name="loginmessage">/login.jsp</result>
-            <result name="firstattempt">/passwordchange.jsp</result>
-            <result name="passwordpage">/passwordchange.jsp</result>
+            <result name="firstattempt">/WEB-INF/pages/passwordchange.jsp</result>
+            <result name="passwordpage">/WEB-INF/pages/passwordchange.jsp</result>
             <result name="message">/WEB-INF/pages/msgSpe.jsp</result>
             <result name="success"></result>
-            <result name="loginsuccess">/mainwindow.jsp</result>
             <result name="logout">/login.jsp</result>
             <result name="welcome">/welcomepage.jsp</result>
-            <result name="list" type="json"></result>
-            <result name="csv" type="stream">
-                <param name="contentType">application/octet-stream</param>
-                <param name="inputName">csvStream</param>
-                <param name="contentDisposition">attachment;filename="details.csv"</param>
-                <param name="bufferSize">4096</param>
-            </result>
+        </action>
+        
+        <action name="*Party" method="{1}" class="com.election.action.PartyAction">
+            <result name="view">/WEB-INF/pages/party/party.jsp</result>
+            
         </action>
         
     </package>

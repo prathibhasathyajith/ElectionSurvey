@@ -26,30 +26,19 @@
 
         <div class="login-form">
             <h1>Election</h1>
-            <form action="CheckLogin"post" >
+            <form action="CheckLogin" method="post" >
                 <div class="form-group ">
-                    <input type="text" class="form-control" placeholder="Username " id="UserName">
+                    <input type="text" class="form-control" placeholder="Username" name="loginUserName">
                     <i class="fa fa-user"></i>
                 </div>
                 <div class="form-group log-status">
-                    <input type="password" class="form-control" placeholder="Password" id="Passwod">
+                    <input type="password" class="form-control" placeholder="Password" name="loginPassword">
                     <i class="fa fa-lock"></i>
                 </div>
                 <span class="alert">
-                    <s:if test="hasActionMessages()">
-                        <div class="col-md-offset-2 col-md-6 alert alert-dismissible alert-success" style="margin-top: 75px; height: 50px;position: absolute">
+                    <s:if test="hasActionMessages()"><p><s:actionmessage/></p></s:if>
 
-                            <p><s:actionmessage/></p>
-                        </div>
-                    </s:if>
-
-                    <s:if test="hasActionErrors()">
-
-                        <div class="col-md-offset-2 col-md-6 alert alert-dismissible alert-warning" style="margin-top: 25px; height: 50px;position: absolute">
-
-                            <p><s:actionerror/></p>
-                        </div>
-                    </s:if>
+                    <s:if test="hasActionErrors()"><p><s:actionerror/></p></s:if>
                 </span>
                 <!--<a class="link" href="#">Lost your password?</a>-->
                 <button type="submit" class="log-btn" >Log in</button>

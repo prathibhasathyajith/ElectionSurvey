@@ -102,7 +102,7 @@ h1 {
 }
 
 .alert {
-  display: none;
+  display: block;
   font-size: 12px;
   color: #f00;
   float: left;

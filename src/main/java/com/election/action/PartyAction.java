@@ -5,10 +5,32 @@
  */
 package com.election.action;
 
+import com.election.bean.PartyInputBean;
+import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.ModelDriven;
+
 /**
  *
  * @author prathibha
  */
-public class PartyAction {
+public class PartyAction extends ActionSupport implements ModelDriven<Object> {
+
+    PartyInputBean inputBean = new PartyInputBean();
+
+    @Override
+    public Object getModel() {
+        return inputBean;
+    }
+
+    public String execute() {
+        System.out.println("called PartyAction : execute");
+        return SUCCESS;
+    }
     
+    public String view(){
+        System.out.println("called PartyAction : execute");
+        String msg = "view";
+        return msg;
+    }
+
 }
