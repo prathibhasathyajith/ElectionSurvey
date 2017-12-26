@@ -4,7 +4,7 @@ $(document).ready(function () {
         $(".dropdown").toggle(100);
         e.stopPropagation();
     });
-    $("body").click(function (e) {
+    $("html").click(function (e) {
         $(".dropdown").fadeOut(100);
     });
     $(".headerBut").click(function (e) {
@@ -18,8 +18,6 @@ $(document).ready(function () {
 
 
     var id = window.localStorage.getItem("item");
-    id = "#" + id;
-    console.log(id);
-    $(id).addClass("active");
+    $("#"+id).addClass("active");
 
 });
