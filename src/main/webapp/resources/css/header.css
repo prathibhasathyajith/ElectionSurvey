@@ -1,0 +1,71 @@
+@import "fonts.css";
+header {
+    background-color: #082a34;
+    background: linear-gradient(90deg, #082a34 0%, #082a34 240px, #ffffff 240px, #ffffff 100%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    z-index: 5;
+    font-family: Raleway;
+    box-shadow: 50px 0px 5px 0px rgba(0, 0, 0, 0.42);
+}
+
+header >.cont {
+    font-size: 15px;
+    font-weight: 500;
+    color: white;
+    padding: 10px;
+    float: left;
+}
+
+.coner {
+    float: right;
+    padding: 9px;
+    cursor: pointer;
+}
+
+.coner > .box {
+    height: 3px;
+    width: 21px;
+    background-color: red;
+    margin: 3px 3px 3px 3px;
+    background: linear-gradient(45deg, #0083db 0%, #c60fdb 100%);
+}
+
+.dropdown {
+    width: 208px;
+    background-color: #ffffff00;
+    margin: 7px 40px 7px 7px;
+    float: right;
+    position: fixed;
+    z-index: 5;
+    right: 0;
+    display: none;
+}
+
+.headerBut {
+    /*            background: linear-gradient(45deg, #0083db 0%, #0f98f3 100%);*/
+    height: 25px;
+    background-color: #4caf50;
+    border: 0px;
+    color: white;
+    padding-bottom: 2px;
+    outline: none;
+}
+
+.headerBut:hover {
+    background-color: #555;
+}
+
+.changePassBut {
+    width: 125px;
+}
+
+.logoutBut {
+    width: 55px;
+}
+.cont-body {
+    padding: 60px 20px 40px 260px;
+}
