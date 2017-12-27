@@ -14,7 +14,7 @@
         <title>Election</title>
         <%@include file="/stylelinks.jspf" %>
         <script>
-            
+
             function editformatter(cellvalue, options, rowObject) {
                 return "<a href='#' title='Edit' onClick='javascript:editParty(&#34;" + cellvalue + "&#34;)'><img class='ui-icon ui-icon-pencil' style='display: block;margin-left: auto;margin-right: auto;'/></a>";
             }
@@ -58,11 +58,13 @@
                             $('#status').val(data.status);
                             $('#email').val(data.email);
                             $('#contactNo').val(data.contactNo);
-                            $('#logoImg').val("");
+                            $('#logoImg').val("")
+
                             $("#logo_add").attr("src", "data:image/jpeg;base64," + data.editLogoImg);
 
                             $('#addButton').button("disable");
                             $('#updateButton').button("enable");
+
                         }
                     },
                     error: function (data) {
@@ -131,7 +133,7 @@
                 $('#contactNo').val("");
 
                 $('#logoImg').val("");
-                $("#logo_add").attr("src", "");
+                $("#logo_add").attr("src", "${pageContext.request.contextPath}/resources/images/logo/image.png");
 
                 $('#addButton').button("enable");
                 $('#updateButton').button("disable");
@@ -142,7 +144,7 @@
                 editParty(null);
                 $('#addButton').button("enable");
                 $('#updateButton').button("disable");
-                $("#logo_add").attr("src", "");
+                $("#logo_add").attr("src", '${pageContext.request.contextPath}/resources/images/logo/image.png');
             }
 
 
@@ -155,101 +157,105 @@
         <jsp:include page="/navbar.jsp"/>
         <!--body content-->
         <div class="cont-body">
-
-            <s:div id="divmsg">
-                <s:actionerror theme="jquery"/>
-                <s:actionmessage theme="jquery"/>
-            </s:div>
-            <s:form id="partyForm" method="post" action="Party" theme="simple" cssClass="form" enctype="multipart/form-data">
-                <s:hidden id="oldvalue" name="oldvalue" ></s:hidden>
+            <div class="cont-breadCrumb">Page Management</div>
+            <div class="cont-msg">
+                <s:div id="divmsg">
+                    <s:actionerror theme="jquery"/>
+                    <s:actionmessage theme="jquery"/>
+                </s:div>
+            </div>
+            <div class="cont-form">
+                <s:form id="partyForm" method="post" action="Party" theme="simple" cssClass="form" enctype="multipart/form-data">
+                    <s:hidden id="oldvalue" name="oldvalue" ></s:hidden>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <span style="color: red">*</span><label>Party Code</label>
+                            <s:textfield cssClass="form-control" name="partyCode" id="partyCode" maxLength="45" onkeyup="$(this).val($(this).val().replace(/[^a-zA-Z0-9]/g,''))" onmouseout="$(this).val($(this).val().replace(/[^a-zA-Z0-9]/g,''))"/>
+                        </div>
+                    </div>
                     <div class="col-sm-3">
                         <div class="form-group">
-                            <span style="color: red">*</span><label>Party Code</label>
-                        <s:textfield cssClass="form-control" name="partyCode" id="partyCode" maxLength="45" onkeyup="$(this).val($(this).val().replace(/[^a-zA-Z0-9]/g,''))" onmouseout="$(this).val($(this).val().replace(/[^a-zA-Z0-9]/g,''))"/>
+                            <span style="color: red">*</span><label>Name</label>
+                            <s:textfield cssClass="form-control" name="name" id="name" maxLength="255" onkeyup="$(this).val($(this).val().replace(/[^a-zA-Z0-9]/g,''))" onmouseout="$(this).val($(this).val().replace(/[^a-zA-Z0-9]/g,''))"/>
+                        </div>
                     </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <span style="color: red">*</span><label>Name</label>
-                        <s:textfield cssClass="form-control" name="name" id="name" maxLength="255" onkeyup="$(this).val($(this).val().replace(/[^a-zA-Z0-9]/g,''))" onmouseout="$(this).val($(this).val().replace(/[^a-zA-Z0-9]/g,''))"/>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <span style="color: red">*</span><label>Description</label>
+                            <s:textfield cssClass="form-control" name="description" id="description" maxLength="255" onkeyup="$(this).val($(this).val().replace(/[^a-zA-Z0-9]/g,''))" onmouseout="$(this).val($(this).val().replace(/[^a-zA-Z0-9]/g,''))"/>
+                        </div>
                     </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <span style="color: red">*</span><label>Description</label>
-                        <s:textfield cssClass="form-control" name="description" id="description" maxLength="255" onkeyup="$(this).val($(this).val().replace(/[^a-zA-Z0-9]/g,''))" onmouseout="$(this).val($(this).val().replace(/[^a-zA-Z0-9]/g,''))"/>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <span style="color: red">*</span><label>Type</label>
+                            <s:select  cssClass="form-control" id="type" list="%{typeList}"  headerValue="--Select Type--" headerKey="" name="type" listKey="code" listValue="description" />
+                        </div>
                     </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <span style="color: red">*</span><label>Type</label>
-                        <s:select  cssClass="form-control" id="type" list="%{typeList}"  headerValue="--Select Type--" headerKey="" name="type" listKey="code" listValue="description" />
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <span style="color: red">*</span><label>Contact No</label>
+                            <s:textfield cssClass="form-control" name="contactNo" id="contactNo" maxLength="12" onkeyup="$(this).val($(this).val().replace(/[^0-9+#]/g,''))" onmouseout="$(this).val($(this).val().replace(/[^0-9#+]/g,''))"/>
+                        </div>
                     </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <span style="color: red">*</span><label>Contact No</label>
-                        <s:textfield cssClass="form-control" name="contactNo" id="contactNo" maxLength="12" onkeyup="$(this).val($(this).val().replace(/[^0-9+#]/g,''))" onmouseout="$(this).val($(this).val().replace(/[^0-9#+]/g,''))"/>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <span style="color: red">*</span><label>Email</label>
+                            <s:textfield cssClass="form-control" name="email" id="email" maxLength="255" onkeyup="$(this).val($(this).val().replace(/[^a-zA-Z0-9]/g,''))" onmouseout="$(this).val($(this).val().replace(/[^a-zA-Z0-9]/g,''))"/>
+                        </div>
                     </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <span style="color: red">*</span><label>Email</label>
-                        <s:textfield cssClass="form-control" name="email" id="email" maxLength="255" onkeyup="$(this).val($(this).val().replace(/[^a-zA-Z0-9]/g,''))" onmouseout="$(this).val($(this).val().replace(/[^a-zA-Z0-9]/g,''))"/>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <span style="color: red">*</span><label>Address</label>
+                            <s:textfield cssClass="form-control" name="address" id="address" maxLength="255" onkeyup="$(this).val($(this).val().replace(/[^a-zA-Z0-9]/g,''))" onmouseout="$(this).val($(this).val().replace(/[^a-zA-Z0-9]/g,''))"/>
+                        </div>
                     </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <span style="color: red">*</span><label>Address</label>
-                        <s:textfield cssClass="form-control" name="address" id="address" maxLength="255" onkeyup="$(this).val($(this).val().replace(/[^a-zA-Z0-9]/g,''))" onmouseout="$(this).val($(this).val().replace(/[^a-zA-Z0-9]/g,''))"/>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <span style="color: red">*</span><label>Status</label>
+                            <s:select  cssClass="form-control" id="status" list="%{statusList}"  headerValue="--Select Status--" headerKey="" name="status" listKey="code" listValue="description" />
+                        </div>
                     </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <span style="color: red">*</span><label>Status</label>
-                        <s:select  cssClass="form-control" id="status" list="%{statusList}"  headerValue="--Select Status--" headerKey="" name="status" listKey="code" listValue="description" />
-                    </div>
-                </div>
 
-                <div class="col-sm-8">
-                    <div class="form-group">
-                        <span style="color: red">*</span><label >Logo (Maximum size (w*h): 92x92 pixels)</label>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <img class="image_card" src='data:image/jpeg;base64,<s:property value=""/>' id="logo_add">
-                            </div>
-                            <div class="col-sm-6" style="margin-top: 40px;">
-                                <s:file name="logoImg" id="logoImg" onclick="changeLogo()"/>                               
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <span style="color: red">*</span><label >Party Logo </label><br><label>(Maximum size (w*h): 100x100 pixels)</label>
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <img class="image_card" src='${pageContext.request.contextPath}/resources/images/logo/image.png' id="logo_add" width="100" height="100">
+                                </div>
+                                <div class="col-sm-6" style="margin-top: 40px;">
+                                    <s:file name="logoImg" id="logoImg" onclick="changeLogo()"/>                               
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <s:url var="addurl" action="addParty"/>
-                <s:url var="updateurl" action="updateParty"/>
+                    <s:url var="addurl" action="addParty"/>
+                    <s:url var="updateurl" action="updateParty"/>
 
-                <div class="row row_1 form-inline">
-                    <div class="col-sm-12">
-                        <div class="form-group">
-                            <sj:submit button="true" href="%{addurl}" value="Add" targets="divmsg" id="addButton" 
-                                       cssClass="btn btn-default btn-sm"/>
-                        </div>
-                        <div class="form-group">
-                            <sj:submit button="true" href="%{updateurl}" value="Update" targets="divmsg" id="updateButton"
-                                       cssClass="btn btn-default btn-sm" disabled="true"/>
-                        </div>
-                        <div class="form-group">
-                            <sj:submit button="true" value="Reset" name="reset" onClick="resetAllData()" 
-                                       cssClass="btn btn-default btn-sm"/>
-                        </div>
-                        <div class="form-group">
-                            <sj:submit button="true" value="Cancel" name="cancel" onClick="cancelPageAllData()"
-                                       cssClass="btn btn-default btn-sm"/>
-                        </div>
+                    <div class="row row_1 form-inline">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <sj:submit button="true" href="%{addurl}" value="Add" targets="divmsg" id="addButton" 
+                                           cssClass="btn btn-success"/>
+                            </div>
+                            <div class="form-group">
+                                <sj:submit button="true" href="%{updateurl}" value="Update" targets="divmsg" id="updateButton"
+                                           cssClass="btn btn-primary" disabled="true"/>
+                            </div>
+                            <div class="form-group">
+                                <sj:submit button="true" value="Reset" name="reset" onClick="resetAllData()" 
+                                           cssClass="btn btn-default"/>
+                            </div>
+                            <div class="form-group">
+                                <sj:submit button="true" value="Cancel" name="cancel" onClick="cancelPageAllData()"
+                                           cssClass="btn btn-default"/>
+                            </div>
 
+                        </div>
                     </div>
-                </div>
-            </s:form>
+                </s:form>
+            </div>
 
             <!-- Start delete confirm dialog box -->
             <sj:dialog 
@@ -283,7 +289,7 @@
                 title="Delete error."
                 />
 
-            <div class="table">
+            <div class="cont-table">
                 <s:url var="listurl" action="listParty"/>
                 <sjg:grid
                     id="gridtable"
@@ -306,7 +312,7 @@
                     <sjg:gridColumn name="partyCode" index="u.partyCode" title="Delete" width="40" align="center" formatter="deleteformatter" sortable="false" />  
                     <sjg:gridColumn name="partyCode" index="u.partyCode" title="Party Code"  sortable="true" frozen="true"/>
                     <sjg:gridColumn name="name" index="u.name" title="Name"  sortable="true"/>
-                    <sjg:gridColumn name="discription" index="u.discription" title="Discription"  sortable="true"/>
+                    <sjg:gridColumn name="description" index="u.description" title="Description"  sortable="true"/>
                     <sjg:gridColumn name="type" index="u.type" title="Type"  sortable="true"/>
                     <sjg:gridColumn name="contactNo" index="u.contactNo" title="Contact No"  sortable="true" />
                     <sjg:gridColumn name="email" index="u.email" title="Email"  sortable="true" />
@@ -314,9 +320,6 @@
                     <sjg:gridColumn name="status" index="u.status" title="Status"  sortable="true" />
                 </sjg:grid> 
             </div>
-
-
-            <h1>Party Page</h1>
         </div>
         <!--footer-->
         <jsp:include page="/footer.jsp"/>

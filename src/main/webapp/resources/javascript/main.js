@@ -18,6 +18,8 @@ $(document).ready(function () {
 
 
     var id = window.localStorage.getItem("item");
-    $("#"+id).addClass("active");
+    $("#" + id).addClass("active");
+
+    
 
 });
