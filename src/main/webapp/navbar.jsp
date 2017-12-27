@@ -8,7 +8,7 @@
     <span>Main Menu</span>
     <ul>
         <li><a id="nav1" href="#home">Home</a></li>
-        <li><a id="nav2" href="${pageContext.request.contextPath}/viewParty">click</a></li>
+        <li><a id="nav2" href="${pageContext.request.contextPath}/viewParty.action">click</a></li>
         <li><a id="nav3" href="#contact">Contact</a></li>
         <li><a id="nav4" href="#about">About</a></li>
         <li><a id="nav5" href="#about">About</a></li>

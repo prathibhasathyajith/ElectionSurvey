@@ -10,8 +10,9 @@ package com.election.bean;
  * @author prathibha
  */
 public class Type {
+
     private String code;
-    private String Description;
+    private String description;
 
     public String getCode() {
         return code;
@@ -22,11 +23,11 @@ public class Type {
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
-    public void setDescription(String Description) {
-        this.Description = Description;
+    public void setDescription(String description) {
+        this.description = description;
     }
-    
+
 }

@@ -28,7 +28,7 @@ public class Party  implements java.io.Serializable {
      private Integer partyId;
      private String partyCode;
      private String name;
-     private String discription;
+     private String description;
      private String type;
      private String contactNo;
      private String email;
@@ -41,10 +41,10 @@ public class Party  implements java.io.Serializable {
     public Party() {
     }
 
-    public Party(String partyCode, String name, String discription, String type, String contactNo, String email, String address, String status, byte[] image, Set<Candidate> candidates, Set<PartyLa> partyLas) {
+    public Party(String partyCode, String name, String description, String type, String contactNo, String email, String address, String status, byte[] image, Set<Candidate> candidates, Set<PartyLa> partyLas) {
        this.partyCode = partyCode;
        this.name = name;
-       this.discription = discription;
+       this.description = description;
        this.type = type;
        this.contactNo = contactNo;
        this.email = email;
@@ -78,7 +78,7 @@ public class Party  implements java.io.Serializable {
     }
 
     
-    @Column(name="name", length=45)
+    @Column(name="name", length=255)
     public String getName() {
         return this.name;
     }
@@ -88,13 +88,13 @@ public class Party  implements java.io.Serializable {
     }
 
     
-    @Column(name="discription", length=45)
-    public String getDiscription() {
-        return this.discription;
+    @Column(name="description", length=255)
+    public String getDescription() {
+        return this.description;
     }
     
-    public void setDiscription(String discription) {
-        this.discription = discription;
+    public void setDescription(String discription) {
+        this.description = discription;
     }
 
     
@@ -108,7 +108,7 @@ public class Party  implements java.io.Serializable {
     }
 
     
-    @Column(name="contact_no", length=45)
+    @Column(name="contact_no", length=12)
     public String getContactNo() {
         return this.contactNo;
     }
@@ -118,7 +118,7 @@ public class Party  implements java.io.Serializable {
     }
 
     
-    @Column(name="email", length=45)
+    @Column(name="email", length=255)
     public String getEmail() {
         return this.email;
     }
@@ -128,7 +128,7 @@ public class Party  implements java.io.Serializable {
     }
 
     
-    @Column(name="address", length=45)
+    @Column(name="address", length=255)
     public String getAddress() {
         return this.address;
     }

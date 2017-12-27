@@ -5,8 +5,10 @@
  */
 package com.election.bean;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.codec.binary.Base64;
 
 /**
  *
@@ -17,7 +19,7 @@ public class PartyInputBean {
     private String partyId;
     private String partyCode;
     private String name;
-    private String discription;
+    private String description;
     private String type;
     private String contactNo;
     private String email;
@@ -27,7 +29,15 @@ public class PartyInputBean {
     private byte[] img;
     private String message;
 
+    private File logoImg;
+    private String logoImgContentType;
+    private String logoImgFileName;
+
+    private byte[] editLogo;
+    private String editLogoImg;
+
     private List<Type> typeList = new ArrayList<Type>();
+    private List<Type> statusList = new ArrayList<Type>();
 
     //for history
     private String newvalue;
@@ -90,17 +100,17 @@ public class PartyInputBean {
     }
 
     /**
-     * @return the discription
+     * @return the description
      */
-    public String getDiscription() {
-        return discription;
+    public String getDescription() {
+        return description;
     }
 
     /**
-     * @param discription the discription to set
+     * @param description the description to set
      */
-    public void setDiscription(String discription) {
-        this.discription = discription;
+    public void setDescription(String discription) {
+        this.description = discription;
     }
 
     /**
@@ -213,6 +223,83 @@ public class PartyInputBean {
      */
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    /**
+     * @return the logoImg
+     */
+    public File getLogoImg() {
+        return logoImg;
+    }
+
+    /**
+     * @param logoImg the logoImg to set
+     */
+    public void setLogoImg(File logoImg) {
+        this.logoImg = logoImg;
+    }
+
+    /**
+     * @return the logoImgContentType
+     */
+    public String getLogoImgContentType() {
+        return logoImgContentType;
+    }
+
+    /**
+     * @param logoImgContentType the logoImgContentType to set
+     */
+    public void setLogoImgContentType(String logoImgContentType) {
+        this.logoImgContentType = logoImgContentType;
+    }
+
+    /**
+     * @return the logoImgFileName
+     */
+    public String getLogoImgFileName() {
+        return logoImgFileName;
+    }
+
+    /**
+     * @param logoImgFileName the logoImgFileName to set
+     */
+    public void setLogoImgFileName(String logoImgFileName) {
+        this.logoImgFileName = logoImgFileName;
+    }
+
+    /**
+     * @return the editLogo
+     */
+    public byte[] getEditLogo() {
+        return editLogo;
+    }
+
+    /**
+     * @param editLogo the editLogo to set
+     */
+    public void setEditLogo(byte[] editLogo) {
+        this.editLogo = editLogo;
+    }
+
+    /**
+     * @return the editLogoImg
+     */
+    public String getEditLogoImg() {
+        try {
+            byte[] blobAsBytes = getEditLogo();
+            blobAsBytes = Base64.encodeBase64(blobAsBytes);
+            this.editLogoImg = new String(blobAsBytes);
+        } catch (Exception e) {
+            this.editLogoImg = "";
+        }
+        return editLogoImg;
+    }
+
+    /**
+     * @param editLogoImg the editLogoImg to set
+     */
+    public void setEditLogoImg(String editLogoImg) {
+        this.editLogoImg = editLogoImg;
     }
 
     /**
@@ -423,6 +510,20 @@ public class PartyInputBean {
      */
     public void setSearch(boolean search) {
         this.search = search;
+    }
+
+    /**
+     * @return the statusList
+     */
+    public List<Type> getStatusList() {
+        return statusList;
+    }
+
+    /**
+     * @param statusList the statusList to set
+     */
+    public void setStatusList(List<Type> statusList) {
+        this.statusList = statusList;
     }
 
 }

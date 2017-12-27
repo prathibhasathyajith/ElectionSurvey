@@ -21,6 +21,11 @@
         
         <action name="*Party" method="{1}" class="com.election.action.PartyAction">
             <result name="view">/WEB-INF/pages/party/party.jsp</result>
+            <result name="message">/WEB-INF/pages/msgSpe.jsp</result>
+            <result name="success"></result>
+            <result name="list" type="json"></result>
+            <result name="find" type="json"></result>
+            <result name="delete" type="json"></result>
             
         </action>
         

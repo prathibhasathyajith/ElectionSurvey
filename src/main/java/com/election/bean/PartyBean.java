@@ -10,18 +10,19 @@ package com.election.bean;
  * @author prathibha
  */
 public class PartyBean {
+
     private String partyId;
-     private String partyCode;
-     private String name;
-     private String discription;
-     private String type;
-     private String contactNo;
-     private String email;
-     private String address;
-     private String status;
-     private String image;
-     private String message;
-     private String fullcount;
+    private String partyCode;
+    private String name;
+    private String discription;
+    private String type;
+    private String contactNo;
+    private String email;
+    private String address;
+    private String status;
+    private String image;
+    private String message;
+    private long fullCount;
 
     /**
      * @return the partyId
@@ -178,18 +179,17 @@ public class PartyBean {
     }
 
     /**
-     * @return the fullcount
+     * @return the fullCount
      */
-    public String getFullcount() {
-        return fullcount;
+    public long getFullCount() {
+        return fullCount;
     }
 
     /**
-     * @param fullcount the fullcount to set
+     * @param fullCount the fullCount to set
      */
-    public void setFullcount(String fullcount) {
-        this.fullcount = fullcount;
+    public void setFullCount(long fullCount) {
+        this.fullCount = fullCount;
     }
-     
-     
+
 }
