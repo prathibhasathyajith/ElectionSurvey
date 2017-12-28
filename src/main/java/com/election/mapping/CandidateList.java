@@ -1,10 +1,11 @@
-package com.election.mapping;
-// Generated Dec 24, 2017 10:28:34 PM by Hibernate Tools 4.3.1
+package com.election.mapping;// Generated Dec 28, 2017 3:24:17 PM by Hibernate Tools 4.3.1
 
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -15,39 +16,34 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="candidate_list"
-    ,catalog="ELCT_Survey"
+    ,catalog="elct_survey"
 )
 public class CandidateList  implements java.io.Serializable {
 
 
-     private int id;
+     private Integer id;
      private Candidate candidate;
-     private String wardCode;
+     private Ward ward;
      private String type;
 
     public CandidateList() {
     }
 
-	
-    public CandidateList(int id) {
-        this.id = id;
-    }
-    public CandidateList(int id, Candidate candidate, String wardCode, String type) {
-       this.id = id;
+    public CandidateList(Candidate candidate, Ward ward, String type) {
        this.candidate = candidate;
-       this.wardCode = wardCode;
+       this.ward = ward;
        this.type = type;
     }
    
-     @Id 
+     @Id @GeneratedValue(strategy=IDENTITY)
 
     
     @Column(name="id", unique=true, nullable=false)
-    public int getId() {
+    public Integer getId() {
         return this.id;
     }
     
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -61,18 +57,18 @@ public class CandidateList  implements java.io.Serializable {
         this.candidate = candidate;
     }
 
-    
-    @Column(name="ward_code", length=45)
-    public String getWardCode() {
-        return this.wardCode;
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="ward_code")
+    public Ward getWard() {
+        return this.ward;
     }
     
-    public void setWardCode(String wardCode) {
-        this.wardCode = wardCode;
+    public void setWard(Ward ward) {
+        this.ward = ward;
     }
 
     
-    @Column(name="type", length=45)
+    @Column(name="type", length=10)
     public String getType() {
         return this.type;
     }

@@ -1,5 +1,4 @@
-package com.election.mapping;
-// Generated Dec 24, 2017 10:28:34 PM by Hibernate Tools 4.3.1
+package com.election.mapping;// Generated Dec 28, 2017 3:24:17 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -15,7 +14,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="user"
-    ,catalog="ELCT_Survey"
+    ,catalog="elct_survey"
 )
 public class User  implements java.io.Serializable {
 

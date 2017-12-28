@@ -28,6 +28,15 @@
             <result name="delete" type="json"></result>
             
         </action>
+        <action name="*Candidate" method="{1}" class="com.election.action.CandidateAction">
+            <result name="view">/WEB-INF/pages/candidate/candidate.jsp</result>
+            <result name="message">/WEB-INF/pages/msgSpe.jsp</result>
+            <result name="success"></result>
+            <result name="list" type="json"></result>
+            <result name="find" type="json"></result>
+            <result name="delete" type="json"></result>
+            
+        </action>
         
     </package>
 </struts>

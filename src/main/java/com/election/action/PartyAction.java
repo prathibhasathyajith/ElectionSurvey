@@ -20,8 +20,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 
@@ -44,7 +42,7 @@ public class PartyAction extends ActionSupport implements ModelDriven<Object> {
     }
 
     public String view() {
-        System.out.println("called PartyAction : execute");
+        System.out.println("called PartyAction : view");
         String msg = "view";
         try {
             List<Type> statusList = new ArrayList<Type>();
@@ -81,7 +79,7 @@ public class PartyAction extends ActionSupport implements ModelDriven<Object> {
     }
 
     public String list() {
-        System.out.println("called InstituteMgtAction: List");
+        System.out.println("called PartyAction: List");
         try {
 
             int rows = inputBean.getRows();
@@ -261,7 +259,7 @@ public class PartyAction extends ActionSupport implements ModelDriven<Object> {
                 }
 
             } else {
-                inputBean.setMessage("Empty code.");
+                inputBean.setMessage("Empty code");
             }
         } catch (Exception ex) {
             addActionError("Party find error occurred while processing");

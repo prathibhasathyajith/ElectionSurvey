@@ -77,7 +77,7 @@
                 $('#divmsg').empty();
 
                 $("#deletedialog").data('keyval', keyval).dialog('open');
-                $("#deletedialog").html('Are you sure you want to delete page : ' + keyval + ' ?');
+                $("#deletedialog").html('Are you sure you want to delete party : ' + keyval + ' ?');
                 return false;
             }
 
@@ -157,7 +157,7 @@
         <jsp:include page="/navbar.jsp"/>
         <!--body content-->
         <div class="cont-body">
-            <div class="cont-breadCrumb">Page Management</div>
+            <div class="cont-breadCrumb">Party Management</div>
             <div class="cont-msg">
                 <s:div id="divmsg">
                     <s:actionerror theme="jquery"/>
@@ -266,7 +266,7 @@
                 }" 
                 autoOpen="false" 
                 modal="true" 
-                title="Delete Institute"                            
+                title="Delete Party"                            
                 />
             <!-- Start delete process dialog box -->
             <sj:dialog 

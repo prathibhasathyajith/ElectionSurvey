@@ -1,5 +1,4 @@
-package com.election.mapping;
-// Generated Dec 24, 2017 10:28:34 PM by Hibernate Tools 4.3.1
+package com.election.mapping;// Generated Dec 28, 2017 3:24:17 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -18,7 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="service_list"
-    ,catalog="ELCT_Survey"
+    ,catalog="elct_survey"
 )
 public class ServiceList  implements java.io.Serializable {
 
@@ -28,17 +27,17 @@ public class ServiceList  implements java.io.Serializable {
      private String name;
      private String description;
      private String status;
-     private Set<ElectionSurvery> electionSurveries = new HashSet(0);
+     private Set<ElectionSurvey> electionSurveys = new HashSet(0);
 
     public ServiceList() {
     }
 
-    public ServiceList(String code, String name, String description, String status, Set<ElectionSurvery> electionSurveries) {
+    public ServiceList(String code, String name, String description, String status, Set<ElectionSurvey> electionSurveys) {
        this.code = code;
        this.name = name;
        this.description = description;
        this.status = status;
-       this.electionSurveries = electionSurveries;
+       this.electionSurveys = electionSurveys;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -94,12 +93,12 @@ public class ServiceList  implements java.io.Serializable {
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="serviceList")
-    public Set<ElectionSurvery> getElectionSurveries() {
-        return this.electionSurveries;
+    public Set<ElectionSurvey> getElectionSurveys() {
+        return this.electionSurveys;
     }
     
-    public void setElectionSurveries(Set<ElectionSurvery> electionSurveries) {
-        this.electionSurveries = electionSurveries;
+    public void setElectionSurveys(Set<ElectionSurvey> electionSurveys) {
+        this.electionSurveys = electionSurveys;
     }
 
 

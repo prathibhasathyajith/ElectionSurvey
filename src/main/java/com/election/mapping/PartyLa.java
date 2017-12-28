@@ -1,10 +1,11 @@
-package com.election.mapping;
-// Generated Dec 24, 2017 10:28:34 PM by Hibernate Tools 4.3.1
+package com.election.mapping;// Generated Dec 28, 2017 3:24:17 PM by Hibernate Tools 4.3.1
 
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -15,14 +16,14 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="party_la"
-    ,catalog="ELCT_Survey"
+    ,catalog="elct_survey"
 )
 public class PartyLa  implements java.io.Serializable {
 
 
-     private int id;
+     private Integer id;
+     private LocalAuthority localAuthority;
      private Party party;
-     private String laCode;
      private String contactNo;
      private String address;
      private String username;
@@ -33,14 +34,9 @@ public class PartyLa  implements java.io.Serializable {
     public PartyLa() {
     }
 
-	
-    public PartyLa(int id) {
-        this.id = id;
-    }
-    public PartyLa(int id, Party party, String laCode, String contactNo, String address, String username, String password, String oldPassword, String status) {
-       this.id = id;
+    public PartyLa(LocalAuthority localAuthority, Party party, String contactNo, String address, String username, String password, String oldPassword, String status) {
+       this.localAuthority = localAuthority;
        this.party = party;
-       this.laCode = laCode;
        this.contactNo = contactNo;
        this.address = address;
        this.username = username;
@@ -49,16 +45,26 @@ public class PartyLa  implements java.io.Serializable {
        this.status = status;
     }
    
-     @Id 
+     @Id @GeneratedValue(strategy=IDENTITY)
 
     
     @Column(name="id", unique=true, nullable=false)
-    public int getId() {
+    public Integer getId() {
         return this.id;
     }
     
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="la_code")
+    public LocalAuthority getLocalAuthority() {
+        return this.localAuthority;
+    }
+    
+    public void setLocalAuthority(LocalAuthority localAuthority) {
+        this.localAuthority = localAuthority;
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
@@ -72,17 +78,7 @@ public class PartyLa  implements java.io.Serializable {
     }
 
     
-    @Column(name="la_code", length=45)
-    public String getLaCode() {
-        return this.laCode;
-    }
-    
-    public void setLaCode(String laCode) {
-        this.laCode = laCode;
-    }
-
-    
-    @Column(name="contact_no", length=45)
+    @Column(name="contact_no", length=12)
     public String getContactNo() {
         return this.contactNo;
     }
@@ -92,7 +88,7 @@ public class PartyLa  implements java.io.Serializable {
     }
 
     
-    @Column(name="address", length=45)
+    @Column(name="address")
     public String getAddress() {
         return this.address;
     }
@@ -102,7 +98,7 @@ public class PartyLa  implements java.io.Serializable {
     }
 
     
-    @Column(name="username", length=45)
+    @Column(name="username")
     public String getUsername() {
         return this.username;
     }
@@ -112,7 +108,7 @@ public class PartyLa  implements java.io.Serializable {
     }
 
     
-    @Column(name="password", length=45)
+    @Column(name="password")
     public String getPassword() {
         return this.password;
     }
@@ -122,7 +118,7 @@ public class PartyLa  implements java.io.Serializable {
     }
 
     
-    @Column(name="old_password", length=45)
+    @Column(name="old_password")
     public String getOldPassword() {
         return this.oldPassword;
     }

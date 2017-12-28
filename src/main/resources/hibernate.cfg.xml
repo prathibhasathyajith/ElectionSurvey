@@ -20,13 +20,24 @@
     <property name="show_sql">false</property>
     <!-- auto create tables -->
     <property name="hbm2ddl.auto">none</property>
-
+    <!--
     <mapping class="com.election.mapping.ServiceList"/>
     <mapping class="com.election.mapping.CandidateList"/>
     <mapping class="com.election.mapping.PartyLa"/>
     <mapping class="com.election.mapping.ElectionSurvery"/>
     <mapping class="com.election.mapping.Candidate"/>
     <mapping class="com.election.mapping.User"/>
+    <mapping class="com.election.mapping.Party"/>-->
+    <mapping class="com.election.mapping.CandidateList"/>
+    <mapping class="com.election.mapping.Candidate"/>
+    <mapping class="com.election.mapping.District"/>
+    <mapping class="com.election.mapping.PartyLa"/>
     <mapping class="com.election.mapping.Party"/>
+    <mapping class="com.election.mapping.ElectionSurvey"/>
+    <mapping class="com.election.mapping.Province"/>
+    <mapping class="com.election.mapping.User"/>
+    <mapping class="com.election.mapping.LocalAuthority"/>
+    <mapping class="com.election.mapping.Ward"/>
+    <mapping class="com.election.mapping.ServiceList"/>
   </session-factory>
 </hibernate-configuration>

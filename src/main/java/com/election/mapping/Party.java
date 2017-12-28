@@ -1,5 +1,4 @@
-package com.election.mapping;
-// Generated Dec 24, 2017 10:28:34 PM by Hibernate Tools 4.3.1
+package com.election.mapping;// Generated Dec 28, 2017 3:24:17 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -19,7 +18,7 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name="party"
-    ,catalog="ELCT_Survey"
+    ,catalog="elct_survey"
     , uniqueConstraints = @UniqueConstraint(columnNames="party_code") 
 )
 public class Party  implements java.io.Serializable {
@@ -35,13 +34,13 @@ public class Party  implements java.io.Serializable {
      private String address;
      private String status;
      private byte[] image;
-     private Set<Candidate> candidates = new HashSet(0);
      private Set<PartyLa> partyLas = new HashSet(0);
+     private Set<Candidate> candidates = new HashSet(0);
 
     public Party() {
     }
 
-    public Party(String partyCode, String name, String description, String type, String contactNo, String email, String address, String status, byte[] image, Set<Candidate> candidates, Set<PartyLa> partyLas) {
+    public Party(String partyCode, String name, String description, String type, String contactNo, String email, String address, String status, byte[] image, Set<PartyLa> partyLas, Set<Candidate> candidates) {
        this.partyCode = partyCode;
        this.name = name;
        this.description = description;
@@ -51,8 +50,8 @@ public class Party  implements java.io.Serializable {
        this.address = address;
        this.status = status;
        this.image = image;
-       this.candidates = candidates;
        this.partyLas = partyLas;
+       this.candidates = candidates;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -78,7 +77,7 @@ public class Party  implements java.io.Serializable {
     }
 
     
-    @Column(name="name", length=255)
+    @Column(name="name")
     public String getName() {
         return this.name;
     }
@@ -88,13 +87,13 @@ public class Party  implements java.io.Serializable {
     }
 
     
-    @Column(name="description", length=255)
+    @Column(name="description")
     public String getDescription() {
         return this.description;
     }
     
-    public void setDescription(String discription) {
-        this.description = discription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     
@@ -118,7 +117,7 @@ public class Party  implements java.io.Serializable {
     }
 
     
-    @Column(name="email", length=255)
+    @Column(name="email")
     public String getEmail() {
         return this.email;
     }
@@ -128,7 +127,7 @@ public class Party  implements java.io.Serializable {
     }
 
     
-    @Column(name="address", length=255)
+    @Column(name="address")
     public String getAddress() {
         return this.address;
     }
@@ -158,21 +157,21 @@ public class Party  implements java.io.Serializable {
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="party")
-    public Set<Candidate> getCandidates() {
-        return this.candidates;
-    }
-    
-    public void setCandidates(Set<Candidate> candidates) {
-        this.candidates = candidates;
-    }
-
-@OneToMany(fetch=FetchType.LAZY, mappedBy="party")
     public Set<PartyLa> getPartyLas() {
         return this.partyLas;
     }
     
     public void setPartyLas(Set<PartyLa> partyLas) {
         this.partyLas = partyLas;
+    }
+
+@OneToMany(fetch=FetchType.LAZY, mappedBy="party")
+    public Set<Candidate> getCandidates() {
+        return this.candidates;
+    }
+    
+    public void setCandidates(Set<Candidate> candidates) {
+        this.candidates = candidates;
     }
 
 
