@@ -139,6 +139,168 @@
             }
 
 
+            //functions for dropdown
+
+            function changeDistrictFromProvince(keyval) {
+
+                if (keyval == '') {
+                    keyval = "empty";
+                }
+                $.ajax({
+                    url: '${pageContext.request.contextPath}/findDistrictCandidate.action',
+                    data: {province: keyval},
+                    dataType: "json",
+                    type: "POST",
+                    success: function (data) {
+
+                        var districtlist = data.districtList;
+                        $("#district option").remove();
+                        $('#district').append('<option value="">--Select District--</option>');
+                        $.each(districtlist, function (index, item) {
+                            $('#district').append("<option value='" + item.code + "'>" + item.description + "</option>");
+                        });
+                    },
+                    error: function (data) {
+                        window.location = "${pageContext.request.contextPath}/LogoutLogin.action?";
+                    }
+                });
+            }
+
+            function changeLAFromDistrict(keyval) {
+
+                if (keyval == '') {
+                    keyval = "empty";
+                }
+                $.ajax({
+                    url: '${pageContext.request.contextPath}/findLACandidate.action',
+                    data: {district: keyval},
+                    dataType: "json",
+                    type: "POST",
+                    success: function (data) {
+
+                        if (keyval == "empty") {
+                            var districtlist = data.districtList;
+                            $("#district option").remove();
+                            $('#district').append('<option value="">--Select District--</option>');
+                            $.each(districtlist, function (index, item) {
+                                $('#district').append("<option value='" + item.code + "'>" + item.description + "</option>");
+                            });
+
+                        }
+                        var lalist = data.laList;
+                        $("#la option").remove();
+                        $('#la').append('<option value="">--Select Local Authority--</option>');
+                        $.each(lalist, function (index, item) {
+                            $('#la').append("<option value='" + item.code + "'>" + item.description + "</option>");
+                        });
+
+                        $("#province").val(data.province);
+                        $("#district").val(data.district);
+
+                    },
+                    error: function (data) {
+                        window.location = "${pageContext.request.contextPath}/LogoutLogin.action?";
+                    }
+                });
+            }
+
+            function changeWardFromLA(keyval) {
+
+                if (keyval == '') {
+                    keyval = "empty";
+                }
+                $.ajax({
+                    url: '${pageContext.request.contextPath}/findWardCandidate.action',
+                    data: {la: keyval},
+                    dataType: "json",
+                    type: "POST",
+                    success: function (data) {
+
+                        if (keyval == "empty") {
+                            var districtlist = data.districtList;
+                            $("#district option").remove();
+                            $('#district').append('<option value="">--Select District--</option>');
+                            $.each(districtlist, function (index, item) {
+                                $('#district').append("<option value='" + item.code + "'>" + item.description + "</option>");
+                            });
+
+
+                            var lalist = data.laList;
+                            $("#la option").remove();
+                            $('#la').append('<option value="">--Select Local Authority--</option>');
+                            $.each(lalist, function (index, item) {
+                                $('#la').append("<option value='" + item.code + "'>" + item.description + "</option>");
+                            });
+
+                        }
+                        var wardlist = data.wardList;
+                        $("#ward option").remove();
+                        $('#ward').append('<option value="">--Select Ward--</option>');
+                        $.each(wardlist, function (index, item) {
+                            $('#ward').append("<option value='" + item.code + "'>" + item.description + "</option>");
+                        });
+
+                        $("#district").val(data.district);
+                        $("#province").val(data.province);
+
+                    },
+                    error: function (data) {
+                        window.location = "${pageContext.request.contextPath}/LogoutLogin.action?";
+                    }
+                });
+            }
+
+            function changeAllFromWard(keyval) {
+
+                if (keyval == '') {
+                    keyval = "empty";
+                }
+                $.ajax({
+                    url: '${pageContext.request.contextPath}/findAllCandidate.action',
+                    data: {ward: keyval},
+                    dataType: "json",
+                    type: "POST",
+                    success: function (data) {
+
+                        if (keyval == "empty") {
+                            var districtlist = data.districtList;
+                            $("#district option").remove();
+                            $('#district').append('<option value="">--Select District--</option>');
+                            $.each(districtlist, function (index, item) {
+                                $('#district').append("<option value='" + item.code + "'>" + item.description + "</option>");
+                            });
+
+
+                            var lalist = data.laList;
+                            $("#la option").remove();
+                            $('#la').append('<option value="">--Select Local Authority--</option>');
+                            $.each(lalist, function (index, item) {
+                                $('#la').append("<option value='" + item.code + "'>" + item.description + "</option>");
+                            });
+
+
+                            var wardlist = data.wardList;
+                            $("#ward option").remove();
+                            $('#ward').append('<option value="">--Select Ward--</option>');
+                            $.each(wardlist, function (index, item) {
+                                $('#ward').append("<option value='" + item.code + "'>" + item.description + "</option>");
+                            });
+
+                        }
+
+
+
+                        $("#province").val(data.province);
+                        $("#district").val(data.district);
+                        $("#la").val(data.la);
+                    },
+                    error: function (data) {
+                        window.location = "${pageContext.request.contextPath}/LogoutLogin.action?";
+                    }
+                });
+            }
+
+
         </script>
     </head>
     <body>
@@ -158,22 +320,38 @@
             <div class="cont-form">
                 <s:form id="CandidateForm" method="post" action="Candidate" theme="simple" cssClass="form" enctype="multipart/form-data">
                     <s:hidden id="oldvalue" name="oldvalue" ></s:hidden>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <span style="color: red">*</span><label>Candidate ID</label>
-                            <s:textfield cssClass="form-control" name="candidateId" id="candidateId" maxLength="12" onkeyup="$(this).val($(this).val().replace(/[^0-9]/g, ''))" onmouseout="$(this).val($(this).val().replace(/[^0-9]/g, ''))"/>
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <span style="color: red">*</span><label>Province</label>
+                            <s:select onchange="changeDistrictFromProvince(this.value)" cssClass="form-control" id="province" list="%{provinceList}"  headerValue="--Select Party--" headerKey="" name="province" listKey="code" listValue="description" />
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
-                            <span style="color: red">*</span><label>Party</label>
-                            <!s:select  cssClass="form-control" id="party" list="%{partyList}"  headerValue="--Select Party--" headerKey="" name="party" listKey="partyCode" listValue="description" />
+                            <span style="color: red">*</span><label>District</label>
+                            <s:select onchange="changeLAFromDistrict(this.value)" cssClass="form-control" id="district" list="%{districtList}"  headerValue="--Select District--" headerKey="" name="district" listKey="code" listValue="description" />
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <span style="color: red">*</span><label>Local Authority</label>
+                            <s:select onchange="changeWardFromLA(this.value)" cssClass="form-control" id="la" list="%{laList}"  headerValue="--Select Local Authority--" headerKey="" name="la" listKey="code" listValue="description" />
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
                             <span style="color: red">*</span><label>Ward</label>
-                            <!s:select  cssClass="form-control" id="wardCode" list="%{wardList}"  headerValue="--Select Ward--" headerKey="" name="wardCode" listKey="code" listValue="description" />
+                            <s:select onchange="changeAllFromWard(this.value)" cssClass="form-control" id="ward" list="%{wardList}"  headerValue="--Select Ward--" headerKey="" name="ward" listKey="code" listValue="description" />
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12" style="height: 1px;width: 100%;background-color: #d8d8d8;margin: 15px 0;"></div>
+
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <span style="color: red">*</span><label>Party</label>
+                            <s:select  cssClass="form-control" id="party" list="%{partyList}"  headerValue="--Select Party--" headerKey="" name="party" listKey="partyCode" listValue="description" />
                         </div>
                     </div>
                     <div class="col-sm-3">

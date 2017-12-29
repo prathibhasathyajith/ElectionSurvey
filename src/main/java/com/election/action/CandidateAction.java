@@ -64,7 +64,7 @@ public class CandidateAction extends ActionSupport implements ModelDriven<Object
             youthList.add(status);
 
             inputBean.setYouthList(youthList);
-            
+
             status = new Type();
             status.setCode("MALE");
             status.setDescription("Male");
@@ -75,6 +75,12 @@ public class CandidateAction extends ActionSupport implements ModelDriven<Object
             genderList.add(status);
 
             inputBean.setGenderList(genderList);
+
+            CandidateDAO dao = new CandidateDAO();
+            dao.getProvinceList(inputBean);
+            dao.getDistrictList(inputBean);
+            dao.getLAList(inputBean);
+            dao.getWardList(inputBean);
 
         } catch (Exception e) {
             addActionError("Candidate error occurred while processing");
@@ -177,12 +183,12 @@ public class CandidateAction extends ActionSupport implements ModelDriven<Object
 
         return result;
     }
-    
+
     public String find() {
         System.out.println("called CandidateAction: find");
         Candidate candidate = null;
         try {
-            if (inputBean.getCandidateId()!= null && !inputBean.getCandidateId().isEmpty()) {
+            if (inputBean.getCandidateId() != null && !inputBean.getCandidateId().isEmpty()) {
 
                 CandidateDAO dao = new CandidateDAO();
 
@@ -218,16 +224,103 @@ public class CandidateAction extends ActionSupport implements ModelDriven<Object
         }
         return retType;
     }
+
+//    ================ drop down load ===================
+    public String findDistrict() throws Exception {
+        System.out.println("called SearchAction: findDistrict from province");
+        try {
+            CandidateDAO dao = new CandidateDAO();
+
+            if (inputBean.getProvince().equals("empty")) {
+                dao.getProvinceList(inputBean);
+                dao.getDistrictList(inputBean);
+                dao.getLAList(inputBean);
+                dao.getWardList(inputBean);
+            } else {
+                dao.getDistrictListFromProvince(inputBean);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Find District " + e);
+            Logger.getLogger(CandidateAction.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return "list";
+    }
+
+    public String findLA() throws Exception {
+        System.out.println("called SearchAction: findLA from District");
+        try {
+            CandidateDAO dao = new CandidateDAO();
+
+            if (inputBean.getDistrict().equals("empty")) {
+                dao.getProvinceList(inputBean);
+                dao.getDistrictList(inputBean);
+                dao.getLAList(inputBean);
+                dao.getWardList(inputBean);
+            } else {
+                dao.getLAListFromDistrict(inputBean);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Find LA " + e);
+            Logger.getLogger(CandidateAction.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return "list";
+    }
+
+    public String findWard() throws Exception {
+        System.out.println("called SearchAction: findWard from LA");
+        try {
+            CandidateDAO dao = new CandidateDAO();
+            
+            if (inputBean.getLa().equals("empty")) {
+                dao.getProvinceList(inputBean);
+                dao.getDistrictList(inputBean);
+                dao.getLAList(inputBean);
+                dao.getWardList(inputBean);
+            } else {
+                dao.getWardListFromLA(inputBean);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Find ward " + e);
+            Logger.getLogger(CandidateAction.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return "list";
+    }
     
+    public String findAll() throws Exception {
+        System.out.println("called SearchAction: findAll from ward");
+        try {
+            CandidateDAO dao = new CandidateDAO();
+
+            System.out.println("ward " + inputBean.getLa());
+            
+            if (inputBean.getWard().equals("empty")) {
+                dao.getProvinceList(inputBean);
+                dao.getDistrictList(inputBean);
+                dao.getLAList(inputBean);
+                dao.getWardList(inputBean);
+            } else {
+                dao.getAllListFromWard(inputBean);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Find all " + e);
+            Logger.getLogger(CandidateAction.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return "list";
+    }
+
     private String validateInputs() {
         String message = "";
-        
+
         return message;
     }
 
     private String validateUpdates() {
         String message = "";
-        
+
         return message;
     }
 

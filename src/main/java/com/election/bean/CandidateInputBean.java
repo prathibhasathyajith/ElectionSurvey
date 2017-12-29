@@ -5,9 +5,15 @@
  */
 package com.election.bean;
 
+import com.election.mapping.District;
+import com.election.mapping.LocalAuthority;
 import com.election.mapping.Party;
+import com.election.mapping.Province;
+import com.election.mapping.Ward;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -17,25 +23,37 @@ public class CandidateInputBean {
 
     private String candidateId;
     private String id;
-    private String party;
-    private String wardCode;
     private String name;
     private String nic;
     private String contactNo;
     private String address;
-    private String gender;
-    private String youth;
     private String username;
     private String password;
     private String oldPassword;
-    private String status;
     private String message;
 
+    //for lists
+    private String status;
+    private String gender;
+    private String youth;
+    private String party;
+    private String ward;
+    private String province;
+    private String la;
+    private String district;
+
+    //all dropdown lists
     private List<Type> youthList = new ArrayList<Type>();
     private List<Type> statusList = new ArrayList<Type>();
     private List<Type> genderList = new ArrayList<Type>();
     private List<Party> partyList = new ArrayList<Party>();
-    private List<Type> wardList = new ArrayList<Type>();
+    private List<Province> provinceList = new ArrayList<Province>();
+    private List<District> districtList = new ArrayList<District>();
+    private List<LocalAuthority> laList = new ArrayList<LocalAuthority>();
+    private List<Ward> wardList = new ArrayList<Ward>();
+
+    //for candidate list
+    private Map<String, String> candidateList = new LinkedHashMap<String, String>();
 
     //for history
     private String newvalue;
@@ -81,34 +99,6 @@ public class CandidateInputBean {
      */
     public void setId(String id) {
         this.id = id;
-    }
-
-    /**
-     * @return the party
-     */
-    public String getParty() {
-        return party;
-    }
-
-    /**
-     * @param party the party to set
-     */
-    public void setParty(String party) {
-        this.party = party;
-    }
-
-    /**
-     * @return the wardCode
-     */
-    public String getWardCode() {
-        return wardCode;
-    }
-
-    /**
-     * @param wardCode the wardCode to set
-     */
-    public void setWardCode(String wardCode) {
-        this.wardCode = wardCode;
     }
 
     /**
@@ -168,34 +158,6 @@ public class CandidateInputBean {
     }
 
     /**
-     * @return the gender
-     */
-    public String getGender() {
-        return gender;
-    }
-
-    /**
-     * @param gender the gender to set
-     */
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    /**
-     * @return the youth
-     */
-    public String getYouth() {
-        return youth;
-    }
-
-    /**
-     * @param youth the youth to set
-     */
-    public void setYouth(String youth) {
-        this.youth = youth;
-    }
-
-    /**
      * @return the username
      */
     public String getUsername() {
@@ -238,6 +200,20 @@ public class CandidateInputBean {
     }
 
     /**
+     * @return the message
+     */
+    public String getMessage() {
+        return message;
+    }
+
+    /**
+     * @param message the message to set
+     */
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    /**
      * @return the status
      */
     public String getStatus() {
@@ -249,6 +225,104 @@ public class CandidateInputBean {
      */
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    /**
+     * @return the gender
+     */
+    public String getGender() {
+        return gender;
+    }
+
+    /**
+     * @param gender the gender to set
+     */
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    /**
+     * @return the youth
+     */
+    public String getYouth() {
+        return youth;
+    }
+
+    /**
+     * @param youth the youth to set
+     */
+    public void setYouth(String youth) {
+        this.youth = youth;
+    }
+
+    /**
+     * @return the party
+     */
+    public String getParty() {
+        return party;
+    }
+
+    /**
+     * @param party the party to set
+     */
+    public void setParty(String party) {
+        this.party = party;
+    }
+
+    /**
+     * @return the ward
+     */
+    public String getWard() {
+        return ward;
+    }
+
+    /**
+     * @param ward the ward to set
+     */
+    public void setWard(String ward) {
+        this.ward = ward;
+    }
+
+    /**
+     * @return the province
+     */
+    public String getProvince() {
+        return province;
+    }
+
+    /**
+     * @param province the province to set
+     */
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    /**
+     * @return the la
+     */
+    public String getLa() {
+        return la;
+    }
+
+    /**
+     * @param la the la to set
+     */
+    public void setLa(String la) {
+        this.la = la;
+    }
+
+    /**
+     * @return the district
+     */
+    public String getDistrict() {
+        return district;
+    }
+
+    /**
+     * @param district the district to set
+     */
+    public void setDistrict(String district) {
+        this.district = district;
     }
 
     /**
@@ -277,6 +351,104 @@ public class CandidateInputBean {
      */
     public void setStatusList(List<Type> statusList) {
         this.statusList = statusList;
+    }
+
+    /**
+     * @return the genderList
+     */
+    public List<Type> getGenderList() {
+        return genderList;
+    }
+
+    /**
+     * @param genderList the genderList to set
+     */
+    public void setGenderList(List<Type> genderList) {
+        this.genderList = genderList;
+    }
+
+    /**
+     * @return the partyList
+     */
+    public List<Party> getPartyList() {
+        return partyList;
+    }
+
+    /**
+     * @param partyList the partyList to set
+     */
+    public void setPartyList(List<Party> partyList) {
+        this.partyList = partyList;
+    }
+
+    /**
+     * @return the provinceList
+     */
+    public List<Province> getProvinceList() {
+        return provinceList;
+    }
+
+    /**
+     * @param provinceList the provinceList to set
+     */
+    public void setProvinceList(List<Province> provinceList) {
+        this.provinceList = provinceList;
+    }
+
+    /**
+     * @return the districtList
+     */
+    public List<District> getDistrictList() {
+        return districtList;
+    }
+
+    /**
+     * @param districtList the districtList to set
+     */
+    public void setDistrictList(List<District> districtList) {
+        this.districtList = districtList;
+    }
+
+    /**
+     * @return the laList
+     */
+    public List<LocalAuthority> getLaList() {
+        return laList;
+    }
+
+    /**
+     * @param laList the laList to set
+     */
+    public void setLaList(List<LocalAuthority> laList) {
+        this.laList = laList;
+    }
+
+    /**
+     * @return the wardList
+     */
+    public List<Ward> getWardList() {
+        return wardList;
+    }
+
+    /**
+     * @param wardList the wardList to set
+     */
+    public void setWardList(List<Ward> wardList) {
+        this.wardList = wardList;
+    }
+
+    /**
+     * @return the candidateList
+     */
+    public Map<String, String> getCandidateList() {
+        return candidateList;
+    }
+
+    /**
+     * @param candidateList the candidateList to set
+     */
+    public void setCandidateList(Map<String, String> candidateList) {
+        this.candidateList = candidateList;
     }
 
     /**
@@ -473,62 +645,6 @@ public class CandidateInputBean {
      */
     public void setSearch(boolean search) {
         this.search = search;
-    }
-
-    /**
-     * @return the message
-     */
-    public String getMessage() {
-        return message;
-    }
-
-    /**
-     * @param message the message to set
-     */
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    /**
-     * @return the genderList
-     */
-    public List<Type> getGenderList() {
-        return genderList;
-    }
-
-    /**
-     * @param genderList the genderList to set
-     */
-    public void setGenderList(List<Type> genderList) {
-        this.genderList = genderList;
-    }
-
-    /**
-     * @return the partyList
-     */
-    public List<Party> getPartyList() {
-        return partyList;
-    }
-
-    /**
-     * @param partyList the partyList to set
-     */
-    public void setPartyList(List<Party> partyList) {
-        this.partyList = partyList;
-    }
-
-    /**
-     * @return the wardList
-     */
-    public List<Type> getWardList() {
-        return wardList;
-    }
-
-    /**
-     * @param wardList the wardList to set
-     */
-    public void setWardList(List<Type> wardList) {
-        this.wardList = wardList;
     }
 
 }

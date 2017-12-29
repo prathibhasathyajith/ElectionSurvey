@@ -13,7 +13,7 @@ public class CandidateBean {
     private String candidateId;
     private String id;
     private String party;
-    private String wardCode;
+    private String ward;
     private String name;
     private String nic;
     private String contactNo;
@@ -24,6 +24,10 @@ public class CandidateBean {
     private String password;
     private String oldPassword;
     private String status;
+    private String message;
+    private String province;
+    private String district;
+    private String la;
     private long fullCount;
 
     /**
@@ -69,17 +73,17 @@ public class CandidateBean {
     }
 
     /**
-     * @return the wardCode
+     * @return the ward
      */
-    public String getWardCode() {
-        return wardCode;
+    public String getWard() {
+        return ward;
     }
 
     /**
-     * @param wardCode the wardCode to set
+     * @param ward the ward to set
      */
-    public void setWardCode(String wardCode) {
-        this.wardCode = wardCode;
+    public void setWard(String ward) {
+        this.ward = ward;
     }
 
     /**
@@ -223,6 +227,62 @@ public class CandidateBean {
     }
 
     /**
+     * @return the message
+     */
+    public String getMessage() {
+        return message;
+    }
+
+    /**
+     * @param message the message to set
+     */
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    /**
+     * @return the province
+     */
+    public String getProvince() {
+        return province;
+    }
+
+    /**
+     * @param province the province to set
+     */
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    /**
+     * @return the district
+     */
+    public String getDistrict() {
+        return district;
+    }
+
+    /**
+     * @param district the district to set
+     */
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    /**
+     * @return the la
+     */
+    public String getLa() {
+        return la;
+    }
+
+    /**
+     * @param la the la to set
+     */
+    public void setLa(String la) {
+        this.la = la;
+    }
+
+    /**
      * @return the fullCount
      */
     public long getFullCount() {
@@ -235,6 +295,7 @@ public class CandidateBean {
     public void setFullCount(long fullCount) {
         this.fullCount = fullCount;
     }
+
     
     
 }
