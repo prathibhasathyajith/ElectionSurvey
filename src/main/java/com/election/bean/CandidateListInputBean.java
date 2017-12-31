@@ -10,5 +10,8 @@ package com.election.bean;
  * @author prathibha
  */
 public class CandidateListInputBean {
+    private String candidate;
+    private String ward;
+    
     
 }

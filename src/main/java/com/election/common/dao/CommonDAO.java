@@ -12,12 +12,14 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import com.election.listener.HibernateInit;
 import com.election.mapping.Candidate;
+import com.election.mapping.ServiceList;
 
 /**
  *
  * @author prathibha
  */
 public class CommonDAO {
+
     public static Date getSystemDate(Session session) throws Exception {
         Date sysDateTime = null;
         try {
@@ -35,7 +37,7 @@ public class CommonDAO {
         }
         return sysDateTime;
     }
-    
+
     public static Party getPartyID(String partyCode) throws Exception {
 
         Party partyBean = null;
@@ -45,9 +47,9 @@ public class CommonDAO {
             String sql = "from Party as s where s.partyCode =:partyCode";
             Query query = session.createQuery(sql).setString("partyCode", partyCode);
 //            partyBean = (Party) query.list().get(0);
-            
-            if(query.list().size()>0){
-                 partyBean = (Party) query.list().get(0);
+
+            if (query.list().size() > 0) {
+                partyBean = (Party) query.list().get(0);
             }
 
         } catch (Exception e) {
@@ -62,7 +64,7 @@ public class CommonDAO {
         }
         return partyBean;
     }
-    
+
     public static Candidate getCandidateID(String nic) throws Exception {
 
         Candidate candidateBean = null;
@@ -72,9 +74,9 @@ public class CommonDAO {
             String sql = "from Candidate as c where c.nic =:nic";
             Query query = session.createQuery(sql).setString("nic", nic);
 //            partyBean = (Party) query.list().get(0);
-            
-            if(query.list().size()>0){
-                 candidateBean = (Candidate) query.list().get(0);
+
+            if (query.list().size() > 0) {
+                candidateBean = (Candidate) query.list().get(0);
             }
 
         } catch (Exception e) {
@@ -88,5 +90,31 @@ public class CommonDAO {
             }
         }
         return candidateBean;
+    }
+
+    public static ServiceList getServiceID(String code) throws Exception {
+        ServiceList serviceList = null;
+        Session session = null;
+        try {
+            session = HibernateInit.sessionFactory.openSession();
+            String sql = "from ServiceList as s where s.code =:code";
+            Query query = session.createQuery(sql).setString("code", code);
+//            partyBean = (Party) query.list().get(0);
+
+            if (query.list().size() > 0) {
+                serviceList = (ServiceList) query.list().get(0);
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            try {
+                session.flush();
+                session.close();
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        return serviceList;
     }
 }
