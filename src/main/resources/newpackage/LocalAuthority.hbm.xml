@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 31, 2017 1:17:39 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="newpackage.LocalAuthority" table="local_authority" catalog="elect_survey" optimistic-lock="version">
+        <id name="code" type="string">
+            <column name="code" length="10" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="district" class="newpackage.District" fetch="select">
+            <column name="district_code" length="10" />
+        </many-to-one>
+        <property name="description" type="string">
+            <column name="description" length="100" />
+        </property>
+        <set name="partyLas" table="party_la" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="la_code" length="10" />
+            </key>
+            <one-to-many class="newpackage.PartyLa" />
+        </set>
+        <set name="wards" table="ward" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="la_code" length="10" />
+            </key>
+            <one-to-many class="newpackage.Ward" />
+        </set>
+    </class>
+</hibernate-mapping>

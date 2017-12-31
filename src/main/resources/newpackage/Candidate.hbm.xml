@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 31, 2017 1:17:39 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="newpackage.Candidate" table="candidate" catalog="elect_survey" optimistic-lock="version">
+        <id name="candidateId" type="java.lang.Integer">
+            <column name="candidate_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="ward" class="newpackage.Ward" fetch="select">
+            <column name="ward_code" length="10" />
+        </many-to-one>
+        <property name="partyCode" type="string">
+            <column name="party_code" length="45" />
+        </property>
+        <property name="name" type="string">
+            <column name="name" />
+        </property>
+        <property name="nic" type="string">
+            <column name="nic" length="15" />
+        </property>
+        <property name="contactNo" type="string">
+            <column name="contact_no" length="15" />
+        </property>
+        <property name="address" type="string">
+            <column name="address" />
+        </property>
+        <property name="gender" type="string">
+            <column name="gender" length="10" />
+        </property>
+        <property name="youth" type="string">
+            <column name="youth" length="10" />
+        </property>
+        <property name="username" type="string">
+            <column name="username" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" />
+        </property>
+        <property name="oldPassword" type="string">
+            <column name="old_password" />
+        </property>
+        <property name="status" type="string">
+            <column name="status" length="45" />
+        </property>
+        <set name="candidateLists" table="candidate_list" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="candidate_id" />
+            </key>
+            <one-to-many class="newpackage.CandidateList" />
+        </set>
+        <set name="electionSurveys" table="election_survey" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="candidate_id" />
+            </key>
+            <one-to-many class="newpackage.ElectionSurvey" />
+        </set>
+    </class>
+</hibernate-mapping>

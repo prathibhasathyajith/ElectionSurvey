@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 31, 2017 1:17:39 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="newpackage.ElectionSurvey" table="election_survey" catalog="elect_survey" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="candidate" class="newpackage.Candidate" fetch="select">
+            <column name="candidate_id" />
+        </many-to-one>
+        <many-to-one name="serviceList" class="newpackage.ServiceList" fetch="select">
+            <column name="service_list_id" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

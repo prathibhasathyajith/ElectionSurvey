@@ -8,8 +8,10 @@ package com.election.action;
 import com.election.bean.CandidateBean;
 import com.election.bean.CandidateInputBean;
 import com.election.bean.Type;
+import com.election.common.dao.CommonDAO;
 import com.election.dao.CandidateDAO;
 import com.election.mapping.Candidate;
+import com.election.mapping.Party;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import java.util.ArrayList;
@@ -81,10 +83,11 @@ public class CandidateAction extends ActionSupport implements ModelDriven<Object
             dao.getDistrictList(inputBean);
             dao.getLAList(inputBean);
             dao.getWardList(inputBean);
+            dao.getPartyList(inputBean);
 
         } catch (Exception e) {
             addActionError("Candidate error occurred while processing");
-            Logger.getLogger(PartyAction.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(CandidateAction.class.getName()).log(Level.SEVERE, null, e);
         }
 
         return msg;
@@ -120,7 +123,7 @@ public class CandidateAction extends ActionSupport implements ModelDriven<Object
 
         } catch (Exception e) {
             addActionError("Candidate list error occurred while processing");
-            Logger.getLogger(PartyAction.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(CandidateAction.class.getName()).log(Level.SEVERE, null, e);
         }
         return "list";
     }
@@ -150,7 +153,7 @@ public class CandidateAction extends ActionSupport implements ModelDriven<Object
 
         } catch (Exception e) {
             addActionError("Candidate add error occurred while processing");
-            Logger.getLogger(PartyAction.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(CandidateAction.class.getName()).log(Level.SEVERE, null, e);
         }
         return result;
     }
@@ -159,10 +162,10 @@ public class CandidateAction extends ActionSupport implements ModelDriven<Object
         System.out.println("called CandidateAction : update");
         String result = "message";
         try {
-            if (inputBean.getCandidateId() != null && !inputBean.getCandidateId().isEmpty()) {
+            if (inputBean.getWard()!= null && !inputBean.getWard().isEmpty()) {
 
                 CandidateDAO dao = new CandidateDAO();
-                String message = this.validateUpdates();
+                String message = this.validateInputs();
 
                 if (message.isEmpty()) {
                     message = dao.updateCandidate(inputBean);
@@ -178,7 +181,7 @@ public class CandidateAction extends ActionSupport implements ModelDriven<Object
             }
         } catch (Exception ex) {
             addActionError("Candidate update error occurred while processing");
-            Logger.getLogger(PartyAction.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CandidateAction.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return result;
@@ -188,18 +191,34 @@ public class CandidateAction extends ActionSupport implements ModelDriven<Object
         System.out.println("called CandidateAction: find");
         Candidate candidate = null;
         try {
+            
+            System.out.println("can id "+inputBean.getCandidateId());
+            System.out.println("can id "+inputBean.getNic());
+            
             if (inputBean.getCandidateId() != null && !inputBean.getCandidateId().isEmpty()) {
 
                 CandidateDAO dao = new CandidateDAO();
 
                 candidate = dao.findCandidateById(inputBean.getCandidateId());
+                
+//                Party pty = CommonDAO.getPartyID(candidate.getPartyCode());
+                inputBean.setCandidateId(candidate.getCandidateId().toString());
+                inputBean.setParty(candidate.getPartyCode());
+                inputBean.setWard(candidate.getWard().getCode());
+                inputBean.setName(candidate.getName());
+                inputBean.setNic(candidate.getNic());
+                inputBean.setContactNo(candidate.getContactNo());
+                inputBean.setAddress(candidate.getAddress());
+                inputBean.setGender(candidate.getGender());
+                inputBean.setYouth(candidate.getYouth());
+                inputBean.setStatus(candidate.getStatus());
 
-            } else {
-                inputBean.setMessage("Empty ID");
+            }else{
+                inputBean.setMessage("Empty detail");
             }
         } catch (Exception ex) {
             addActionError("Candidate find error occurred while processing");
-            Logger.getLogger(PartyAction.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CandidateAction.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return "find";
@@ -220,7 +239,7 @@ public class CandidateAction extends ActionSupport implements ModelDriven<Object
             inputBean.setMessage(message);
         } catch (Exception e) {
             addActionError("Candidate delete error occurred while processing");
-            Logger.getLogger(PartyAction.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(CandidateAction.class.getName()).log(Level.SEVERE, null, e);
         }
         return retType;
     }
@@ -272,7 +291,7 @@ public class CandidateAction extends ActionSupport implements ModelDriven<Object
         System.out.println("called SearchAction: findWard from LA");
         try {
             CandidateDAO dao = new CandidateDAO();
-            
+
             if (inputBean.getLa().equals("empty")) {
                 dao.getProvinceList(inputBean);
                 dao.getDistrictList(inputBean);
@@ -288,14 +307,14 @@ public class CandidateAction extends ActionSupport implements ModelDriven<Object
         }
         return "list";
     }
-    
+
     public String findAll() throws Exception {
         System.out.println("called SearchAction: findAll from ward");
         try {
             CandidateDAO dao = new CandidateDAO();
 
             System.out.println("ward " + inputBean.getLa());
-            
+
             if (inputBean.getWard().equals("empty")) {
                 dao.getProvinceList(inputBean);
                 dao.getDistrictList(inputBean);
@@ -314,7 +333,31 @@ public class CandidateAction extends ActionSupport implements ModelDriven<Object
 
     private String validateInputs() {
         String message = "";
-
+        if (inputBean.getProvince() == null || inputBean.getProvince().trim().isEmpty()) {
+            message = "Province cannot be empty";
+        } else if (inputBean.getDistrict() == null || inputBean.getDistrict().trim().isEmpty()) {
+            message = "District cannot be empty";
+        } else if (inputBean.getLa() == null || inputBean.getLa().trim().isEmpty()) {
+            message = "Local authority cannot be empty";
+        } else if (inputBean.getWard() == null || inputBean.getWard().trim().isEmpty()) {
+            message = "Ward cannot be empty";
+        } else if (inputBean.getParty() == null || inputBean.getParty().trim().isEmpty()) {
+            message = "Party cannot be empty";
+        } else if (inputBean.getName()== null || inputBean.getName().trim().isEmpty()) {
+            message = "Name cannot be empty";
+        } else if (inputBean.getNic()== null || inputBean.getNic().trim().isEmpty()) {
+            message = "NIC cannot be empty";
+        } else if (inputBean.getContactNo()== null || inputBean.getContactNo().trim().isEmpty()) {
+            message = "Contact no cannot be empty";
+        } else if (inputBean.getAddress()== null || inputBean.getAddress().trim().isEmpty()) {
+            message = "Address cannot be empty";
+        } else if (inputBean.getGender()== null || inputBean.getGender().trim().isEmpty()) {
+            message = "Gender cannot be empty";
+        } else if (inputBean.getYouth()== null || inputBean.getYouth().trim().isEmpty()) {
+            message = "Youth cannot be empty";
+        } else if (inputBean.getStatus()== null || inputBean.getStatus().trim().isEmpty()) {
+            message = "Status cannot be empty";
+        }
         return message;
     }
 

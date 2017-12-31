@@ -23,46 +23,60 @@
                 return "<a href='#/' title='Delete' onClick='javascript:deleteCandidateInit(&#34;" + cellvalue + "&#34;)'><img class='ui-icon ui-icon-trash' style='display: block;margin-left: auto;margin-right: auto;'/></a>";
             }
 
-            function editCandidate(keyval) {
+            function editCandidate(keyval,nic) {
                 $.ajax({
                     url: '${pageContext.request.contextPath}/findCandidate.action',
-                    data: {candidateId: keyval},
+                    data: {candidateId: keyval,nic:nic},
                     dataType: "json",
                     type: "POST",
                     success: function (data) {
                         $('#divmsg').empty();
                         var msg = data.message;
                         if (msg) {
+                            $('#province').attr("disabled",false);
+                            $('#district').attr("disabled",false);
+                            $('#la').attr("disabled",false);
                             $('#candidateId').val("");
-                            $("#candidateId").css("color", "black");
-                            $('#candidateId').attr('readOnly', false);
+//                            $("#candidateId").css("color", "black");
+//                            $('#candidateId').attr('readOnly', false);
                             $('#party').val("");
-                            $('#wardCode').val("");
+                            $('#ward').val("");
+                            changeAllFromWard($('#ward').val());
                             $('#name').val("");
                             $('#nic').val("");
                             $('#contactNo').val("");
                             $('#address').val("");
                             $('#gender').val("");
-                            $('#youth').text("");
-                            $('#status').text("");
+                            $('#youth').val("");
+                            $('#status').val("");
                             $('#updateButton').button("disable");
 
                         } else {
-
+                            $('#province').attr("disabled",true);
+                            $('#district').attr("disabled",true);
+                            $('#la').attr("disabled",true);
+                            
                             $('#candidateId').val(data.candidateId);
-                            $("#candidateId").css("color", "#858585");
-                            $('#candidateId').attr('readOnly', true);
+//                            $("#candidateId").css("color", "#858585");
+//                            $('#candidateId').attr('readOnly', true);
                             $('#party').val(data.party);
-                            $('#wardCode').val(data.wardCode);
+
+
+
+                            $('#ward').val(data.ward);
                             $('#name').val(data.name);
                             $('#nic').val(data.nic);
                             $('#contactNo').val(data.contactNo);
+                            $('#address').val(data.address);
                             $('#gender').val(data.gender);
                             $('#youth').val(data.youth);
                             $('#status').val(data.status);
 
+                            changeAllFromWard($('#ward').val());
+
                             $('#addButton').button("disable");
                             $('#updateButton').button("enable");
+
 
                         }
                     },
@@ -72,7 +86,7 @@
                 });
             }
 
-            function deletePartyInit(keyval) {
+            function deleteCandidateInit(keyval) {
                 $('#divmsg').empty();
 
                 $("#deletedialog").data('keyval', keyval).dialog('open');
@@ -80,7 +94,7 @@
                 return false;
             }
 
-            function deleteParty(keyval) {
+            function deleteCandidate(keyval) {
                 $.ajax({
                     url: '${pageContext.request.contextPath}/deleteCandidate.action',
                     data: {candidateId: keyval},
@@ -103,29 +117,30 @@
                 u = $("#updateButton").is(':disabled');
 
                 if (a == true && u == true) {
-                    editCandidate(null);
+                    editCandidate(null,null);
                 } else if (a == true && u == false) {
                     var candidateId = $('#candidateId').val();
-                    $('#candidateId').attr('readOnly', true);
-                    editCandidate(candidateId);
+//                    var nic = $('#nic').val();
+//                    $('#candidateId').attr('readOnly', true);
+                    editCandidate(candidateId,null);
                 } else if (a == false && u == true) {
                     editCandidate(null);
                 }
             }
 
             function resetFieldData() {
-                $('#candidateId').val("");
-                $("#candidateId").css("color", "black");
-                $('#candidateId').attr('readOnly', false);
+//                $('#candidateId').val("");
+//                $("#candidateId").css("color", "black");
+//                $('#candidateId').attr('readOnly', false);
                 $('#party').val("");
-                $('#wardCode').val("");
+//                $('#ward').val("");
                 $('#name').val("");
                 $('#nic').val("");
                 $('#contactNo').val("");
                 $('#address').val("");
                 $('#gender').val("");
-                $('#youth').text("");
-                $('#status').text("");
+                $('#youth').val("");
+                $('#status').val("");
 
                 $('#addButton').button("enable");
                 $('#updateButton').button("disable");
@@ -133,7 +148,8 @@
                 jQuery("#gridtable").trigger("reloadGrid");
             }
             function cancelPageAllData() {
-                editCandidate(null);
+                editCandidate(null,null);
+                emptySearchParams();
                 $('#addButton').button("enable");
                 $('#updateButton').button("disable");
             }
@@ -185,6 +201,21 @@
                             $.each(districtlist, function (index, item) {
                                 $('#district').append("<option value='" + item.code + "'>" + item.description + "</option>");
                             });
+                            
+                            var lalist = data.laList;
+                            $("#la option").remove();
+                            $('#la').append('<option value="">--Select Local Authority--</option>');
+                            $.each(lalist, function (index, item) {
+                                $('#la').append("<option value='" + item.code + "'>" + item.description + "</option>");
+                            });
+
+
+                            var wardlist = data.wardList;
+                            $("#ward option").remove();
+                            $('#ward').append('<option value="">--Select Ward--</option>');
+                            $.each(wardlist, function (index, item) {
+                                $('#ward').append("<option value='" + item.code + "'>" + item.description + "</option>");
+                            });
 
                         }
                         var lalist = data.laList;
@@ -230,6 +261,14 @@
                             $('#la').append('<option value="">--Select Local Authority--</option>');
                             $.each(lalist, function (index, item) {
                                 $('#la').append("<option value='" + item.code + "'>" + item.description + "</option>");
+                            });
+
+
+                            var wardlist = data.wardList;
+                            $("#ward option").remove();
+                            $('#ward').append('<option value="">--Select Ward--</option>');
+                            $.each(wardlist, function (index, item) {
+                                $('#ward').append("<option value='" + item.code + "'>" + item.description + "</option>");
                             });
 
                         }
@@ -285,7 +324,11 @@
                             $.each(wardlist, function (index, item) {
                                 $('#ward').append("<option value='" + item.code + "'>" + item.description + "</option>");
                             });
+                            
+                            emptySearchParams();
 
+                        }else{
+                            searchParams();
                         }
 
 
@@ -299,7 +342,45 @@
                     }
                 });
             }
-
+  
+            function searchParams() {
+                var province = $('#province').val();
+                var district = $('#district').val();
+                var localAuthority = $('#la').val();
+                var ward = $('#ward').val();
+                var party = $('#party').val();
+                $("#gridtable").jqGrid('setGridParam', {
+                    postData: {
+                        province: province,
+                        district: district,
+                        la: localAuthority,
+                        ward: ward,
+                        party: party,
+                        search: true
+                    }
+                });
+                $("#gridtable").jqGrid('setGridParam', {page: 1});
+                jQuery("#gridtable").trigger("reloadGrid");
+            }
+            function emptySearchParams() {
+//                $('#province').val("");
+//                $('#district').val("");
+//                $('#la').val("");
+//                $('#ward').val("");
+                
+                $("#gridtable").jqGrid('setGridParam', {
+                    postData: {
+                        province: '',
+                        district: '',
+                        la: '',
+                        ward: '',
+                        party: '',
+                        search: false
+                    }
+                });
+                $("#gridtable").jqGrid('setGridParam', {page: 1});
+                jQuery("#gridtable").trigger("reloadGrid");
+            }
 
         </script>
     </head>
@@ -320,29 +401,30 @@
             <div class="cont-form">
                 <s:form id="CandidateForm" method="post" action="Candidate" theme="simple" cssClass="form" enctype="multipart/form-data">
                     <s:hidden id="oldvalue" name="oldvalue" ></s:hidden>
+                    <s:hidden id="candidateId" name="candidateId" ></s:hidden>
 
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <span style="color: red">*</span><label>Province</label>
-                            <s:select onchange="changeDistrictFromProvince(this.value)" cssClass="form-control" id="province" list="%{provinceList}"  headerValue="--Select Party--" headerKey="" name="province" listKey="code" listValue="description" />
+                            <s:select onchange="changeDistrictFromProvince(this.value);emptySearchParams()" cssClass="form-control" id="province" list="%{provinceList}"  headerValue="--Select Party--" headerKey="" name="province" listKey="code" listValue="description" />
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
                             <span style="color: red">*</span><label>District</label>
-                            <s:select onchange="changeLAFromDistrict(this.value)" cssClass="form-control" id="district" list="%{districtList}"  headerValue="--Select District--" headerKey="" name="district" listKey="code" listValue="description" />
+                            <s:select onchange="changeLAFromDistrict(this.value);emptySearchParams()" cssClass="form-control" id="district" list="%{districtList}"  headerValue="--Select District--" headerKey="" name="district" listKey="code" listValue="description" />
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
                             <span style="color: red">*</span><label>Local Authority</label>
-                            <s:select onchange="changeWardFromLA(this.value)" cssClass="form-control" id="la" list="%{laList}"  headerValue="--Select Local Authority--" headerKey="" name="la" listKey="code" listValue="description" />
+                            <s:select onchange="changeWardFromLA(this.value);emptySearchParams()" cssClass="form-control" id="la" list="%{laList}"  headerValue="--Select Local Authority--" headerKey="" name="la" listKey="code" listValue="description" />
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
                             <span style="color: red">*</span><label>Ward</label>
-                            <s:select onchange="changeAllFromWard(this.value)" cssClass="form-control" id="ward" list="%{wardList}"  headerValue="--Select Ward--" headerKey="" name="ward" listKey="code" listValue="description" />
+                            <s:select onchange="changeAllFromWard(this.value);" cssClass="form-control" id="ward" list="%{wardList}"  headerValue="--Select Ward--" headerKey="" name="ward" listKey="code" listValue="description" />
                         </div>
                     </div>
 
@@ -351,31 +433,31 @@
                     <div class="col-sm-3">
                         <div class="form-group">
                             <span style="color: red">*</span><label>Party</label>
-                            <s:select  cssClass="form-control" id="party" list="%{partyList}"  headerValue="--Select Party--" headerKey="" name="party" listKey="partyCode" listValue="description" />
+                            <s:select onchange="searchParams()" cssClass="form-control" id="party" list="%{partyList}"  headerValue="--Select Party--" headerKey="" name="party" listKey="partyCode" listValue="partyCode" />
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
                             <span style="color: red">*</span><label>Name</label>
-                            <s:textfield cssClass="form-control" name="name" id="name" maxLength="255" onkeyup="$(this).val($(this).val().replace(/[^a-zA-Z0-9]/g, ''))" onmouseout="$(this).val($(this).val().replace(/[^a-zA-Z0-9]/g, ''))"/>
+                            <s:textfield cssClass="form-control" name="name" id="name" maxLength="255" />
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
                             <span style="color: red">*</span><label>NIC</label>
-                            <s:textfield cssClass="form-control" name="nic" id="nic" maxLength="20" onkeyup="$(this).val($(this).val().replace(/[^0-9+#]/g, ''))" onmouseout="$(this).val($(this).val().replace(/[^0-9#+]/g, ''))"/>
+                            <s:textfield cssClass="form-control" name="nic" id="nic" maxLength="15" onkeyup="$(this).val($(this).val().replace(/[^0-9Vv]/g, ''))" onmouseout="$(this).val($(this).val().replace(/[^0-9Vv]/g, ''))"/>
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
                             <span style="color: red">*</span><label>Contact No</label>
-                            <s:textfield cssClass="form-control" name="contactNo" id="contactNo" maxLength="12" onkeyup="$(this).val($(this).val().replace(/[^0-9+#]/g,''))" onmouseout="$(this).val($(this).val().replace(/[^0-9#+]/g,''))"/>
+                            <s:textfield cssClass="form-control" name="contactNo" id="contactNo" maxLength="15" onkeyup="$(this).val($(this).val().replace(/[^0-9+#]/g,''))" onmouseout="$(this).val($(this).val().replace(/[^0-9#+]/g,''))"/>
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
                             <span style="color: red">*</span><label>Address</label>
-                            <s:textfield cssClass="form-control" name="address" id="address" maxLength="255" onkeyup="$(this).val($(this).val().replace(/[^a-zA-Z0-9]/g, ''))" onmouseout="$(this).val($(this).val().replace(/[^a-zA-Z0-9]/g, ''))"/>
+                            <s:textfield cssClass="form-control" name="address" id="address" maxLength="255" />
                         </div>
                     </div>
                     <div class="col-sm-3">
@@ -398,8 +480,8 @@
                     </div>
 
 
-                    <s:url var="addurl" action="addParty"/>
-                    <s:url var="updateurl" action="updateParty"/>
+                    <s:url var="addurl" action="addCandidate"/>
+                    <s:url var="updateurl" action="updateCandidate"/>
 
                     <div class="row row_1 form-inline">
                         <div class="col-sm-12">
@@ -476,10 +558,10 @@
                     onErrorTopics="anyerrors" 
                     >
                     <sjg:gridColumn name="candidateId" index="u.partyCode" title="Edit" width="50" align="center" formatter="editformatter" sortable="false" />
-                    <sjg:gridColumn name="candidateId" index="u.partyCode" title="Delete" width="40" align="center" formatter="deleteformatter" sortable="false" />  
-                    <sjg:gridColumn name="candidateId" index="u.partyId" title="Candidate ID"  sortable="true" />
-                    <sjg:gridColumn name="party" index="u.party.description" title="Party"  sortable="true" frozen="true"/>
-                    <sjg:gridColumn name="wardCode" index="u.wardCode" title="Ward"  sortable="true"/>
+                    <sjg:gridColumn name="candidateId" index="u.candidateId" title="Delete" width="40" align="center" formatter="deleteformatter" sortable="false" />  
+                    <sjg:gridColumn name="candidateId" index="u.candidateId" title="Candidate ID"  sortable="true" />
+                    <sjg:gridColumn name="party" index="u.partyCode" title="Party"  sortable="true" />
+                    <sjg:gridColumn name="ward" index="u.ward.description" title="Ward"  sortable="true"/>
                     <sjg:gridColumn name="name" index="u.name" title="Name"  sortable="true"/>
                     <sjg:gridColumn name="nic" index="u.nic" title="NIC"  sortable="true"/>
                     <sjg:gridColumn name="contactNo" index="u.contactNo" title="Contact No"  sortable="true" />

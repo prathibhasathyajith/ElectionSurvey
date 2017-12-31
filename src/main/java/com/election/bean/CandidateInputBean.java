@@ -22,7 +22,6 @@ import java.util.Map;
 public class CandidateInputBean {
 
     private String candidateId;
-    private String id;
     private String name;
     private String nic;
     private String contactNo;
@@ -87,19 +86,6 @@ public class CandidateInputBean {
         this.candidateId = candidateId;
     }
 
-    /**
-     * @return the id
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
 
     /**
      * @return the name

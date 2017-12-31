@@ -11,6 +11,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import com.election.listener.HibernateInit;
+import com.election.mapping.Candidate;
 
 /**
  *
@@ -60,5 +61,32 @@ public class CommonDAO {
             }
         }
         return partyBean;
+    }
+    
+    public static Candidate getCandidateID(String nic) throws Exception {
+
+        Candidate candidateBean = null;
+        Session session = null;
+        try {
+            session = HibernateInit.sessionFactory.openSession();
+            String sql = "from Candidate as c where c.nic =:nic";
+            Query query = session.createQuery(sql).setString("nic", nic);
+//            partyBean = (Party) query.list().get(0);
+            
+            if(query.list().size()>0){
+                 candidateBean = (Candidate) query.list().get(0);
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            try {
+                session.flush();
+                session.close();
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        return candidateBean;
     }
 }

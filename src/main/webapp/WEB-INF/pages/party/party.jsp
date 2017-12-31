@@ -307,7 +307,7 @@
                     viewrecords="true"
                     onErrorTopics="anyerrors" 
                     >
-                    <sjg:gridColumn name="partyId" index="u.partyId" title="partyId"  sortable="true" hidden="true"/>
+                    <%--<sjg:gridColumn name="partyId" index="u.partyId" title="partyId"  sortable="true" hidden="false"/>--%>
                     <sjg:gridColumn name="partyCode" index="u.partyCode" title="Edit" width="50" align="center" formatter="editformatter" sortable="false" />
                     <sjg:gridColumn name="partyCode" index="u.partyCode" title="Delete" width="40" align="center" formatter="deleteformatter" sortable="false" />  
                     <sjg:gridColumn name="partyCode" index="u.partyCode" title="Party Code"  sortable="true" frozen="true"/>

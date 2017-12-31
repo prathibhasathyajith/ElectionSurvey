@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 31, 2017 1:17:39 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="newpackage.Party" table="party" catalog="elect_survey" optimistic-lock="version">
+        <id name="partyId" type="java.lang.Integer">
+            <column name="party_id" />
+            <generator class="identity" />
+        </id>
+        <property name="partyCode" type="string">
+            <column name="party_code" length="45" unique="true" />
+        </property>
+        <property name="name" type="string">
+            <column name="name" />
+        </property>
+        <property name="description" type="string">
+            <column name="description" />
+        </property>
+        <property name="type" type="string">
+            <column name="type" length="45" />
+        </property>
+        <property name="contactNo" type="string">
+            <column name="contact_no" length="12" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" />
+        </property>
+        <property name="address" type="string">
+            <column name="address" />
+        </property>
+        <property name="status" type="string">
+            <column name="status" length="45" />
+        </property>
+        <property name="image" type="binary">
+            <column name="image" />
+        </property>
+        <set name="partyLas" table="party_la" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="party_code" />
+            </key>
+            <one-to-many class="newpackage.PartyLa" />
+        </set>
+    </class>
+</hibernate-mapping>

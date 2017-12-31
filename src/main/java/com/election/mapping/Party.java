@@ -35,12 +35,12 @@ public class Party  implements java.io.Serializable {
      private String status;
      private byte[] image;
      private Set<PartyLa> partyLas = new HashSet(0);
-     private Set<Candidate> candidates = new HashSet(0);
+//     private Set<Candidate> candidates = new HashSet(0);
 
     public Party() {
     }
 
-    public Party(String partyCode, String name, String description, String type, String contactNo, String email, String address, String status, byte[] image, Set<PartyLa> partyLas, Set<Candidate> candidates) {
+    public Party(String partyCode, String name, String description, String type, String contactNo, String email, String address, String status, byte[] image, Set<PartyLa> partyLas) {
        this.partyCode = partyCode;
        this.name = name;
        this.description = description;
@@ -51,7 +51,7 @@ public class Party  implements java.io.Serializable {
        this.status = status;
        this.image = image;
        this.partyLas = partyLas;
-       this.candidates = candidates;
+//       this.candidates = candidates;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -165,15 +165,15 @@ public class Party  implements java.io.Serializable {
         this.partyLas = partyLas;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="party")
-    public Set<Candidate> getCandidates() {
-        return this.candidates;
-    }
-    
-    public void setCandidates(Set<Candidate> candidates) {
-        this.candidates = candidates;
-    }
-
+//@OneToMany(fetch=FetchType.LAZY, mappedBy="party")
+//    public Set<Candidate> getCandidates() {
+//        return this.candidates;
+//    }
+//    
+//    public void setCandidates(Set<Candidate> candidates) {
+//        this.candidates = candidates;
+//    }
+//
 
 
 

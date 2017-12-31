@@ -11,7 +11,6 @@ package com.election.bean;
  */
 public class CandidateBean {
     private String candidateId;
-    private String id;
     private String party;
     private String ward;
     private String name;
@@ -44,19 +43,7 @@ public class CandidateBean {
         this.candidateId = candidateId;
     }
 
-    /**
-     * @return the id
-     */
-    public String getId() {
-        return id;
-    }
 
-    /**
-     * @param id the id to set
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
 
     /**
      * @return the party
