@@ -10,8 +10,9 @@
         <li><a id="nav1" href="#home">Home</a></li>
         <li><a id="nav2" href="${pageContext.request.contextPath}/viewParty.action">Party Management</a></li>
         <li><a id="nav3" href="${pageContext.request.contextPath}/viewCandidate.action">Candidate Management</a></li>
-        <li><a id="nav4" href="${pageContext.request.contextPath}/viewService.action">Service List</a></li>
-        <li><a id="nav5" href="#about">About</a></li>
+        <li><a id="nav4" href="${pageContext.request.contextPath}/viewCandidateList.action">Candidate List Management</a></li>
+        <li><a id="nav5" href="${pageContext.request.contextPath}/viewService.action">Service List Management</a></li>
+        <li><a id="nav6" href="#about">About</a></li>
     </ul>
 </div>
 

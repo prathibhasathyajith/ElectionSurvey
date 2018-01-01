@@ -19,7 +19,7 @@
     <property name="show_sql">false</property>
     <!-- auto create tables -->
     <property name="hbm2ddl.auto">none</property>
-            <mapping class="com.election.mapping.CandidateList"/>
+        <mapping class="com.election.mapping.CandidateList"/>
         <mapping class="com.election.mapping.Candidate"/>
         <mapping class="com.election.mapping.District"/>
         <mapping class="com.election.mapping.PartyLa"/>

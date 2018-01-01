@@ -17,7 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="service_list"
-    ,catalog="elct_survey"
+    ,catalog="elect_survey"
 )
 public class ServiceList  implements java.io.Serializable {
 

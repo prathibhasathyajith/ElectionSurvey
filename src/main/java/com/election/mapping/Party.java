@@ -18,7 +18,7 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name="party"
-    ,catalog="elct_survey"
+    ,catalog="elect_survey"
     , uniqueConstraints = @UniqueConstraint(columnNames="party_code") 
 )
 public class Party  implements java.io.Serializable {

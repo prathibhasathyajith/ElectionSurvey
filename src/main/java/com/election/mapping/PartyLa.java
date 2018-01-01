@@ -16,7 +16,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="party_la"
-    ,catalog="elct_survey"
+    ,catalog="elect_survey"
 )
 public class PartyLa  implements java.io.Serializable {
 
