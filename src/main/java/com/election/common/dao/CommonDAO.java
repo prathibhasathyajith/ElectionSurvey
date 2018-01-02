@@ -12,6 +12,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import com.election.listener.HibernateInit;
 import com.election.mapping.Candidate;
+import com.election.mapping.CandidateList;
 import com.election.mapping.ServiceList;
 
 /**
@@ -116,5 +117,30 @@ public class CommonDAO {
             }
         }
         return serviceList;
+    }
+
+    public static CandidateList getCandidateListID(String candidate) throws Exception {
+        CandidateList candidateList = null;
+        Session session = null;
+        try {
+            session = HibernateInit.sessionFactory.openSession();
+            String sql = "from CandidateList as c where c.candidate.candidateId =:candidateId";
+            Query query = session.createQuery(sql).setInteger("candidateId", Integer.parseInt(candidate));
+
+            if (query.list().size() > 0) {
+                candidateList = (CandidateList) query.list().get(0);
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            try {
+                session.flush();
+                session.close();
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        return candidateList;
     }
 }

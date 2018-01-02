@@ -8,6 +8,7 @@
     font-size: 12px;
     padding: 0px 20px 0 20px;
     color: white;
+    z-index: 10;
 }
 .cont-msg{}
 .cont-form{

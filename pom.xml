@@ -21,6 +21,12 @@
             <artifactId>hibernate-c3p0</artifactId>
             <version>4.1.8.Final</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.3.1</version>
+        </dependency> 
+
         
         <dependency>
             <groupId>org.apache.struts</groupId>
@@ -224,7 +230,7 @@
             <artifactId>jasperreports</artifactId>
             <version>5.0.1</version>
         </dependency>
-<!--        <dependency>
+        <!--        <dependency>
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc6</artifactId>
             <version>11.2.0</version>
@@ -320,7 +326,7 @@
                     <debug>true</debug>
                 </configuration>
             </plugin>
-<!--            <plugin>
+            <!--            <plugin>
                 <groupId>org.jvnet.jaxb2.maven2</groupId>
                 <artifactId>maven-jaxb2-plugin</artifactId>
                 <executions>
