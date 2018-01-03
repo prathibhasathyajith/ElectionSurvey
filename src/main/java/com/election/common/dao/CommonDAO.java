@@ -13,6 +13,7 @@ import org.hibernate.Session;
 import com.election.listener.HibernateInit;
 import com.election.mapping.Candidate;
 import com.election.mapping.CandidateList;
+import com.election.mapping.PartyLa;
 import com.election.mapping.ServiceList;
 
 /**
@@ -20,11 +21,11 @@ import com.election.mapping.ServiceList;
  * @author prathibha
  */
 public class CommonDAO {
-
+    
     public static Date getSystemDate(Session session) throws Exception {
         Date sysDateTime = null;
         try {
-
+            
             String sql = "SELECT NOW()";
             Query query = session.createSQLQuery(sql);
             List l = query.list();
@@ -38,9 +39,9 @@ public class CommonDAO {
         }
         return sysDateTime;
     }
-
+    
     public static Party getPartyID(String partyCode) throws Exception {
-
+        
         Party partyBean = null;
         Session session = null;
         try {
@@ -52,7 +53,7 @@ public class CommonDAO {
             if (query.list().size() > 0) {
                 partyBean = (Party) query.list().get(0);
             }
-
+            
         } catch (Exception e) {
             throw e;
         } finally {
@@ -65,9 +66,9 @@ public class CommonDAO {
         }
         return partyBean;
     }
-
+    
     public static Candidate getCandidateID(String nic) throws Exception {
-
+        
         Candidate candidateBean = null;
         Session session = null;
         try {
@@ -79,7 +80,7 @@ public class CommonDAO {
             if (query.list().size() > 0) {
                 candidateBean = (Candidate) query.list().get(0);
             }
-
+            
         } catch (Exception e) {
             throw e;
         } finally {
@@ -92,7 +93,7 @@ public class CommonDAO {
         }
         return candidateBean;
     }
-
+    
     public static ServiceList getServiceID(String code) throws Exception {
         ServiceList serviceList = null;
         Session session = null;
@@ -105,7 +106,7 @@ public class CommonDAO {
             if (query.list().size() > 0) {
                 serviceList = (ServiceList) query.list().get(0);
             }
-
+            
         } catch (Exception e) {
             throw e;
         } finally {
@@ -118,7 +119,7 @@ public class CommonDAO {
         }
         return serviceList;
     }
-
+    
     public static CandidateList getCandidateListID(String candidate) throws Exception {
         CandidateList candidateList = null;
         Session session = null;
@@ -126,11 +127,11 @@ public class CommonDAO {
             session = HibernateInit.sessionFactory.openSession();
             String sql = "from CandidateList as c where c.candidate.candidateId =:candidateId";
             Query query = session.createQuery(sql).setInteger("candidateId", Integer.parseInt(candidate));
-
+            
             if (query.list().size() > 0) {
                 candidateList = (CandidateList) query.list().get(0);
             }
-
+            
         } catch (Exception e) {
             throw e;
         } finally {
@@ -142,5 +143,32 @@ public class CommonDAO {
             }
         }
         return candidateList;
+    }
+    
+    public static PartyLa getIDFromLA_Party(String la, String party) throws Exception {
+        PartyLa partyla = null;
+        Session session = null;
+        try {
+            session = HibernateInit.sessionFactory.openSession();
+            String sql = "from PartyLa as p where p.localAuthority.code =:laCode and p.partyCode =:partyCode";
+            Query query = session.createQuery(sql)
+                    .setString("laCode", la)
+                    .setString("partyCode", party);
+
+            if (query.list().size() > 0) {
+                partyla = (PartyLa) query.list().get(0);
+            }
+            
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            try {
+                session.flush();
+                session.close();
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        return partyla;
     }
 }

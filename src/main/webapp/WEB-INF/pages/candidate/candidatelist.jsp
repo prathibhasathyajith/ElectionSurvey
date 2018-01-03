@@ -433,7 +433,7 @@
                     <!--                    <div class="col-sm-3">
                                             <div class="form-group">
                                                 <span style="color: red">*</span><label>List Type</label>
-                    <%--<s:select  cssClass="form-control" id="types" list="%{typeList}"  headerValue="--Gender--" headerKey="" name="type" listKey="code" listValue="description" />--%>
+                    <%--<s:select  cssClass="form-control" id="types" list="%{typeList}"  headerValue="--List Type--" headerKey="" name="type" listKey="code" listValue="description" />--%>
                 </div>
             </div>-->
 
