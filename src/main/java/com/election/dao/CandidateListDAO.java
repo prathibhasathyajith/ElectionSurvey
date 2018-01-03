@@ -85,8 +85,8 @@ public class CandidateListDAO {
                  * candidate table data --
                  *
                  */
-                Query query = session.createQuery(sql).setString("ward", "KURKLUCKPT")
-                        .setString("party", "test");
+                Query query = session.createQuery(sql).setString("ward", inputBean.getWard())
+                        .setString("party", inputBean.getParty());
 
                 Iterator it = query.iterate();
 
@@ -185,7 +185,7 @@ public class CandidateListDAO {
                         Candidate candidate = (Candidate) session.get(Candidate.class, Integer.parseInt(list_2[i].trim()));
                         candidateList.setCandidate(candidate);
 
-                        candidateList.setType("LIST2");
+                        candidateList.setType(inputBean.getType());
 
                         session.save(candidateList);
                     } else {

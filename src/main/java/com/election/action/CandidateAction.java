@@ -256,6 +256,10 @@ public class CandidateAction extends ActionSupport implements ModelDriven<Object
                 dao.getLAList(inputBean);
                 dao.getWardList(inputBean);
             } else {
+                dao.getProvinceList(inputBean);
+                dao.getDistrictList(inputBean);
+                dao.getLAList(inputBean);
+                dao.getWardList(inputBean);
                 dao.getDistrictListFromProvince(inputBean);
             }
 
@@ -277,6 +281,10 @@ public class CandidateAction extends ActionSupport implements ModelDriven<Object
                 dao.getLAList(inputBean);
                 dao.getWardList(inputBean);
             } else {
+                dao.getProvinceList(inputBean);
+                dao.getDistrictList(inputBean);
+                dao.getLAList(inputBean);
+                dao.getWardList(inputBean);
                 dao.getLAListFromDistrict(inputBean);
             }
 
@@ -298,6 +306,10 @@ public class CandidateAction extends ActionSupport implements ModelDriven<Object
                 dao.getLAList(inputBean);
                 dao.getWardList(inputBean);
             } else {
+                dao.getProvinceList(inputBean);
+                dao.getDistrictList(inputBean);
+                dao.getLAList(inputBean);
+                dao.getWardList(inputBean);
                 dao.getWardListFromLA(inputBean);
             }
 
@@ -321,6 +333,10 @@ public class CandidateAction extends ActionSupport implements ModelDriven<Object
                 dao.getLAList(inputBean);
                 dao.getWardList(inputBean);
             } else {
+                dao.getProvinceList(inputBean);
+                dao.getDistrictList(inputBean);
+                dao.getLAList(inputBean);
+                dao.getWardList(inputBean);
                 dao.getAllListFromWard(inputBean);
             }
 

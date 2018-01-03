@@ -152,13 +152,13 @@
                     <div class="col-sm-3">
                         <div class="form-group">
                             <span style="color: red">*</span><label>Name</label>
-                            <s:textfield cssClass="form-control" name="name" id="name" maxLength="255" onkeyup="$(this).val($(this).val().replace(/[^a-zA-Z0-9]/g,''))" onmouseout="$(this).val($(this).val().replace(/[^a-zA-Z0-9]/g,''))"/>
+                            <s:textfield cssClass="form-control" name="name" id="name" maxLength="255" />
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
                             <span style="color: red">*</span><label>Description</label>
-                            <s:textfield cssClass="form-control" name="description" id="description" maxLength="255" onkeyup="$(this).val($(this).val().replace(/[^a-zA-Z0-9]/g,''))" onmouseout="$(this).val($(this).val().replace(/[^a-zA-Z0-9]/g,''))"/>
+                            <s:textfield cssClass="form-control" name="description" id="description" maxLength="255" />
                         </div>
                     </div>
                     <div class="col-sm-3">

@@ -47,6 +47,19 @@ public class CandidateListAction extends ActionSupport implements ModelDriven<Ob
             dao.getWardList(inputBean);
             dao.getPartyList(inputBean);
 
+            List<Type> typeList = new ArrayList<Type>();
+
+            Type list = new Type();
+            list.setCode("L1");
+            list.setDescription("List 1");
+            typeList.add(list);
+            list = new Type();
+            list.setCode("L2");
+            list.setDescription("List 2");
+            typeList.add(list);
+
+            inputBean.setTypeList(typeList);
+
         } catch (Exception e) {
             addActionError("Candidate_List error occurred while processing");
             Logger.getLogger(CandidateListAction.class.getName()).log(Level.SEVERE, null, e);
@@ -62,33 +75,9 @@ public class CandidateListAction extends ActionSupport implements ModelDriven<Ob
         try {
             CandidateListDAO dao = new CandidateListDAO();
 
-            List<CandidateListBean> list_1 = new ArrayList<CandidateListBean>();
-            List<CandidateListBean> list_2 = new ArrayList<CandidateListBean>();
-
-            CandidateListBean cl = new CandidateListBean();
-            cl.setName("test-1");
-            cl.setCandidate("id-1");
-            list_1.add(cl);
-            cl = new CandidateListBean();
-            cl.setName("test-2");
-            cl.setCandidate("id-2");
-            list_1.add(cl);
-//            inputBean.setList_1(list_1);
-
-            cl = new CandidateListBean();
-            cl.setName("test-3");
-            cl.setCandidate("id-3");
-            list_2.add(cl);
-            cl = new CandidateListBean();
-            cl.setName("test-4");
-            cl.setCandidate("id-4");
-            list_2.add(cl);
-//            inputBean.setList_2(list_2);
-
-//            inputBean.setWard("KURKLUCKPT");
-//            inputBean.setParty("test");
             System.out.println("ward " + inputBean.getWard());
             System.out.println("party " + inputBean.getParty());
+            System.out.println("list " + inputBean.getType());
 
             dao.findCandidateList(inputBean);
 
@@ -104,7 +93,6 @@ public class CandidateListAction extends ActionSupport implements ModelDriven<Ob
         System.out.println("called CandidateListAction: find");
 
         try {
-
 
             if (inputBean.getWard() != null && !inputBean.getWard().isEmpty()) {
 
@@ -131,13 +119,16 @@ public class CandidateListAction extends ActionSupport implements ModelDriven<Ob
 
             if (inputBean.getWard() != null && !inputBean.getWard().isEmpty()) {
 
+                System.out.println("type "+ inputBean.getType() );
                 CandidateListDAO dao = new CandidateListDAO();
                 dao.deleteCandidateListByWard(inputBean);
                 message = dao.assignFields(inputBean);
 
                 if (message.isEmpty()) {
+                    inputBean.setMessage("");
                     addActionMessage("Candidate list assigned successfully");
                 } else {
+                    inputBean.setMessage(message);
                     addActionError(message);
                 }
 
@@ -151,7 +142,7 @@ public class CandidateListAction extends ActionSupport implements ModelDriven<Ob
 
         return "list";
     }
-    
+
     //    ================ drop down load ===================
     public String findDistrict() throws Exception {
         System.out.println("called CandidateListAction: findDistrict from province");
@@ -164,6 +155,10 @@ public class CandidateListAction extends ActionSupport implements ModelDriven<Ob
                 dao.getLAList(inputBean);
                 dao.getWardList(inputBean);
             } else {
+                dao.getProvinceList(inputBean);
+                dao.getDistrictList(inputBean);
+                dao.getLAList(inputBean);
+                dao.getWardList(inputBean);
                 dao.getDistrictListFromProvince(inputBean);
             }
 
@@ -185,6 +180,10 @@ public class CandidateListAction extends ActionSupport implements ModelDriven<Ob
                 dao.getLAList(inputBean);
                 dao.getWardList(inputBean);
             } else {
+                dao.getProvinceList(inputBean);
+                dao.getDistrictList(inputBean);
+                dao.getLAList(inputBean);
+                dao.getWardList(inputBean);
                 dao.getLAListFromDistrict(inputBean);
             }
 
@@ -206,6 +205,10 @@ public class CandidateListAction extends ActionSupport implements ModelDriven<Ob
                 dao.getLAList(inputBean);
                 dao.getWardList(inputBean);
             } else {
+                dao.getProvinceList(inputBean);
+                dao.getDistrictList(inputBean);
+                dao.getLAList(inputBean);
+                dao.getWardList(inputBean);
                 dao.getWardListFromLA(inputBean);
             }
 
@@ -229,6 +232,10 @@ public class CandidateListAction extends ActionSupport implements ModelDriven<Ob
                 dao.getLAList(inputBean);
                 dao.getWardList(inputBean);
             } else {
+                dao.getProvinceList(inputBean);
+                dao.getDistrictList(inputBean);
+                dao.getLAList(inputBean);
+                dao.getWardList(inputBean);
                 dao.getAllListFromWard(inputBean);
             }
 

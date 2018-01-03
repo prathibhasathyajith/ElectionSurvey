@@ -22,52 +22,6 @@
             var selected = [];
             var deseleted = [];
 
-            $(document).ready(function () {
-
-//
-////                var ward = "KURKLUCKPT";
-//                var ward = $("#ward").val();
-//                var party = $("#party").val();
-////                var party = "test";
-//
-//                $.ajax({
-//                    url: '${pageContext.request.contextPath}/loadCandidateList.action',
-//                    data: {ward: ward, party: party},
-//                    dataType: "json",
-//                    type: "POST",
-//                    success: function (data) {
-//                        var list_1 = data.list_1;
-//                        $("#pre-selected-options option").remove();
-//                        $.each(list_1, function (index, item) {
-//                            $('#pre-selected-options').append("<option value='" + item.candidate + "'>" + item.name + "</option>");
-//                        });
-//
-//                        var list_2 = data.list_2;
-//                        $.each(list_2, function (index, item) {
-//                            $('#pre-selected-options').append("<option value='" + item.candidate + "' selected>" + item.name + "</option>");
-//                        });
-//
-//                        $('#pre-selected-options').multiSelect({
-//                            afterSelect: function (values) {
-//                                selected.push(values[0]);
-//                                deseleted.remove(values[0]);
-//
-//                            },
-//                            afterDeselect: function (values) {
-//                                deseleted.push(values[0]);
-//                                selected.remove(values[0]);
-//                            }
-//                        });
-//
-//                        countItems();
-//                    },
-//
-//                    error: function (data) {
-//                        window.location = "${pageContext.request.contextPath}/LogoutLogin.action?";
-//                    }
-//                })
-            });
-
             function loadDetails() {
                 var ward = $("#ward").val();
                 var party = $("#party").val();
@@ -89,6 +43,8 @@
                             $('#pre-selected-options').append("<option value='" + item.candidate + "' selected>" + item.name + "</option>");
                         });
 
+                        $("#types").val(data.type);
+
                         $('#pre-selected-options').multiSelect({
                             afterSelect: function (values) {
                                 selected.push(values[0]);
@@ -98,9 +54,26 @@
                             afterDeselect: function (values) {
                                 deseleted.push(values[0]);
                                 selected.remove(values[0]);
-                            }
+                            },
+                            selectableHeader: "<div class='custom-header'>Candidate List 1</div>",
+                            selectionHeader: "<div class='custom-header'>Candidate List 2</div>"
                         });
                         $('#pre-selected-options').multiSelect('refresh');
+
+
+                        if ($("#party").val() != "") {
+                            $("#select-box").css("display", "block");
+                            $("#assignBut").attr("disabled", false);
+
+                        } else {
+                            $("#types").val("");
+                            $("#ward").val("");
+
+                            changeAllFromWard($("#ward").val());
+                        }
+                        $("#successMsg").css("display","none");
+                        $("#errorMsg").css("display","none");
+//                        $("#resetBut").attr("disabled", false);
 
                         countItems();
                     },
@@ -115,23 +88,23 @@
 
             function assign() {
                 var list2 = selected;
-//                var ward = "KURKLUCKPT";
-//                var party = "test";
                 var ward = $("#ward").val();
                 var party = $("#party").val();
+                var type = $("#types").val();
                 var list1 = deseleted;
 
-                console.log("list2" +list2);
-                console.log("list1" + list1);
-
-//                var data = JSON.stringify(list_1);
                 $.ajax({
                     url: '${pageContext.request.contextPath}/assignCandidateList.action',
-                    data: {list1: list1, list2: list2, ward: ward, party: party},
+                    data: {list1: list1, list2: list2, ward: ward, party: party, type: type},
                     dataType: "json",
                     type: "POST",
                     success: function (data) {
-                        alert();
+                        if (data.message == "") {
+                            $("#successMsg").css("display","block");
+                        } else {
+                            $("#errorMsg").css("display","block");
+                        }
+
                         $('#pre-selected-options').multiSelect('refresh');
                     },
 
@@ -170,6 +143,9 @@
                         $.each(districtlist, function (index, item) {
                             $('#district').append("<option value='" + item.code + "'>" + item.description + "</option>");
                         });
+
+                        $("#la").val("");
+                        $("#ward").val("");
                     },
                     error: function (data) {
                         window.location = "${pageContext.request.contextPath}/LogoutLogin.action?";
@@ -188,6 +164,21 @@
                     dataType: "json",
                     type: "POST",
                     success: function (data) {
+
+                        var lalist = data.laList;
+                        $("#la option").remove();
+                        $('#la').append('<option value="">--Select Local Authority--</option>');
+                        $.each(lalist, function (index, item) {
+                            $('#la').append("<option value='" + item.code + "'>" + item.description + "</option>");
+                        });
+
+
+                        var wardlist = data.wardList;
+                        $("#ward option").remove();
+                        $('#ward').append('<option value="">--Select Ward--</option>');
+                        $.each(wardlist, function (index, item) {
+                            $('#ward').append("<option value='" + item.code + "'>" + item.description + "</option>");
+                        });
 
                         if (keyval == "empty") {
                             var districtlist = data.districtList;
@@ -223,6 +214,8 @@
                         $("#province").val(data.province);
                         $("#district").val(data.district);
 
+                        $("#ward").val("");
+
                     },
                     error: function (data) {
                         window.location = "${pageContext.request.contextPath}/LogoutLogin.action?";
@@ -241,6 +234,21 @@
                     dataType: "json",
                     type: "POST",
                     success: function (data) {
+
+                        var districtlist = data.districtList;
+                        $("#district option").remove();
+                        $('#district').append('<option value="">--Select District--</option>');
+                        $.each(districtlist, function (index, item) {
+                            $('#district').append("<option value='" + item.code + "'>" + item.description + "</option>");
+                        });
+
+                        var wardlist = data.wardList;
+                        $("#ward option").remove();
+                        $('#ward').append('<option value="">--Select Ward--</option>');
+                        $.each(wardlist, function (index, item) {
+                            $('#ward').append("<option value='" + item.code + "'>" + item.description + "</option>");
+                        });
+
 
                         if (keyval == "empty") {
                             var districtlist = data.districtList;
@@ -296,6 +304,22 @@
                     type: "POST",
                     success: function (data) {
 
+
+                        var districtlist = data.districtList;
+                        $("#district option").remove();
+                        $('#district').append('<option value="">--Select District--</option>');
+                        $.each(districtlist, function (index, item) {
+                            $('#district').append("<option value='" + item.code + "'>" + item.description + "</option>");
+                        });
+
+
+                        var lalist = data.laList;
+                        $("#la option").remove();
+                        $('#la').append('<option value="">--Select Local Authority--</option>');
+                        $.each(lalist, function (index, item) {
+                            $('#la').append("<option value='" + item.code + "'>" + item.description + "</option>");
+                        });
+
                         if (keyval == "empty") {
                             var districtlist = data.districtList;
                             $("#district option").remove();
@@ -319,12 +343,15 @@
                             $.each(wardlist, function (index, item) {
                                 $('#ward').append("<option value='" + item.code + "'>" + item.description + "</option>");
                             });
-
-
                         }
                         $("#province").val(data.province);
                         $("#district").val(data.district);
                         $("#la").val(data.la);
+
+                        $("#party").prop("disabled", false);
+                        $("#party").val("");
+                        $("#select-box").css("display", "none");
+
                     },
                     error: function (data) {
                         window.location = "${pageContext.request.contextPath}/LogoutLogin.action?";
@@ -337,6 +364,12 @@
         <style>
             #select-box{
                 margin: 20px 0 20px 0;
+                display: none;
+            }
+            .custom-header{
+                text-align: center;
+                margin: 3px;
+                color:gray;
             }
         </style>
     </head>
@@ -349,10 +382,20 @@
         <div class="cont-body">
             <div class="cont-breadCrumb">Candidate List Management</div>
             <div class="cont-msg">
-                <s:div id="divmsg">
-                    <s:actionerror theme="jquery"/>
-                    <s:actionmessage theme="jquery"/>
-                </s:div>
+                <div class="ui-widget actionMessage" id="successMsg" style="display: none">
+                    <div class="ui-state-highlight ui-corner-all" style="padding: 0.3em 0.7em; margin-top: 20px;"> 
+                        <p><span class="ui-icon ui-icon-info" style="float: left; margin-right: 0.3em;"></span>
+                            <span>Candidate updated successfully</span></p>
+                    </div>
+                </div>
+                <div class="ui-widget actionError" id="errorMsg"  style="display: none">
+                    <div class="ui-state-error ui-corner-all" style="padding: 0.3em 0.7em; margin-top: 20px;"> 
+                        <p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                            <span>Province cannot be empty</span></p>
+                    </div>
+                </div>
+
+
             </div>
             <div class="cont-form">
 
@@ -384,9 +427,15 @@
                     <div class="col-sm-3">
                         <div class="form-group">
                             <span style="color: red">*</span><label>Party</label>
-                            <s:select onchange="loadDetails()" cssClass="form-control" id="party" list="%{partyList}"  headerValue="--Select Party--" headerKey="" name="party" listKey="partyCode" listValue="partyCode" />
+                            <s:select disabled="true" onchange="loadDetails()" cssClass="form-control" id="party" list="%{partyList}"  headerValue="--Select Party--" headerKey="" name="party" listKey="partyCode" listValue="partyCode" />
                         </div>
                     </div>
+                    <!--                    <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span style="color: red">*</span><label>List Type</label>
+                    <%--<s:select  cssClass="form-control" id="types" list="%{typeList}"  headerValue="--Gender--" headerKey="" name="type" listKey="code" listValue="description" />--%>
+                </div>
+            </div>-->
 
                 </s:form>
                 <div class="row col-sm-12" id="select-box">
@@ -394,12 +443,12 @@
                 </div>
 
                 <div class="row form-inline">
-                    <div class="col-sm-12">
+                    <div class="col-sm-12" style="margin-left: 15px;">
                         <div class="form-group">
-                            <input type="button" class="btn btn-success" onclick="assign()"  value="Assign"/>
+                            <input type="button" id="assignBut" class="btn btn-success" onclick="assign()"  value="Assign" disabled="true"/>
                         </div>
                         <div class="form-group">
-                            <input type="button" class="btn btn-success" onclick="loadDetails()"  value="Reset"/>
+                            <input type="button" id="resetBut" class="btn btn-success" onclick="loadDetails()"  value="Reset" />
                         </div>
                     </div>
                 </div>

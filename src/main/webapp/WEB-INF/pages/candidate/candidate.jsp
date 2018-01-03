@@ -52,9 +52,9 @@
                             $('#updateButton').button("disable");
 
                         } else {
-                            $('#province').attr("disabled",true);
-                            $('#district').attr("disabled",true);
-                            $('#la').attr("disabled",true);
+//                            $('#province').attr("disabled",true);
+//                            $('#district').attr("disabled",true);
+//                            $('#la').attr("disabled",true);
                             
                             $('#candidateId').val(data.candidateId);
 //                            $("#candidateId").css("color", "#858585");
@@ -175,6 +175,9 @@
                         $.each(districtlist, function (index, item) {
                             $('#district').append("<option value='" + item.code + "'>" + item.description + "</option>");
                         });
+                        
+                        $("#la").val("");
+                        $("#ward").val("");
                     },
                     error: function (data) {
                         window.location = "${pageContext.request.contextPath}/LogoutLogin.action?";
@@ -193,6 +196,21 @@
                     dataType: "json",
                     type: "POST",
                     success: function (data) {
+                        
+                        var lalist = data.laList;
+                        $("#la option").remove();
+                        $('#la').append('<option value="">--Select Local Authority--</option>');
+                        $.each(lalist, function (index, item) {
+                            $('#la').append("<option value='" + item.code + "'>" + item.description + "</option>");
+                        });
+
+
+                        var wardlist = data.wardList;
+                        $("#ward option").remove();
+                        $('#ward').append('<option value="">--Select Ward--</option>');
+                        $.each(wardlist, function (index, item) {
+                            $('#ward').append("<option value='" + item.code + "'>" + item.description + "</option>");
+                        });
 
                         if (keyval == "empty") {
                             var districtlist = data.districtList;
@@ -227,7 +245,7 @@
 
                         $("#province").val(data.province);
                         $("#district").val(data.district);
-
+                        $("#ward").val("");
                     },
                     error: function (data) {
                         window.location = "${pageContext.request.contextPath}/LogoutLogin.action?";
@@ -246,6 +264,20 @@
                     dataType: "json",
                     type: "POST",
                     success: function (data) {
+                        
+                        var districtlist = data.districtList;
+                        $("#district option").remove();
+                        $('#district').append('<option value="">--Select District--</option>');
+                        $.each(districtlist, function (index, item) {
+                            $('#district').append("<option value='" + item.code + "'>" + item.description + "</option>");
+                        });
+
+                        var wardlist = data.wardList;
+                        $("#ward option").remove();
+                        $('#ward').append('<option value="">--Select Ward--</option>');
+                        $.each(wardlist, function (index, item) {
+                            $('#ward').append("<option value='" + item.code + "'>" + item.description + "</option>");
+                        });
 
                         if (keyval == "empty") {
                             var districtlist = data.districtList;
@@ -300,6 +332,21 @@
                     dataType: "json",
                     type: "POST",
                     success: function (data) {
+                        
+                        var districtlist = data.districtList;
+                        $("#district option").remove();
+                        $('#district').append('<option value="">--Select District--</option>');
+                        $.each(districtlist, function (index, item) {
+                            $('#district').append("<option value='" + item.code + "'>" + item.description + "</option>");
+                        });
+
+
+                        var lalist = data.laList;
+                        $("#la option").remove();
+                        $('#la').append('<option value="">--Select Local Authority--</option>');
+                        $.each(lalist, function (index, item) {
+                            $('#la').append("<option value='" + item.code + "'>" + item.description + "</option>");
+                        });
 
                         if (keyval == "empty") {
                             var districtlist = data.districtList;
