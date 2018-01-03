@@ -1,15 +1,13 @@
-package com.election.mapping;// Generated Dec 28, 2017 3:24:17 PM by Hibernate Tools 4.3.1
+package com.election.mapping;
+// Generated Jan 3, 2018 4:50:18 PM by Hibernate Tools 4.3.1
 
 
-import java.util.HashSet;
-import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -34,13 +32,11 @@ public class Party  implements java.io.Serializable {
      private String address;
      private String status;
      private byte[] image;
-     private Set<PartyLa> partyLas = new HashSet(0);
-//     private Set<Candidate> candidates = new HashSet(0);
 
     public Party() {
     }
 
-    public Party(String partyCode, String name, String description, String type, String contactNo, String email, String address, String status, byte[] image, Set<PartyLa> partyLas) {
+    public Party(String partyCode, String name, String description, String type, String contactNo, String email, String address, String status, byte[] image) {
        this.partyCode = partyCode;
        this.name = name;
        this.description = description;
@@ -50,8 +46,6 @@ public class Party  implements java.io.Serializable {
        this.address = address;
        this.status = status;
        this.image = image;
-       this.partyLas = partyLas;
-//       this.candidates = candidates;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -156,24 +150,6 @@ public class Party  implements java.io.Serializable {
         this.image = image;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="party")
-    public Set<PartyLa> getPartyLas() {
-        return this.partyLas;
-    }
-    
-    public void setPartyLas(Set<PartyLa> partyLas) {
-        this.partyLas = partyLas;
-    }
-
-//@OneToMany(fetch=FetchType.LAZY, mappedBy="party")
-//    public Set<Candidate> getCandidates() {
-//        return this.candidates;
-//    }
-//    
-//    public void setCandidates(Set<Candidate> candidates) {
-//        this.candidates = candidates;
-//    }
-//
 
 
 

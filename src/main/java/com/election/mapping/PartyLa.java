@@ -1,4 +1,6 @@
-package com.election.mapping;// Generated Dec 28, 2017 3:24:17 PM by Hibernate Tools 4.3.1
+package com.election.mapping;
+// Generated Jan 3, 2018 4:50:18 PM by Hibernate Tools 4.3.1
+
 
 
 import javax.persistence.Column;
@@ -23,7 +25,7 @@ public class PartyLa  implements java.io.Serializable {
 
      private Integer id;
      private LocalAuthority localAuthority;
-     private Party party;
+     private String partyCode;
      private String contactNo;
      private String address;
      private String username;
@@ -34,9 +36,9 @@ public class PartyLa  implements java.io.Serializable {
     public PartyLa() {
     }
 
-    public PartyLa(LocalAuthority localAuthority, Party party, String contactNo, String address, String username, String password, String oldPassword, String status) {
+    public PartyLa(LocalAuthority localAuthority, String partyCode, String contactNo, String address, String username, String password, String oldPassword, String status) {
        this.localAuthority = localAuthority;
-       this.party = party;
+       this.partyCode = partyCode;
        this.contactNo = contactNo;
        this.address = address;
        this.username = username;
@@ -67,14 +69,14 @@ public class PartyLa  implements java.io.Serializable {
         this.localAuthority = localAuthority;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="party_code")
-    public Party getParty() {
-        return this.party;
+    
+    @Column(name="party_code", length=45)
+    public String getPartyCode() {
+        return this.partyCode;
     }
     
-    public void setParty(Party party) {
-        this.party = party;
+    public void setPartyCode(String partyCode) {
+        this.partyCode = partyCode;
     }
 
     
