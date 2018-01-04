@@ -21,6 +21,9 @@ public class ServiceInputBean {
     private String status;
     private String message;
     
+    private String filename;
+    private String hiddenId;
+    
     private List<Type> statusList = new ArrayList<Type>();
     
     //for history
@@ -46,6 +49,22 @@ public class ServiceInputBean {
      */
     public String getId() {
         return id;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+
+    public String getHiddenId() {
+        return hiddenId;
+    }
+
+    public void setHiddenId(String hiddenId) {
+        this.hiddenId = hiddenId;
     }
 
     /**

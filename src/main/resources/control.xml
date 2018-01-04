@@ -39,11 +39,18 @@
         </action>
         <action name="*Service" method="{1}" class="com.election.action.ServiceAction">
             <result name="view">/WEB-INF/pages/servicelist/servicelist.jsp</result>
+            <result name="viewpopupcsv">/WEB-INF/pages/servicelist/serviceupload.jsp</result>
             <result name="message">/WEB-INF/pages/msgSpe.jsp</result>
             <result name="success"></result>
             <result name="list" type="json"></result>
             <result name="find" type="json"></result>
             <result name="delete" type="json"></result>
+            <result name="excelreport" type="stream">
+                <param name="contentType">application/octet-stream</param>
+                <param name="inputName">inputStream</param>
+                <param name="contentDisposition">attachment;filename="Template_Service_List.csv"</param>
+                <param name="bufferSize">4096</param>
+            </result>
             
         </action>
         <action name="*CandidateList" method="{1}" class="com.election.action.CandidateListAction">

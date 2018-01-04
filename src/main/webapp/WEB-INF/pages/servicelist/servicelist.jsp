@@ -38,10 +38,10 @@
                             $("#code").css("color", "black");
                             $('#code').attr('readOnly', false);
                             $('#name').val("");
-                            $('#description').val("");                            
+                            $('#description').val("");
                             $('#status').val("");
                             $('#updateButton').button("disable");
-                         
+
                         } else {
 
                             $('#code').val(data.code);
@@ -111,7 +111,7 @@
                 $('#name').val("");
                 $('#description').val("");
                 $('#status').val("");
-               
+
                 $('#addButton').button("enable");
                 $('#updateButton').button("disable");
 
@@ -171,6 +171,7 @@
 
                     <s:url var="addurl" action="addService"/>
                     <s:url var="updateurl" action="updateService"/>
+                    <s:url var="uploadurl" action="ViewPopupcsvService"/>   
 
                     <div class="row row_1 form-inline">
                         <div class="col-sm-12">
@@ -190,12 +191,33 @@
                                 <sj:submit button="true" value="Cancel" name="cancel" onClick="cancelPageAllData()"
                                            cssClass="btn btn-default"/>
                             </div>
+                            <sj:submit                                                      
+                                openDialog="remotedialog"
+                                button="true"
+                                href="%{uploadurl}"
+                                disabled="#vupload"
+                                value="Upload Merchant Customer"
+                                id="uploadButton"  
+                                cssClass="btn btn-default"
+                                />
+
 
                         </div>
                     </div>
                 </s:form>
             </div>
 
+            <sj:dialog                                     
+                id="remotedialog"                                 
+                autoOpen="false" 
+                modal="true" 
+                title="Upload Service List"                            
+                loadingText="Loading .."                            
+                position="center"                            
+                width="650"
+                height="350"
+                dialogClass= ""
+                />
             <!-- Start delete confirm dialog box -->
             <sj:dialog 
                 id="deletedialog" 

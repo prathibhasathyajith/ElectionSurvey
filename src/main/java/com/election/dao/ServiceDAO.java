@@ -249,4 +249,8 @@ public class ServiceDAO {
         return message;
     }
 
+    public String insertupdatetSL(ServiceInputBean inputBean) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

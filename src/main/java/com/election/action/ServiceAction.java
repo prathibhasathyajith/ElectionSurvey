@@ -13,10 +13,21 @@ import com.election.dao.ServiceDAO;
 import com.election.mapping.ServiceList;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import org.apache.commons.io.FileUtils;
+import org.apache.struts2.ServletActionContext;
 
 /**
  *
@@ -26,6 +37,72 @@ public class ServiceAction extends ActionSupport implements ModelDriven<Object> 
 
     ServiceInputBean inputBean = new ServiceInputBean();
 
+    private String conXLFileName;
+    private File conXL;
+    private String serverPath;
+    
+    private InputStream inputStream;
+    private String fileName;
+    private long contentLength;
+
+    public ServiceInputBean getInputBean() {
+        return inputBean;
+    }
+
+    public void setInputBean(ServiceInputBean inputBean) {
+        this.inputBean = inputBean;
+    }
+
+    public String getConXLFileName() {
+        return conXLFileName;
+    }
+
+    public void setConXLFileName(String conXLFileName) {
+        this.conXLFileName = conXLFileName;
+    }
+
+    public File getConXL() {
+        return conXL;
+    }
+
+    public void setConXL(File conXL) {
+        this.conXL = conXL;
+    }
+
+    public String getServerPath() {
+        return serverPath;
+    }
+
+    public void setServerPath(String serverPath) {
+        this.serverPath = serverPath;
+    }
+
+    public InputStream getInputStream() {
+        return inputStream;
+    }
+
+    public void setInputStream(InputStream inputStream) {
+        this.inputStream = inputStream;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public long getContentLength() {
+        return contentLength;
+    }
+
+    public void setContentLength(long contentLength) {
+        this.contentLength = contentLength;
+    }
+    
+    
+    
     @Override
     public Object getModel() {
         return inputBean;
@@ -60,6 +137,35 @@ public class ServiceAction extends ActionSupport implements ModelDriven<Object> 
 
         return msg;
     }
+    
+    public String ViewPopupcsv() {
+        String result = "viewpopupcsv";
+        System.out.println("called ServiceAction : ViewPopupcsv");
+        try {
+
+        } catch (Exception ex) {
+            addActionError("Merchant Mgt error occurred while processing");
+            Logger.getLogger(ServiceAction.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+    public String template() {
+        System.out.println("called ServiceAction: template");
+        try {
+            ServletContext context = ServletActionContext.getServletContext();
+            String destPath = context.getRealPath("/resources/csv_temp/service_list");
+            File fileToDownload = new File(destPath, "serviceList.csv");
+            inputStream = new FileInputStream(fileToDownload);
+            fileName = fileToDownload.getName();
+            contentLength = fileToDownload.length();
+        } catch (Exception e) {
+            Logger.getLogger(ServiceAction.class.getName()).log(Level.SEVERE, null, e);
+            addActionError("ServiceAction error occurred while processing");
+            return "message";
+        }
+        return "excelreport";
+    }
+    
 
     public String list() {
         System.out.println("called ServiceAction: List");
@@ -204,6 +310,145 @@ public class ServiceAction extends ActionSupport implements ModelDriven<Object> 
         }
         return retType;
     }
+    
+    public String upload() {
+        System.out.println("called ServiceAction : upload");
+        String result = "messagecsv";
+        Scanner content = null;
+        ServletContext context = ServletActionContext.getServletContext();
+        this.serverPath = context.getRealPath("/resources/csv_temp/service_list_csv");
+
+        try {
+            if (inputBean.getHiddenId() != null) {
+                HttpServletRequest request = ServletActionContext.getRequest();
+                System.err.println(request.getParameter("conXL"));
+                ServiceDAO dao = new ServiceDAO();
+
+                String message = "";
+                String token = "";
+                DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+                Date date = new Date();
+                System.out.println();
+
+                message = this.getFile(this.conXLFileName); // get file
+                System.err.println("message :" + message);
+                System.err.println(this.conXLFileName);
+                inputBean.setFilename(this.conXLFileName);
+                this.conXLFileName = dateFormat.format(date) + this.conXLFileName;
+
+                File directory = new File(serverPath);
+
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+
+                if (-1 != this.conXLFileName.lastIndexOf("\\")) {
+                    this.conXLFileName = this.conXLFileName.substring(this.conXLFileName.lastIndexOf("\\") + 1);
+                }
+                File filetoCreate = new File(serverPath, this.conXLFileName);
+
+                if (message.isEmpty()) {
+
+                    if (this.conXL == null) {
+                    } else {
+                        FileUtils.copyFile(this.conXL, filetoCreate);
+                    }
+
+                    content = new Scanner(this.conXL).useDelimiter("\\Z");
+                    String[] parts;
+                    int countrecord = 1;
+                    int succesrec = 0;
+                    boolean getline = false;
+                    while (content.hasNextLine()) {
+                        if (getline) {
+                            token = content.nextLine();
+                            System.err.println(token);
+                            parts = token.split("\\,");
+                            try {
+//                                inputBean.setMid(parts[0].trim());
+                                inputBean.setName(parts[1].trim());
+                                inputBean.setStatus(parts[2].trim());
+                            } catch (Exception ee) {
+                                message = "File has incorrectly ordered records";
+                            }
+                            countrecord++;
+                            if (parts.length == 3 && message.isEmpty()) {
+                                message = this.validateUploads();
+                                if (message.isEmpty()) {
+                                    message = dao.insertupdatetSL(inputBean);
+                                    if (message.isEmpty()) {
+                                        succesrec++;
+                                    }
+                                } else {
+                                    message = message + " at line number " + countrecord + ",success count :" + succesrec;
+                                    break;
+                                }
+
+                            } else {
+                                message = "File has incorrectly ordered records at line number " + countrecord + ",success count :" + succesrec;
+                            }
+                        } else {
+                            getline = true;
+                            content.nextLine();
+                        }
+                    }
+
+                }
+                if (message.isEmpty()) {
+                    addActionMessage("File uploaded successfully");
+                    System.err.println("File uploaded successfully");
+
+                } else {
+                    addActionError(message);
+                }
+            }
+        } catch (Exception ex) {
+            addActionError("Merchant customer error occurred while processing" );
+            Logger.getLogger(ServiceAction.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (content != null) {
+                content.close();
+            }
+        }
+        return result;
+    }
+    
+    public String getFile(String file) {
+        String mesEx = "";
+        if (file != null) {
+            mesEx = this.isCSV(this.conXLFileName);
+        } else {
+            mesEx = "Please choose a file to upload.";
+        }
+        return mesEx;
+    }
+    
+    public static String isCSV(String filename) {
+        String message = "";
+
+        List<String> extensions = new ArrayList<String>();
+        extensions.add("csv");
+//        extensions.add("doc");
+//        extensions.add("xlsm");
+
+        int pos = filename.lastIndexOf('.') + 1;
+        String ext = filename.substring(pos);
+        String final_ext = ext.toLowerCase();
+
+        for (int i = 0; i < extensions.size(); i++) {
+            if (extensions.get(i).equals(final_ext)) {
+                return message;
+
+            }
+        }
+        message = "Please upload file with following extension:";
+        for (int i = 0; i < extensions.size(); i++) {
+            message = message + extensions.get(i);
+
+        }
+        return message;
+//        return "";
+    }
 
     private String validateInputs() {
         String message = "";
@@ -218,6 +463,10 @@ public class ServiceAction extends ActionSupport implements ModelDriven<Object> 
         }
 
         return message;
+    }
+
+    private String validateUploads() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
