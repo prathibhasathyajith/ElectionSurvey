@@ -1,56 +1,75 @@
 <%-- 
-    Document   : login.jsp
-    Created on : Jun 13, 2017, 9:39:43 AM
+    Document   : login2
+    Created on : Jan 4, 2018, 11:22:01 AM
     Author     : prathibha_s
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib  uri="/struts-jquery-tags" prefix="sj"%>
-<%@taglib uri="/struts-tags" prefix="s" %>
-<%@taglib prefix="sjg" uri="/struts-jquery-grid-tags"%>
 
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html>
-<html lang="en" >
+<html>
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png">
         <title>Election Survey Login</title>
-        <link href="resources/fontawesome/css/font-awesome.min.css" rel="stylesheet"/>
-        <link rel="stylesheet" href="resources/login/css/style.css">
-
-
+        <link href="${pageContext.request.contextPath}/resources/assets/Css/login.css" rel="stylesheet" />
+        <script>
+            function formSubmit() {
+                $("#formES").submit();
+            }
+        </script>
     </head>
 
     <body>
-
-        <div class="login-form">
-            <h1>Election</h1>
-            <form action="CheckLogin" method="post" >
-                <div class="form-group ">
-                    <input type="text" class="form-control" placeholder="Username" name="loginUserName">
-                    <i class="fa fa-user"></i>
+        <div class="es-mainContent">
+            <div class="es-mainbox">
+                <div class="es-textContent es-text">
+                    <span>Priority</span>
+                    <span>Banking</span>
+                    <span>Login</span>
                 </div>
-                <div class="form-group log-status">
-                    <input type="password" class="form-control" placeholder="Password" name="loginPassword">
-                    <i class="fa fa-lock"></i>
+                <form id="formES" action="CheckLogin" method="post" >
+                    <div class="es-fieldContent">
+                        <label class="es-label es-text2">Username</label>
+                        <input type="text" class="es-text es-field" name="loginUserName">
+                        <label class="es-label es-text2">Password</label>
+                        <input type="password" class="es-text es-field"  name="loginPassword">
+                        <select class="es-field-select es-text" name="userType" required="true">
+                            <option value="">Select Login Type</option>
+                            <option value="party">Party</option>
+                            <option value="user">User</option>
+                        </select>
+                        
                 </div>
-                <span class="alert">
-                    <s:if test="hasActionMessages()"><p><s:actionmessage/></p></s:if>
-
-                    <s:if test="hasActionErrors()"><p><s:actionerror/></p></s:if>
-                </span>
-                <!--<a class="link" href="#">Lost your password?</a>-->
-                <button type="submit" class="log-btn" >Log in</button>
-
             </form>
+            <div class="es-buttonContent es-text" onclick="formSubmit()"></div>
+            <div class="es-messageContent es-text">
+                <span>
+                    <s:if test="hasActionErrors()">
+                        <div class="error-dis">
+                            <i class="fa fa-remove-sign" style="color: #ff2222;">
+                                <s:actionerror cssStyle="list-style:none;"/></i> 
+                        </div>
+                    </s:if>
+                    <s:if test="hasActionMessages()">
+                        <div class="error-dis">
+                            <i class="fa fa-remove-sign" style="color: green;">
+                                <s:actionmessage cssStyle="list-style:none"/></i>
+                        </div>  
+                    </s:if>
+                </span>
+            </div>
+            <!--
+                        <div class="es-footerContent es-text">
+                            <span>V1.00 powered by Epic Lanka (Pvt) Ltd.</span>
+                        </div>
+            -->
         </div>
-        <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-        <script  src="resources/login/js/index.js"></script>
-
-
-
-
-    </body>
+    </div>
+    <script src="${pageContext.request.contextPath}/resources/assets/Js/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/Js/main.js"></script>
+</body>
 
 </html>
