@@ -15,6 +15,7 @@ public class LoginInputBean {
     private String loginUserName;
     private String LoginPassword;
     private String userType;
+    private String userTypeRadio;
 
     //------Change password------//
     private String username;
@@ -136,4 +137,13 @@ public class LoginInputBean {
         this.message = message;
     }
 
+    public String getUserTypeRadio() {
+        return userTypeRadio;
+    }
+
+    public void setUserTypeRadio(String userTypeRadio) {
+        this.userTypeRadio = userTypeRadio;
+    }
+
+    
 }

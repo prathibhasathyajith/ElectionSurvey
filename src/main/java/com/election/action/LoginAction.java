@@ -52,8 +52,10 @@ public class LoginAction extends ActionSupport implements ModelDriven<Object> {
 
             String m = dao.checkUser(inputBean);
             
-            System.out.println("dddd"+inputBean.getLoginUserName());
-            System.out.println("dddd"+inputBean.getLoginPassword());
+            System.out.println("username "+inputBean.getLoginUserName());
+            System.out.println("password "+inputBean.getLoginPassword());
+            System.out.println("userType "+inputBean.getUserType());
+            System.out.println("userTypeR "+inputBean.getUserTypeRadio());
 
             if (m.equals("")) {
                 msg = "loginsuccess";

@@ -1,5 +1,6 @@
 
 <sj:head jqueryui="true" jquerytheme="mytheme2" customBasepath="resources/themes"/>  
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png"/>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootwatch/bootstrap.css"/>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/fontawesome/css/font-awesome.css"/>
 

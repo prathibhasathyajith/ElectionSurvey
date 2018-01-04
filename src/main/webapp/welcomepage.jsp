@@ -46,12 +46,7 @@
             transition: 0.5s;
 
         }
-        .text {
-            font-family: 'allerB2';
-            font-size: 47px;
-            margin-bottom: -29px;
-            margin-top: -16px;
-        }
+        
 
         #boxx:hover{
             cursor: pointer;
@@ -62,21 +57,27 @@
             box-shadow: 0px 0px 20px gray;
 
         }
-
+        #es{
+            font-family: 'allerB1';
+            font-size: 30px;
+            text-align: center;
+            color:white;
+            /*position: absolute;*/
+        }
 
 
 
 
     </style>
-    <body>
+    <body style="background-color: #01b0a9">
 
         <div class="container">
             <div class="container">
-                <div class="col-md-12" style="margin-top: 9%"></div>
-                <div class="col-md-3"></div>
-
-                <div class="col-md-6" id="boxx">
-                    <img src="resources/images/mapmaker.png" width="512" height="auto" onclick="myFunction()"/>
+                <div class="col-md-12" style="margin-top: 6%"></div>
+                <div class="col-md-12"><div id="es">Election Survey</div></div>
+                
+                <div class="col-md-12" id="boxx">
+                    <img style="margin-left: 25%" src="resources/assets/Images/election-day.jpg" width="400" height="auto" onclick="myFunction()"/>
                 </div>
                 <div class="col-md-3"></div>
                 
