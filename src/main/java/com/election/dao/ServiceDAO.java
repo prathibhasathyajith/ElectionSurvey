@@ -108,7 +108,6 @@ public class ServiceDAO {
             Date sysDate = CommonDAO.getSystemDate(session);
 
             ServiceList ser = CommonDAO.getServiceID(inputBean.getCode());
-            
 
             if (ser == null) {
                 txn = session.beginTransaction();
@@ -250,7 +249,93 @@ public class ServiceDAO {
     }
 
     public String insertupdatetSL(ServiceInputBean inputBean) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//        Session session = null;
+//        Transaction txn = null;
+//        String message = "";
+//        try {
+//            session = HibernateInit.sessionFactory.openSession();
+//            Date sysDate = CommonDAO.getSystemDate(session);
+//            MercustomersOri u = (MercustomersOri) session.get(MercustomersOri.class, inputBean.getMid().trim());
+//            if (u == null) {
+//                txn = session.beginTransaction();
+//
+//                MercustomersOri mc = new MercustomersOri();
+//
+//                mc.setName(inputBean.getName().trim());
+//                mc.setMid(inputBean.getMid());
+//
+//                Status st = (Status) session.get(Status.class, CommonVarList.STATUS_ACTIVE);
+//                mc.setStatus(st);
+//
+//                mc.setCreateTime(sysDate);
+//                mc.setLastupdateduser(audit.getLastupdateduser());
+//                mc.setLastUpdatedTime(sysDate);
+//
+//                String newVal = mc.getMid() + "|"
+//                        + mc.getName() + "|"
+//                        + mc.getStatus().getDescription();
+//
+//                audit.setDescription("Merchant customer code " + inputBean.getMid() + " added via file : " + inputBean.getFilename() + " by " + audit.getLastupdateduser());
+//                audit.setNewvalue(newVal);
+//                audit.setCreatetime(sysDate);
+//                audit.setLastupdatedtime(sysDate);
+//
+//                session.save(audit);
+//                session.save(mc);
+//
+//                txn.commit();
+//            } else {
+//                txn = session.beginTransaction();
+//
+//                String oldVal = u.getMid() + "|"
+//                        + u.getName() + "|"
+//                        + u.getStatus().getDescription();
+//
+//                u.setName(inputBean.getName().trim());
+//                u.setMid(inputBean.getMid());
+//
+//                Status st = (Status) session.get(Status.class, CommonVarList.STATUS_ACTIVE);
+//                u.setStatus(st);
+//
+//                u.setCreateTime(sysDate);
+//                u.setLastUpdatedTime(sysDate);
+//                u.setLastupdateduser(audit.getLastupdateduser());
+//
+//                String newVal = u.getMid() + "|"
+//                        + u.getName() + "|"
+//                        + u.getStatus().getDescription();
+//
+//                audit.setDescription("Merchant customer code " + inputBean.getMid() + " updated via file : " + inputBean.getFilename() + " by " + audit.getLastupdateduser());
+//                audit.setTaskcode(TaskVarList.UPDATE_TASK);
+//
+//                System.out.println("value length " + newVal.length());
+//
+//                audit.setNewvalue(newVal);
+//                audit.setOldvalue(oldVal);
+//                audit.setCreatetime(sysDate);
+//                audit.setLastupdatedtime(sysDate);
+//
+//                session.save(audit);
+//                session.saveOrUpdate(u);
+//
+//                txn.commit();
+//
+//            }
+//        } catch (Exception e) {
+//            if (txn != null) {
+//                txn.rollback();
+//            }
+//            throw e;
+//        } finally {
+//            try {
+//                session.flush();
+//                session.close();
+//            } catch (Exception e) {
+//                throw e;
+//            }
+//        }
+//        return message;
+        return "";
     }
 
 }
