@@ -21,7 +21,7 @@ import org.apache.struts2.ServletActionContext;
 public class LoginAction extends ActionSupport implements ModelDriven<Object> {
 
     LoginInputBean inputBean = new LoginInputBean();
-    
+
     @Override
     public Object getModel() {
         return inputBean;
@@ -47,15 +47,22 @@ public class LoginAction extends ActionSupport implements ModelDriven<Object> {
             HttpSession session = ServletActionContext.getRequest().getSession(true);
             session.setAttribute("SYSTEMUSER", inputBean.getLoginUserName());
             session.setAttribute("SYSTEMUSERPASS", inputBean.getLoginPassword());
+            session.setAttribute("SYSTEMUSERTYPE", inputBean.getUserType());
 
             LoginDAO dao = new LoginDAO();
+            String m = "";
+            if (inputBean.getUserType().equals("user")) {
+                m = dao.checkUser(inputBean);
+            } else if (inputBean.getUserType().equals("party")) {
+                m = dao.checkUser(inputBean);
+            } else {
+                m = "NOT";
+            }
 
-            String m = dao.checkUser(inputBean);
-            
-            System.out.println("username "+inputBean.getLoginUserName());
-            System.out.println("password "+inputBean.getLoginPassword());
-            System.out.println("userType "+inputBean.getUserType());
-            System.out.println("userTypeR "+inputBean.getUserTypeRadio());
+            System.out.println("username " + inputBean.getLoginUserName());
+            System.out.println("password " + inputBean.getLoginPassword());
+            System.out.println("userType " + inputBean.getUserType());
+            System.out.println("userTypeR " + inputBean.getUserTypeRadio());
 
             if (m.equals("")) {
                 msg = "loginsuccess";
@@ -65,12 +72,15 @@ public class LoginAction extends ActionSupport implements ModelDriven<Object> {
             } else if (m.equals("deact")) {
                 addActionError("User not Activated");
                 msg = "loginmessage";
+            } else if (m.equals("NOT")) {
+                addActionError("Please select user type");
+                msg = "loginmessage";
             } else {
                 addActionError("Username or Password incorrect");
                 msg = "loginmessage";
             }
-            
-            System.out.println("ms 2 "+m);
+
+            System.out.println("ms 2 " + m);
 
         } catch (Exception e) {
             System.out.println("check " + e);
@@ -82,12 +92,13 @@ public class LoginAction extends ActionSupport implements ModelDriven<Object> {
         return msg;
 
     }
-    
+
     public String logout() {
         String result = "";
         System.out.println("called LoginAction : logout");
         try {
             HttpSession session = ServletActionContext.getRequest().getSession(false);
+            session.setAttribute("SYSTEMUSERTYPE", null);
             session.invalidate();
             result = "logout";
         } catch (Exception e) {

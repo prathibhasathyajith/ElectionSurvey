@@ -89,4 +89,8 @@ public class LoginDAO {
 
         return hexString.toString();
     }
+
+    public String checkParty(LoginInputBean inputBean) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

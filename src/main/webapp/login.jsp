@@ -32,7 +32,7 @@
                 </div>
                 <form id="formES" action="CheckLogin" method="post" >
                     <div class="es-fieldContent">
-                        <label class="es-label es-text2">Username</label>
+                        <label class="es-label es-text2">Username(User/Party)</label>
                         <input type="text" class="es-text es-field" name="loginUserName">
                         <label class="es-label es-text2">Password</label>
                         <input type="password" class="es-text es-field"  name="loginPassword">
@@ -61,11 +61,6 @@
                     </s:if>
                 </span>
             </div>
-            <!--
-                        <div class="es-footerContent es-text">
-                            <span>V1.00 powered by Epic Lanka (Pvt) Ltd.</span>
-                        </div>
-            -->
         </div>
     </div>
     <script src="${pageContext.request.contextPath}/resources/assets/Js/jquery.min.js"></script>

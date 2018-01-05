@@ -6,7 +6,7 @@
 
 <struts>
     
-    <package name="com.election.action" namespace="/" extends="struts-default,json-default">
+    <package name="com.election.action" namespace="/" extends="pglobal">
         
         <action name="*Login" method="{1}" class="com.election.action.LoginAction">
             <result name="loginsuccess">/WEB-INF/pages/home.jsp</result>
