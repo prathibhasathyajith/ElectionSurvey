@@ -40,7 +40,7 @@ public class ServiceAction extends ActionSupport implements ModelDriven<Object> 
     private String conXLFileName;
     private File conXL;
     private String serverPath;
-    
+
     private InputStream inputStream;
     private String fileName;
     private long contentLength;
@@ -100,9 +100,7 @@ public class ServiceAction extends ActionSupport implements ModelDriven<Object> 
     public void setContentLength(long contentLength) {
         this.contentLength = contentLength;
     }
-    
-    
-    
+
     @Override
     public Object getModel() {
         return inputBean;
@@ -137,7 +135,7 @@ public class ServiceAction extends ActionSupport implements ModelDriven<Object> 
 
         return msg;
     }
-    
+
     public String ViewPopupcsv() {
         String result = "viewpopupcsv";
         System.out.println("called ServiceAction : ViewPopupcsv");
@@ -149,6 +147,7 @@ public class ServiceAction extends ActionSupport implements ModelDriven<Object> 
         }
         return result;
     }
+
     public String template() {
         System.out.println("called ServiceAction: template");
         try {
@@ -165,7 +164,6 @@ public class ServiceAction extends ActionSupport implements ModelDriven<Object> 
         }
         return "excelreport";
     }
-    
 
     public String list() {
         System.out.println("called ServiceAction: List");
@@ -310,13 +308,13 @@ public class ServiceAction extends ActionSupport implements ModelDriven<Object> 
         }
         return retType;
     }
-    
+
     public String upload() {
         System.out.println("called ServiceAction : upload");
         String result = "messagecsv";
         Scanner content = null;
         ServletContext context = ServletActionContext.getServletContext();
-        this.serverPath = context.getRealPath("/resources/csv_temp/service_list_csv");
+        this.serverPath = context.getRealPath("/resources/csv_temp/service_list");
 
         try {
             if (inputBean.getHiddenId() != null) {
@@ -365,14 +363,15 @@ public class ServiceAction extends ActionSupport implements ModelDriven<Object> 
                             System.err.println(token);
                             parts = token.split("\\,");
                             try {
-//                                inputBean.setMid(parts[0].trim());
+                                inputBean.setCode(parts[0].trim());
                                 inputBean.setName(parts[1].trim());
-                                inputBean.setStatus(parts[2].trim());
+                                inputBean.setDescription(parts[2].trim());
+                                inputBean.setStatus(parts[3].trim());
                             } catch (Exception ee) {
                                 message = "File has incorrectly ordered records";
                             }
                             countrecord++;
-                            if (parts.length == 3 && message.isEmpty()) {
+                            if (parts.length == 4 && message.isEmpty()) {
                                 message = this.validateUploads();
                                 if (message.isEmpty()) {
                                     message = dao.insertupdatetSL(inputBean);
@@ -403,7 +402,7 @@ public class ServiceAction extends ActionSupport implements ModelDriven<Object> 
                 }
             }
         } catch (Exception ex) {
-            addActionError("Merchant customer error occurred while processing" );
+            addActionError("Service error occurred while processing");
             Logger.getLogger(ServiceAction.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (content != null) {
@@ -412,7 +411,7 @@ public class ServiceAction extends ActionSupport implements ModelDriven<Object> 
         }
         return result;
     }
-    
+
     public String getFile(String file) {
         String mesEx = "";
         if (file != null) {
@@ -422,14 +421,12 @@ public class ServiceAction extends ActionSupport implements ModelDriven<Object> 
         }
         return mesEx;
     }
-    
+
     public static String isCSV(String filename) {
         String message = "";
 
         List<String> extensions = new ArrayList<String>();
         extensions.add("csv");
-//        extensions.add("doc");
-//        extensions.add("xlsm");
 
         int pos = filename.lastIndexOf('.') + 1;
         String ext = filename.substring(pos);
@@ -447,7 +444,6 @@ public class ServiceAction extends ActionSupport implements ModelDriven<Object> 
 
         }
         return message;
-//        return "";
     }
 
     private String validateInputs() {
@@ -466,7 +462,28 @@ public class ServiceAction extends ActionSupport implements ModelDriven<Object> 
     }
 
     private String validateUploads() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String message = "";
+        if (inputBean.getCode() == null || inputBean.getCode().trim().isEmpty()) {
+            message = "Service code cannot be empty";
+        } else if (inputBean.getName() == null || inputBean.getName().trim().isEmpty()) {
+            message = "Service Name cannot be empty";
+        } else if (inputBean.getDescription() != null && inputBean.getDescription().isEmpty()) {
+            message = "Service Description cannot be empty";
+        } else if (inputBean.getStatus() == null || inputBean.getStatus().trim().isEmpty()) {
+            message = "Status cannot be empty";
+        } else {
+            if (inputBean.getCode().length() > 45) {
+                message = "Service code length should be lower than 45";
+            } else if (inputBean.getStatus().equals("ACT")) {
+                message = "";
+            } else if (inputBean.getStatus().equals("DEACT")) {
+                message = "";
+            }else{
+                message = "Status code invalid";
+            }
+        }
+
+        return message;
     }
 
 }

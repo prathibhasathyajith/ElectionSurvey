@@ -137,19 +137,24 @@ public class CandidateDAO {
         String where = "1=1";
 
         if (inputBean.getProvince()!= null && !inputBean.getProvince().isEmpty()) {
-            where += " and lower(u.ward.localAuthority.district.province.code) like lower('%" + inputBean.getProvince() + "%')";
+//            where += " and lower(u.ward.localAuthority.district.province.code) like lower('%" + inputBean.getProvince() + "%')";
+            where += " and u.ward.localAuthority.district.province.code = '" + inputBean.getProvince() + "'";
         }
         if (inputBean.getDistrict()!= null && !inputBean.getDistrict().isEmpty()) {
-            where += " and lower(u.ward.localAuthority.district.code) like lower('%" + inputBean.getDistrict() + "%')";
+//            where += " and lower(u.ward.localAuthority.district.code) like lower('%" + inputBean.getDistrict() + "%')";
+            where += " and u.ward.localAuthority.district.code = '" + inputBean.getDistrict() + "'";
         }
         if (inputBean.getLa()!= null && !inputBean.getLa().isEmpty()) {
-            where += " and lower(u.ward.localAuthority.code) like lower('%" + inputBean.getLa() + "%')";
+//            where += " and lower(u.ward.localAuthority.code) like lower('%" + inputBean.getLa() + "%')";
+            where += " and u.ward.localAuthority.code = '" + inputBean.getLa() + "'";
         }
         if (inputBean.getWard()!= null && !inputBean.getWard().isEmpty()) {
-            where += " and lower(u.ward.code) like lower('%" + inputBean.getWard() + "%')";
+//            where += " and lower(u.ward.code) like lower('%" + inputBean.getWard() + "%')";
+            where += " and u.ward.code = '" + inputBean.getWard() + "'";
         }
         if (inputBean.getParty()!= null && !inputBean.getParty().isEmpty()) {
-            where += " and lower(u.partyCode) like lower('%" + inputBean.getParty() + "%')";
+//            where += " and lower(u.partyCode) like lower('%" + inputBean.getParty() + "%')";
+            where += " and u.partyCode = '" + inputBean.getParty() + "'";
         }
         return where;
     }

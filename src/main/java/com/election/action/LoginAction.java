@@ -82,4 +82,21 @@ public class LoginAction extends ActionSupport implements ModelDriven<Object> {
         return msg;
 
     }
+    
+    public String logout() {
+        String result = "";
+        System.out.println("called LoginAction : logout");
+        try {
+            HttpSession session = ServletActionContext.getRequest().getSession(false);
+            session.invalidate();
+            result = "logout";
+        } catch (Exception e) {
+            System.out.println("Logout " + e);
+            Logger.getLogger(LoginAction.class.getName()).log(Level.SEVERE, null, e);
+            result = "loginsuccess";
+        }
+
+        return result;
+    }
+
 }

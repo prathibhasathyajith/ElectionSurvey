@@ -11,6 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="resources/css/common_popup.css" rel="stylesheet"/>
         <title>Insert Merchant</title>
 
         <script>
@@ -24,11 +25,11 @@
             function resetCSV() {
 
                 $('#conXL').val("");
-                refreshMerchantCustomer();
+                refreshService();
 
             }
             function resetMessage() {
-                
+
                 $('#csvmessage').text("");
             }
             function todo() {
@@ -38,20 +39,18 @@
             }
 
         </script>
+        
     </head>
-    <body>
+    <body style="font-family: Raleway">
         <s:div id="csvmessage">
             <s:actionerror theme="jquery" />
             <s:actionmessage theme="jquery"/>
         </s:div>
 
-        <s:set id="vupload" var="vupload"><s:property value="vupload" default="true"/></s:set>
         <s:form id="serviceCsv" method="post"   theme="simple" cssClass="form" >
-
-
             <div class="row row_popup">
                 <div class="row form-inline">
-                    <div class="col-sm-12">
+                    <div class="col-sm-12" style="margin-top: 10PX;">
                         <div class="form-group">
                             <input type="hidden" name="hiddenId" id="hiddenId" value="" />
                             <%--<s:hidden id="conXL" name="conXL" ></s:hidden>--%>
@@ -67,18 +66,18 @@
                 </div>
 
                 <div class="row row_popup form-inline">
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
                         <div class="form-group">
-                            <span class="mandatoryfield">Mandatory fields are marked with *</span>
+                            <span class="mandatoryfield">Mandatory fields are marked with <span style="color:red">*</span></span>
                         </div>
                     </div>
-                    <div class="col-sm-6 text-right">
+                    <div class="col-sm-8 text-right">
                         <div class="form-group" style=" margin-left: 10px;margin-right: 0px;">
                             <sj:submit 
                                 button="true" 
                                 value="Template" 
                                 onClick="todo()"
-                                cssClass="btn btn-default btn-sm"
+                                cssClass=""
                                 />                          
                         </div>
                         <div class="form-group" style=" margin-left: 0px;margin-right: 0px;">
@@ -86,7 +85,7 @@
                                 button="true" 
                                 value="Reset" 
                                 onClick="resetAllDataCSV()"
-                                cssClass="btn btn-default btn-sm"
+                                cssClass=""
                                 />                          
                         </div>               
                         <div class="form-group" style=" margin-left: 0px;margin-right: 10px;">
@@ -95,12 +94,10 @@
                                 button="true"
                                 href="%{uploadurl}"
                                 value="Upload"
-                                disabled="#vupload"
                                 onClickTopics=""
                                 targets="csvmessage"
                                 id="uploadbtncsv"
-                                cssClass="btn btn-sm active" 
-                                cssStyle="background-color: #ada9a9"
+                                cssClass="" 
                                 />
                         </div>
 

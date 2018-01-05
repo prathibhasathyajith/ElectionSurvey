@@ -94,6 +94,33 @@ public class CommonDAO {
         return candidateBean;
     }
     
+    public static ServiceList getServiceListID(String code) throws Exception {
+        
+        ServiceList serviceList = null;
+        Session session = null;
+        try {
+            session = HibernateInit.sessionFactory.openSession();
+            String sql = "from ServiceList as s where s.code =:code";
+            Query query = session.createQuery(sql).setString("code", code);
+//            partyBean = (Party) query.list().get(0);
+
+            if (query.list().size() > 0) {
+                serviceList = (ServiceList) query.list().get(0);
+            }
+            
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            try {
+                session.flush();
+                session.close();
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        return serviceList;
+    }
+    
     public static ServiceList getServiceID(String code) throws Exception {
         ServiceList serviceList = null;
         Session session = null;

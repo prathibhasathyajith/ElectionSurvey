@@ -375,7 +375,7 @@
                             emptySearchParams();
 
                         }else{
-                            searchParams();
+                            
                         }
 
 
@@ -383,6 +383,7 @@
                         $("#province").val(data.province);
                         $("#district").val(data.district);
                         $("#la").val(data.la);
+                        searchParams();
                     },
                     error: function (data) {
                         window.location = "${pageContext.request.contextPath}/LogoutLogin.action?";
@@ -396,6 +397,7 @@
                 var localAuthority = $('#la').val();
                 var ward = $('#ward').val();
                 var party = $('#party').val();
+                                
                 $("#gridtable").jqGrid('setGridParam', {
                     postData: {
                         province: province,

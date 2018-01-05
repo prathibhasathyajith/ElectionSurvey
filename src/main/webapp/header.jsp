@@ -35,11 +35,12 @@
     </div>
 </header>
 <div class="dropdown">
-    <s:form action="ViewCPSearch" method="post" id="f" theme="simple" cssStyle="float:left">
+<!--    <s:form action="ViewCPSearch" method="post" id="f" theme="simple" cssStyle="float:left">
         <input type="submit" value="Change Password" class="changePassBut headerBut" style="margin-right: 5px" />
-    </s:form>
-    <s:form action="LogoutSearch" method="post" id="ff" theme="simple" cssStyle="float:left">
-        <input type="submit" value="Logout" class="logoutBut headerBut" />
-    </s:form>
+    </s:form>-->
+    <!--<s:form action="logoutLogout" method="post" id="ff" theme="simple" cssStyle="float:left">-->
+        <!--<input type="submit" value="Logout" class="logoutBut headerBut" />-->
+        <a style="float:left" class="logoutBut headerBut" href="logoutLogin.action">Logout</a>
+    <!--</s:form>-->
 </div>
 

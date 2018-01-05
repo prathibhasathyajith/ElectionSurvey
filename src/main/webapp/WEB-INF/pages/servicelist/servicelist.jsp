@@ -122,9 +122,30 @@
                 $('#addButton').button("enable");
                 $('#updateButton').button("disable");
             }
+            function refreshService() {
+                $("#gridtable").jqGrid('setGridParam', {page: 1});
+                jQuery("#gridtable").trigger("reloadGrid");
+            }
 
 
         </script>
+        <style>
+            .ui-jqgrid .ui-jqgrid-title {
+                font-size: 13px;
+                padding-left: 10px;
+            }
+            .dialogclass {
+                height: 100%;
+                width: 100%;
+                top: 0px;
+                left: 0px;
+                display: block;
+                margin-left: 0px;
+                z-index: 10000;
+                margin-top: 0;
+                position: fixed;
+            }
+        </style>
     </head>
     <body>
         <!--header-->
@@ -191,16 +212,18 @@
                                 <sj:submit button="true" value="Cancel" name="cancel" onClick="cancelPageAllData()"
                                            cssClass="btn btn-default"/>
                             </div>
-                            <sj:submit                                                      
-                                openDialog="remotedialog"
-                                button="true"
-                                href="%{uploadurl}"
-                                disabled="#vupload"
-                                value="Upload Merchant Customer"
-                                id="uploadButton"  
-                                cssClass="btn btn-default"
-                                />
-
+                            <div class="form-group">
+                                <sj:submit                                                      
+                                    openDialog="remotedialog"
+                                    button="true"
+                                    href="%{uploadurl}"
+                                    disabled="#vupload"
+                                    value="Upload Merchant Customer"
+                                    id="uploadButton"  
+                                    cssClass="btn btn-warning"
+                                    cssStyle="margin-left:30px"
+                                    />
+                            </div>
 
                         </div>
                     </div>
@@ -216,7 +239,7 @@
                 position="center"                            
                 width="650"
                 height="350"
-                dialogClass= ""
+                dialogClass= "dialogclass"
                 />
             <!-- Start delete confirm dialog box -->
             <sj:dialog 

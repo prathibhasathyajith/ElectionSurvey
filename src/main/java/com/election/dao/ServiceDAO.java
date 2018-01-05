@@ -248,94 +248,65 @@ public class ServiceDAO {
         return message;
     }
 
-    public String insertupdatetSL(ServiceInputBean inputBean) {
-//        Session session = null;
-//        Transaction txn = null;
-//        String message = "";
-//        try {
-//            session = HibernateInit.sessionFactory.openSession();
-//            Date sysDate = CommonDAO.getSystemDate(session);
-//            MercustomersOri u = (MercustomersOri) session.get(MercustomersOri.class, inputBean.getMid().trim());
-//            if (u == null) {
-//                txn = session.beginTransaction();
-//
-//                MercustomersOri mc = new MercustomersOri();
-//
-//                mc.setName(inputBean.getName().trim());
-//                mc.setMid(inputBean.getMid());
-//
-//                Status st = (Status) session.get(Status.class, CommonVarList.STATUS_ACTIVE);
-//                mc.setStatus(st);
-//
-//                mc.setCreateTime(sysDate);
-//                mc.setLastupdateduser(audit.getLastupdateduser());
-//                mc.setLastUpdatedTime(sysDate);
-//
-//                String newVal = mc.getMid() + "|"
-//                        + mc.getName() + "|"
-//                        + mc.getStatus().getDescription();
-//
-//                audit.setDescription("Merchant customer code " + inputBean.getMid() + " added via file : " + inputBean.getFilename() + " by " + audit.getLastupdateduser());
-//                audit.setNewvalue(newVal);
-//                audit.setCreatetime(sysDate);
-//                audit.setLastupdatedtime(sysDate);
-//
-//                session.save(audit);
-//                session.save(mc);
-//
-//                txn.commit();
-//            } else {
-//                txn = session.beginTransaction();
-//
-//                String oldVal = u.getMid() + "|"
-//                        + u.getName() + "|"
-//                        + u.getStatus().getDescription();
-//
-//                u.setName(inputBean.getName().trim());
-//                u.setMid(inputBean.getMid());
-//
-//                Status st = (Status) session.get(Status.class, CommonVarList.STATUS_ACTIVE);
-//                u.setStatus(st);
-//
-//                u.setCreateTime(sysDate);
-//                u.setLastUpdatedTime(sysDate);
-//                u.setLastupdateduser(audit.getLastupdateduser());
-//
-//                String newVal = u.getMid() + "|"
-//                        + u.getName() + "|"
-//                        + u.getStatus().getDescription();
-//
-//                audit.setDescription("Merchant customer code " + inputBean.getMid() + " updated via file : " + inputBean.getFilename() + " by " + audit.getLastupdateduser());
-//                audit.setTaskcode(TaskVarList.UPDATE_TASK);
-//
-//                System.out.println("value length " + newVal.length());
-//
-//                audit.setNewvalue(newVal);
-//                audit.setOldvalue(oldVal);
-//                audit.setCreatetime(sysDate);
-//                audit.setLastupdatedtime(sysDate);
-//
-//                session.save(audit);
-//                session.saveOrUpdate(u);
-//
-//                txn.commit();
-//
-//            }
-//        } catch (Exception e) {
-//            if (txn != null) {
-//                txn.rollback();
-//            }
-//            throw e;
-//        } finally {
-//            try {
-//                session.flush();
-//                session.close();
-//            } catch (Exception e) {
-//                throw e;
-//            }
-//        }
-//        return message;
-        return "";
+    public String insertupdatetSL(ServiceInputBean inputBean) throws Exception {
+        Session session = null;
+        Transaction txn = null;
+        String message = "";
+        try {
+            session = HibernateInit.sessionFactory.openSession();
+            Date sysDate = CommonDAO.getSystemDate(session);
+
+            System.out.println("code " + inputBean.getCode());
+            System.out.println("name " + inputBean.getName());
+            System.out.println("des " + inputBean.getDescription());
+            System.out.println("status " + inputBean.getStatus());
+
+            ServiceList sl = CommonDAO.getServiceListID(inputBean.getCode());
+            ServiceList u = null;
+            if (sl != null) {
+                u = (ServiceList) session.get(ServiceList.class, sl.getId());
+            }
+
+            if (u == null) {
+                txn = session.beginTransaction();
+
+                ServiceList slst = new ServiceList();
+
+                slst.setCode(inputBean.getCode().trim());
+                slst.setName(inputBean.getName());
+                slst.setDescription(inputBean.getDescription());
+                slst.setStatus(inputBean.getStatus());
+
+                session.save(slst);
+
+                txn.commit();
+            } else {
+                txn = session.beginTransaction();
+
+                u.setCode(inputBean.getCode().trim());
+                u.setName(inputBean.getName());
+                u.setDescription(inputBean.getDescription());
+                u.setStatus(inputBean.getStatus());
+
+                session.saveOrUpdate(u);
+
+                txn.commit();
+
+            }
+        } catch (Exception e) {
+            if (txn != null) {
+                txn.rollback();
+            }
+            throw e;
+        } finally {
+            try {
+                session.flush();
+                session.close();
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        return message;
     }
 
 }
