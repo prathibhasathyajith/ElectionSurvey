@@ -30,6 +30,8 @@
     <mapping class="com.election.mapping.LocalAuthority"/>
     <mapping class="com.election.mapping.Ward"/>
     <mapping class="com.election.mapping.ServiceList"/>
+    <mapping class="com.election.mapping.ElectionSurveyInfo"/>
+    <mapping class="com.election.mapping.Voting"/>
 
   </session-factory>
 </hibernate-configuration>

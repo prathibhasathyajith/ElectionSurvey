@@ -41,15 +41,17 @@ Contributor(s):
 -->
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="elect_survey"/>
-  <table-filter match-name="candidate_list"/>
-  <table-filter match-name="service_list"/>
-  <table-filter match-name="party_la"/>
+  <table-filter match-name="party"/>
   <table-filter match-name="user"/>
-  <table-filter match-name="candidate"/>
-  <table-filter match-name="local_authority"/>
-  <table-filter match-name="election_survey"/>
+  <table-filter match-name="election_survey_info"/>
   <table-filter match-name="province"/>
   <table-filter match-name="district"/>
+  <table-filter match-name="service_list"/>
+  <table-filter match-name="voting"/>
+  <table-filter match-name="local_authority"/>
+  <table-filter match-name="election_survey"/>
   <table-filter match-name="ward"/>
-  <table-filter match-name="party"/>
+  <table-filter match-name="candidate_list"/>
+  <table-filter match-name="candidate"/>
+  <table-filter match-name="party_la"/>
 </hibernate-reverse-engineering>
