@@ -1,5 +1,5 @@
 package com.election.mapping;
-// Generated Dec 31, 2017 1:00:40 PM by Hibernate Tools 4.3.1
+// Generated Jan 7, 2018 2:28:48 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -44,7 +44,7 @@ public class Candidate  implements java.io.Serializable {
     public Candidate() {
     }
 
-    public Candidate(Ward ward, String partyCode, String name, String nic, String contactNo, String address, String gender, String youth, String username, String password, String oldPassword, String status, Set<CandidateList> candidateLists, Set<ElectionSurvey> electionSurveys) {
+    public Candidate(Ward ward, String partyCode, String name, String nic, String contactNo, String address, String gender, String youth, String username, String password, String oldPassword, String status,Set<CandidateList> candidateLists, Set<ElectionSurvey> electionSurveys) {
        this.ward = ward;
        this.partyCode = partyCode;
        this.name = name;

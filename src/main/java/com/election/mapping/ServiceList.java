@@ -1,4 +1,5 @@
-package com.election.mapping;// Generated Dec 28, 2017 3:24:17 PM by Hibernate Tools 4.3.1
+package com.election.mapping;
+// Generated Jan 7, 2018 2:28:48 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -27,17 +28,17 @@ public class ServiceList  implements java.io.Serializable {
      private String name;
      private String description;
      private String status;
-     private Set<ElectionSurvey> electionSurveys = new HashSet(0);
+     private Set<ElectionSurveyInfo> electionSurveyInfos = new HashSet(0);
 
     public ServiceList() {
     }
 
-    public ServiceList(String code, String name, String description, String status, Set<ElectionSurvey> electionSurveys) {
+    public ServiceList(String code, String name, String description, String status, Set<ElectionSurveyInfo> electionSurveyInfos) {
        this.code = code;
        this.name = name;
        this.description = description;
        this.status = status;
-       this.electionSurveys = electionSurveys;
+       this.electionSurveyInfos = electionSurveyInfos;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -93,12 +94,12 @@ public class ServiceList  implements java.io.Serializable {
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="serviceList")
-    public Set<ElectionSurvey> getElectionSurveys() {
-        return this.electionSurveys;
+    public Set<ElectionSurveyInfo> getElectionSurveyInfos() {
+        return this.electionSurveyInfos;
     }
     
-    public void setElectionSurveys(Set<ElectionSurvey> electionSurveys) {
-        this.electionSurveys = electionSurveys;
+    public void setElectionSurveyInfos(Set<ElectionSurveyInfo> electionSurveyInfos) {
+        this.electionSurveyInfos = electionSurveyInfos;
     }
 
 

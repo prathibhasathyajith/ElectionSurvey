@@ -1,4 +1,5 @@
-package com.election.mapping;// Generated Dec 28, 2017 3:24:17 PM by Hibernate Tools 4.3.1
+package com.election.mapping;
+// Generated Jan 7, 2018 2:28:48 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -26,6 +27,7 @@ public class Ward  implements java.io.Serializable {
      private LocalAuthority localAuthority;
      private String description;
      private Set<Candidate> candidates = new HashSet(0);
+     private Set<Voting> votings = new HashSet(0);
      private Set<CandidateList> candidateLists = new HashSet(0);
 
     public Ward() {
@@ -35,11 +37,12 @@ public class Ward  implements java.io.Serializable {
     public Ward(String code) {
         this.code = code;
     }
-    public Ward(String code, LocalAuthority localAuthority, String description, Set<Candidate> candidates, Set<CandidateList> candidateLists) {
+    public Ward(String code, LocalAuthority localAuthority, String description, Set<Candidate> candidates, Set<Voting> votings, Set<CandidateList> candidateLists) {
        this.code = code;
        this.localAuthority = localAuthority;
        this.description = description;
        this.candidates = candidates;
+       this.votings = votings;
        this.candidateLists = candidateLists;
     }
    
@@ -82,6 +85,15 @@ public class Ward  implements java.io.Serializable {
     
     public void setCandidates(Set<Candidate> candidates) {
         this.candidates = candidates;
+    }
+
+@OneToMany(fetch=FetchType.LAZY, mappedBy="ward")
+    public Set<Voting> getVotings() {
+        return this.votings;
+    }
+    
+    public void setVotings(Set<Voting> votings) {
+        this.votings = votings;
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="ward")

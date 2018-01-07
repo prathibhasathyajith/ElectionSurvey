@@ -1,6 +1,5 @@
 package com.election.mapping;
-// Generated Jan 3, 2018 4:50:18 PM by Hibernate Tools 4.3.1
-
+// Generated Jan 7, 2018 2:28:48 PM by Hibernate Tools 4.3.1
 
 
 import javax.persistence.Column;

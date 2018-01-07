@@ -1,4 +1,5 @@
-package com.election.mapping;// Generated Dec 28, 2017 3:24:17 PM by Hibernate Tools 4.3.1
+package com.election.mapping;
+// Generated Jan 7, 2018 2:28:48 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -27,6 +28,7 @@ public class LocalAuthority  implements java.io.Serializable {
      private String description;
      private Set<PartyLa> partyLas = new HashSet(0);
      private Set<Ward> wards = new HashSet(0);
+     private Set<Voting> votings = new HashSet(0);
 
     public LocalAuthority() {
     }
@@ -35,12 +37,13 @@ public class LocalAuthority  implements java.io.Serializable {
     public LocalAuthority(String code) {
         this.code = code;
     }
-    public LocalAuthority(String code, District district, String description, Set<PartyLa> partyLas, Set<Ward> wards) {
+    public LocalAuthority(String code, District district, String description, Set<PartyLa> partyLas, Set<Ward> wards, Set<Voting> votings) {
        this.code = code;
        this.district = district;
        this.description = description;
        this.partyLas = partyLas;
        this.wards = wards;
+       this.votings = votings;
     }
    
      @Id 
@@ -91,6 +94,15 @@ public class LocalAuthority  implements java.io.Serializable {
     
     public void setWards(Set<Ward> wards) {
         this.wards = wards;
+    }
+
+@OneToMany(fetch=FetchType.LAZY, mappedBy="localAuthority")
+    public Set<Voting> getVotings() {
+        return this.votings;
+    }
+    
+    public void setVotings(Set<Voting> votings) {
+        this.votings = votings;
     }
 
 

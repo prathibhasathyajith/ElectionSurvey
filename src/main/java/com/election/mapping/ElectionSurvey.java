@@ -1,12 +1,16 @@
-package com.election.mapping;// Generated Dec 28, 2017 3:24:17 PM by Hibernate Tools 4.3.1
+package com.election.mapping;
+// Generated Jan 7, 2018 2:28:48 PM by Hibernate Tools 4.3.1
 
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -21,7 +25,7 @@ public class ElectionSurvey  implements java.io.Serializable {
 
      private int id;
      private Candidate candidate;
-     private ServiceList serviceList;
+     private Set<ElectionSurveyInfo> electionSurveyInfos = new HashSet(0);
 
     public ElectionSurvey() {
     }
@@ -30,10 +34,10 @@ public class ElectionSurvey  implements java.io.Serializable {
     public ElectionSurvey(int id) {
         this.id = id;
     }
-    public ElectionSurvey(int id, Candidate candidate, ServiceList serviceList) {
+    public ElectionSurvey(int id, Candidate candidate, Set<ElectionSurveyInfo> electionSurveyInfos) {
        this.id = id;
        this.candidate = candidate;
-       this.serviceList = serviceList;
+       this.electionSurveyInfos = electionSurveyInfos;
     }
    
      @Id 
@@ -58,14 +62,13 @@ public class ElectionSurvey  implements java.io.Serializable {
         this.candidate = candidate;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="service_list_id")
-    public ServiceList getServiceList() {
-        return this.serviceList;
+@OneToMany(fetch=FetchType.LAZY, mappedBy="electionSurvey")
+    public Set<ElectionSurveyInfo> getElectionSurveyInfos() {
+        return this.electionSurveyInfos;
     }
     
-    public void setServiceList(ServiceList serviceList) {
-        this.serviceList = serviceList;
+    public void setElectionSurveyInfos(Set<ElectionSurveyInfo> electionSurveyInfos) {
+        this.electionSurveyInfos = electionSurveyInfos;
     }
 
 
