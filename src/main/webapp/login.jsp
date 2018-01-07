@@ -33,7 +33,7 @@
                 <form id="formES" action="CheckLogin" method="post" >
                     <div class="es-fieldContent">
                         <label class="es-label es-text2">Username(User/Party)</label>
-                        <input type="text" class="es-text es-field" name="loginUserName">
+                        <input type="text" class="es-text es-field" name="loginUserName" >
                         <label class="es-label es-text2">Password</label>
                         <input type="password" class="es-text es-field"  name="loginPassword">
                         <select class="es-field-select es-text" name="userType" required="true">

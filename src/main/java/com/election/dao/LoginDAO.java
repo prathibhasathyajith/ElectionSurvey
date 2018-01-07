@@ -7,6 +7,7 @@ package com.election.dao;
 
 import com.election.bean.LoginInputBean;
 import com.election.listener.HibernateInit;
+import com.election.mapping.PartyLa;
 import com.election.mapping.User;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -20,6 +21,7 @@ import org.hibernate.Session;
  * @author prathibha
  */
 public class LoginDAO {
+
     public String checkUser(LoginInputBean inputBean) throws Exception {
         List<User> laList = new ArrayList<User>();
         Session session = null;
@@ -28,10 +30,9 @@ public class LoginDAO {
             session = HibernateInit.sessionFactory.openSession();
 
 //            String hash = this.HashSHA256(inputBean.getLoginPassword());
-
             String hql = "from User as t where t.username =:username and LOWER(t.password)=:password and t.userType=:userType  order by Upper(t.username) asc";
             Query query = session.createQuery(hql).setString("username", inputBean.getLoginUserName())
-//                    .setString("password", hash.toLowerCase())
+                    //                    .setString("password", hash.toLowerCase())
                     .setString("password", inputBean.getLoginPassword())
                     .setString("userType", "USR");
 
@@ -42,7 +43,7 @@ public class LoginDAO {
                     des = "";
                 } else if (laList.get(0).getUserStatus().equals("NEW")) {
                     des = "new";
-                }else if (laList.get(0).getUserStatus().equals("DEACT")) {
+                } else if (laList.get(0).getUserStatus().equals("DEACT")) {
                     des = "deact";
                 }
             } else {
@@ -90,7 +91,43 @@ public class LoginDAO {
         return hexString.toString();
     }
 
-    public String checkParty(LoginInputBean inputBean) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String checkParty(LoginInputBean inputBean) throws Exception {
+        List<PartyLa> partyLa = new ArrayList<PartyLa>();
+        Session session = null;
+        String des = "";
+        try {
+            session = HibernateInit.sessionFactory.openSession();
+
+//            String hash = this.HashSHA256(inputBean.getLoginPassword());
+            String hql = "from PartyLa as p where p.username =:username and LOWER(p.password)=:password order by Upper(p.username) asc";
+            Query query = session.createQuery(hql).setString("username", inputBean.getLoginUserName())
+                    //                    .setString("password", hash.toLowerCase())
+                    .setString("password", inputBean.getLoginPassword());
+
+            partyLa = (List<PartyLa>) query.list();
+
+            if (partyLa.size() > 0) {
+                if (partyLa.get(0).getStatus().equals("ACT")) {
+                    des = "";
+                } else if (partyLa.get(0).getStatus().equals("DEACT")) {
+                    des = "deact";
+                }
+            } else {
+                des = "error";
+            }
+
+        } catch (Exception e) {
+            des = "error";
+            throw e;
+        } finally {
+            try {
+                session.flush();
+                session.close();
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+
+        return des;
     }
 }

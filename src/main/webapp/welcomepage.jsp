@@ -46,7 +46,7 @@
             transition: 0.5s;
 
         }
-        
+
 
         #boxx:hover{
             cursor: pointer;
@@ -75,12 +75,12 @@
             <div class="container">
                 <div class="col-md-12" style="margin-top: 6%"></div>
                 <div class="col-md-12"><div id="es">Election Survey</div></div>
-                
+
                 <div class="col-md-12" id="boxx">
                     <img style="margin-left: 25%" src="resources/assets/Images/election-day.jpg" width="400" height="auto" onclick="myFunction()"/>
                 </div>
                 <div class="col-md-3"></div>
-                
+
             </div>
         </div>
 
