@@ -7,6 +7,7 @@ package com.election.dao;
 
 import com.election.bean.LoginInputBean;
 import com.election.listener.HibernateInit;
+import com.election.mapping.Candidate;
 import com.election.mapping.PartyLa;
 import com.election.mapping.User;
 import java.security.MessageDigest;
@@ -110,6 +111,46 @@ public class LoginDAO {
                 if (partyLa.get(0).getStatus().equals("ACT")) {
                     des = "";
                 } else if (partyLa.get(0).getStatus().equals("DEACT")) {
+                    des = "deact";
+                }
+            } else {
+                des = "error";
+            }
+
+        } catch (Exception e) {
+            des = "error";
+            throw e;
+        } finally {
+            try {
+                session.flush();
+                session.close();
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+
+        return des;
+    }
+    
+    public String checkCandidate(LoginInputBean inputBean) throws Exception {
+        List<Candidate> candidate = new ArrayList<Candidate>();
+        Session session = null;
+        String des = "";
+        try {
+            session = HibernateInit.sessionFactory.openSession();
+
+//            String hash = this.HashSHA256(inputBean.getLoginPassword());
+            String hql = "from Candidate as c where c.username =:username and LOWER(c.password)=:password order by Upper(c.username) asc";
+            Query query = session.createQuery(hql).setString("username", inputBean.getLoginUserName())
+                    //                    .setString("password", hash.toLowerCase())
+                    .setString("password", inputBean.getLoginPassword());
+
+            candidate = (List<Candidate>) query.list();
+
+            if (candidate.size() > 0) {
+                if (candidate.get(0).getStatus().equals("ACT")) {
+                    des = "";
+                } else if (candidate.get(0).getStatus().equals("DEACT")) {
                     des = "deact";
                 }
             } else {

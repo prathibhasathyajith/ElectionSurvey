@@ -40,6 +40,7 @@
                             <option value="">Select Login Type</option>
                             <option value="party">Party</option>
                             <option value="user">User</option>
+                            <option value="admin">Admin</option>
                         </select>
                         
                 </div>

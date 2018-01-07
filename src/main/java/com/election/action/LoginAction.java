@@ -52,9 +52,11 @@ public class LoginAction extends ActionSupport implements ModelDriven<Object> {
             LoginDAO dao = new LoginDAO();
             String m = "";
             if (inputBean.getUserType().equals("user")) {
-                m = dao.checkUser(inputBean);
+                m = dao.checkCandidate(inputBean);
             } else if (inputBean.getUserType().equals("party")) {
                 m = dao.checkParty(inputBean);
+            } else if (inputBean.getUserType().equals("admin")) {
+                m = dao.checkUser(inputBean);
             } else {
                 m = "NOT";
             }
