@@ -73,15 +73,16 @@ public class VotingSummaryAction extends ActionSupport implements ModelDriven<Ob
             if (inputBean.getWard() != null && !inputBean.getWard().isEmpty()) {
                 VotingSummaryDAO dao = new VotingSummaryDAO();
                 System.out.println("in-1");
-                List<CountVoteSummary> cs = dao.loadDeatils(inputBean);
+                List<CountVoteSummary> dataList = dao.loadDeatils(inputBean);
+                inputBean.setCountList(dataList);
                 
-                System.out.println("count | party | %");
-                for(CountVoteSummary ss: cs){
-                    
-                    System.out.println(ss.getCount()+"        "+ss.getColumName1()+"       "+ss.getPercentage1());
-                }
-                System.out.println("persentage " + inputBean.getFullCount());
-                
+//                System.out.println("count | party | %");
+//                for(CountVoteSummary ss: cs){
+//                    
+//                    System.out.println(ss.getCount()+"        "+ss.getColumName1()+"       "+ss.getPercentage1());
+//                }
+//                System.out.println("persentage " + inputBean.getFullCount());
+//                
                 
             }else{
                 inputBean.setMessage("Empty detail");

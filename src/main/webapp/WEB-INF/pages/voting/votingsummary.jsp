@@ -17,7 +17,7 @@
         <link href="${pageContext.request.contextPath}/resources/css/multi-select.css" rel="stylesheet"/>
         <script src="${pageContext.request.contextPath}/resources/javascript/jquery.multi-select.js" ></script>
         <script>
-            
+
             function changeDistrictFromProvince(keyval) {
 
                 if (keyval == '') {
@@ -251,12 +251,12 @@
                     }
                 });
             }
-            
-            function load(){
+
+            function load() {
 //                var ward = $("#ward").val();
                 var ward = 'KURKGMCKGW';
 //                var type = $("#types").val();
-                var type = 'USER';
+                var type = 'PARTY';
 
                 $.ajax({
                     url: '${pageContext.request.contextPath}/loadVotingSummary.action',
@@ -264,14 +264,25 @@
                     dataType: "json",
                     type: "POST",
                     success: function (data) {
-                        alert("success");
+
+                        var detais = data.countList;
+                        $.each(detais, function (index, item) {
+                            console.log("count- " + item.count + " percntage- " + item.percentage1)
+                            $('#tablee').append("<tr><td>" + item.columName1 + "</td><td>" + item.count + "</td><td>" + item.percentage1 + "<td></tr>");
+                        });
+
+//                        addTable(detais);
+                        console.log("Full count- " + data.fullCount)
+
+
+
                     },
 
                     error: function (data) {
                         window.location = "${pageContext.request.contextPath}/logoutLogin.action?";
                     }
                 });
-            
+
             }
 
 
@@ -321,7 +332,7 @@
                             <s:select  cssClass="form-control" id="types" list="%{typeList}"  headerValue="--List Type--" headerKey="" name="type" listKey="code" listValue="description" />
                         </div>
                     </div>
-                    
+
                     <div class="col-sm-3">
                         <div class="form-group">
                             <span style="color: red">*</span><label>Province</label>
@@ -346,14 +357,24 @@
                             <s:select onchange="changeAllFromWard(this.value);" cssClass="form-control" id="ward" list="%{wardList}"  headerValue="--Select Ward--" headerKey="" name="ward" listKey="code" listValue="description" />
                         </div>
                     </div>
-                  
+
 
                 </s:form>
+
+                <div id="metric_results">
+                    <table id="tablee" >
+                        <tr>
+                            <th>Party</th>
+                            <th>Count</th>
+                            <th>Percentage</th>
+                        </tr>
+                    </table>
+                </div>
 
                 <div class="row form-inline">
                     <div class="col-sm-12" style="margin-left: 15px;">
                         <div class="form-group">
-                            <input type="button" id="assignBut" class="btn btn-success" onclick="load()"  value="Assign" />
+                            <input type="button" id="assignBut" class="btn btn-success" onclick="load()"  value="Search" />
                         </div>
                         <div class="form-group">
                             <input type="button" id="resetBut" class="btn btn-success" onclick=""  value="Reset" />
