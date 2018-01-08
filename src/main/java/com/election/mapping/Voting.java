@@ -31,16 +31,19 @@ public class Voting  implements java.io.Serializable {
      private String vote;
      private Date datetime;
      private String userId;
+     private String userType;
 
     public Voting() {
     }
 
-    public Voting(LocalAuthority localAuthority, Ward ward, String vote, Date datetime, String userId) {
+    public Voting(LocalAuthority localAuthority, Ward ward, String vote, Date datetime, String userId,String userType) {
        this.localAuthority = localAuthority;
        this.ward = ward;
        this.vote = vote;
        this.datetime = datetime;
        this.userId = userId;
+       this.userType = userType;
+       
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -104,9 +107,15 @@ public class Voting  implements java.io.Serializable {
     public void setUserId(String userId) {
         this.userId = userId;
     }
+    @Column(name="user_type")
+    public String getUserType() {
+        return userType;
+    }
 
-
-
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+   
 
 }
 

@@ -72,7 +72,15 @@
             <result name="delete" type="json"></result>
             
         </action>
-        
+        <action name="*VotingSummary" method="{1}" class="com.election.action.VotingSummaryAction">
+            <result name="view">/WEB-INF/pages/voting/votingsummary.jsp</result>
+            <result name="message">/WEB-INF/pages/msgSpe.jsp</result>
+            <result name="success"></result>
+            <result name="list" type="json"></result>
+            <result name="find" type="json"></result>
+            <result name="delete" type="json"></result>
+            
+        </action>
     </package>
 </struts>
 
