@@ -43,7 +43,7 @@ public class LoginCANDAO {
                 String sqlSearch = "SELECT COUNT(*), c.username, V.WARD_CODE,c.party_code "
                         + "FROM elect_survey.candidate c "
                         + "INNER JOIN elect_survey.VOTING V ON c.username = V.USER_ID "
-                        + "GROUP BY c.username, V.WARD_CODE,V.USER_TYPE "
+                        + "GROUP BY c.username, V.WARD_CODE,V.USER_TYPE,c.party_code "
                         + "HAVING V.WARD_CODE = '" + ward + "' and V.USER_TYPE = 'USER' ";
 
                 Query querySearch = session.createSQLQuery(sqlSearch);
@@ -132,7 +132,7 @@ public class LoginCANDAO {
                 String sqlSearch = "SELECT COUNT(*), c.username, V.WARD_CODE,c.party_code "
                         + "FROM elect_survey.candidate c "
                         + "INNER JOIN elect_survey.VOTING V ON c.username = V.USER_ID "
-                        + "GROUP BY c.username, V.WARD_CODE,V.USER_TYPE "
+                        + "GROUP BY c.username, V.WARD_CODE,V.USER_TYPE,c.party_code "
                         + "HAVING V.USER_TYPE = 'USER' and c.username = '" + username + "' ";
 
                 Query querySearch = session.createSQLQuery(sqlSearch);
