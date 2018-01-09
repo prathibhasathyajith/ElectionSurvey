@@ -37,7 +37,7 @@
 #table-Summary tr:nth-child(even){background-color: #f2f2f2;}
 #table-Summary tr:nth-child(odd){background-color: #ffffff;}
 
-#table-Summary tr:hover {background-color: #ddd;}
+/*#table-Summary tr:hover {background-color: #ddd;}*/
 
 #table-Summary th {
     padding-top: 4px;
@@ -46,3 +46,52 @@
     background-color: #009688;
     color: white;
 }
+
+/*candidate*/
+#candidateLogin {
+    font-family: Raleway;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#candidateLogin td, #candidateLogin th {
+    border: 1px solid #ddd;
+    padding: 3px 15px;
+}
+
+#candidateLogin tr:nth-child(even){background-color: #f2f2f2;}
+#candidateLogin tr:nth-child(odd){background-color: #ffffff;}
+#candidateLogin tr:hover {background-color: #ddd;}
+
+#candidateLogin th {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    text-align: left;
+    background-color: #009688;
+    color: white;
+}
+
+/*party*/
+#partyLogin {
+    font-family: Raleway;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#partyLogin td, #partyLogin th {
+    border: 1px solid #ddd;
+    padding: 3px 15px;
+}
+
+#partyLogin tr:nth-child(even){background-color: #f2f2f2;}
+#partyLogin tr:nth-child(odd){background-color: #ffffff;}
+#partyLogin tr:hover {background-color: #ddd;}
+
+#partyLogin th {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    text-align: left;
+    background-color: #009688;
+    color: white;
+}
+

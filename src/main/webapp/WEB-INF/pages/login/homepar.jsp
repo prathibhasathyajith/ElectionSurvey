@@ -13,6 +13,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Election</title>
+        <link href="${pageContext.request.contextPath}/resources/css/table.css" rel="stylesheet"/>
         <%@include file="/stylelinks.jspf" %>
     </head>
     <body>
@@ -21,7 +22,27 @@
         <!--nav bar-->
         <jsp:include page="/navbar.jsp"/>
         <!--body content-->
-        <div class="cont-body">PARTY</div>
+        <div class="cont-body">
+            <div class="cont-breadCrumb">Party details</div>
+            <h4>${PARTYLAOBJECT.partyCode}</h4>
+            <h4>${PARTYOBJECT.name}</h4>
+            <div class="cont-table">
+                <table id="partyLogin">
+                    <tr>
+                        <th>Vote Count</th>  
+                        <th>Ward Code</th>  
+                        <th>Percentage</th>
+                    </tr>
+                    <s:iterator  value="countList">  
+                        <tr>
+                            <td><s:property value="count"/></td>
+                            <td><s:property value="columName1"/></td>
+                            <td><s:property value="percentage1"/></td>
+                        </tr>
+                    </s:iterator>  
+                </table>
+            </div>
+        </div>
         <!--footer-->
         <jsp:include page="/footer.jsp"/>
     </body>
