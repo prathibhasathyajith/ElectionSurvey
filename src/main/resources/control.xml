@@ -21,6 +21,7 @@
             <result name="welcome">/welcomepage.jsp</result>
         </action>
         
+        <!--party login action-->
         <action name="*LoginPAR" method="{1}" class="com.election.action.LoginPARAction">
             <result name="view">/WEB-INF/pages/login/homepar.jsp</result>
             <result name="message">/WEB-INF/pages/msgSpe.jsp</result>
@@ -30,6 +31,7 @@
             <result name="delete" type="json"></result>
         </action>
         
+        <!--candidate login action-->
         <action name="*LoginCAN" method="{1}" class="com.election.action.LoginCANAction">
             <result name="view">/WEB-INF/pages/login/homecan.jsp</result>
             <result name="message">/WEB-INF/pages/msgSpe.jsp</result>

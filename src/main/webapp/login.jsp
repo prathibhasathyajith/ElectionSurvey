@@ -44,7 +44,7 @@
                         <select class="es-field-select es-text" name="userType" required="true">
                             <option value="">Select Login Type</option>
                             <option value="party">Party</option>
-                            <option value="user">User</option>
+                            <option value="user">Candidate</option>
                             <option value="admin">Admin</option>
                         </select>
 
