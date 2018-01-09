@@ -68,6 +68,10 @@ public class LoginAction extends ActionSupport implements ModelDriven<Object> {
 
             if (m.equals("")) {
                 msg = "loginsuccess";
+            } else if (m.equals("CAN")) {
+                msg = "loginsuccessCAN";
+            } else if (m.equals("PAR")) {
+                msg = "loginsuccessPAR";
             } else if (m.equals("new")) {
                 inputBean.setUsername(inputBean.getLoginUserName());
                 msg = "firstattempt";
@@ -101,6 +105,12 @@ public class LoginAction extends ActionSupport implements ModelDriven<Object> {
         try {
             HttpSession session = ServletActionContext.getRequest().getSession(false);
             session.setAttribute("SYSTEMUSERTYPE", null);
+            session.setAttribute("SYSTEMUSER", null);
+            session.setAttribute("SYSTEMUSERPASS", null);
+            session.setAttribute("PARTYLAOBJECT", null);
+            session.setAttribute("PARTYOBJECT", null);
+            session.setAttribute("CANDIDATEOBJECT", null);
+            
             session.invalidate();
             result = "logout";
         } catch (Exception e) {

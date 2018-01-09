@@ -27,7 +27,7 @@
     </script>
 </head>
 <header>
-    <div class="cont"><i class="fa fa-cube" aria-hidden="true"></i> Some Header</div>
+    <div class="cont"><i class="fa fa-cube" aria-hidden="true"></i> Some Header</div><span id="sysType">Logged as ${SYSTEMUSERTYPE}</span>
     <div class="coner">
         <div class="box"></div>
         <div class="box"></div>

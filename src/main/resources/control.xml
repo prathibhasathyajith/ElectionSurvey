@@ -10,6 +10,8 @@
         
         <action name="*Login" method="{1}" class="com.election.action.LoginAction">
             <result name="loginsuccess">/WEB-INF/pages/home.jsp</result>
+            <result name="loginsuccessCAN" type="redirect">${pageContext.request.contextPath}/viewLoginCAN</result>
+            <result name="loginsuccessPAR" type="redirect">${pageContext.request.contextPath}/viewLoginPAR</result>
             <result name="loginmessage">/login.jsp</result>
             <result name="firstattempt">/WEB-INF/pages/passwordchange.jsp</result>
             <result name="passwordpage">/WEB-INF/pages/passwordchange.jsp</result>
@@ -17,6 +19,24 @@
             <result name="success"></result>
             <result name="logout">/login.jsp</result>
             <result name="welcome">/welcomepage.jsp</result>
+        </action>
+        
+        <action name="*LoginPAR" method="{1}" class="com.election.action.LoginPARAction">
+            <result name="view">/WEB-INF/pages/login/homepar.jsp</result>
+            <result name="message">/WEB-INF/pages/msgSpe.jsp</result>
+            <result name="success"></result>
+            <result name="list" type="json"></result>
+            <result name="find" type="json"></result>
+            <result name="delete" type="json"></result>
+        </action>
+        
+        <action name="*LoginCAN" method="{1}" class="com.election.action.LoginCANAction">
+            <result name="view">/WEB-INF/pages/login/homecan.jsp</result>
+            <result name="message">/WEB-INF/pages/msgSpe.jsp</result>
+            <result name="success"></result>
+            <result name="list" type="json"></result>
+            <result name="find" type="json"></result>
+            <result name="delete" type="json"></result>
         </action>
         
         <action name="*Party" method="{1}" class="com.election.action.PartyAction">

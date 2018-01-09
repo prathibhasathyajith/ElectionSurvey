@@ -17,8 +17,13 @@
         <link href="${pageContext.request.contextPath}/resources/assets/Css/login.css" rel="stylesheet" />
         <script>
             function formSubmit() {
+                window.localStorage.removeItem("item");
                 $("#formES").submit();
             }
+//            var ids = window.localStorage.getItem("item");
+//            alert("login "+ ids);
+//            $("#" + ids).removeClass("active");
+            
         </script>
     </head>
 
@@ -42,30 +47,30 @@
                             <option value="user">User</option>
                             <option value="admin">Admin</option>
                         </select>
-                        
+
+                    </div>
+                </form>
+                <div class="es-buttonContent es-text" onclick="formSubmit()"></div>
+                <div class="es-messageContent es-text">
+                    <span>
+                        <s:if test="hasActionErrors()">
+                            <div class="error-dis">
+                                <i class="fa fa-remove-sign" style="color: #ff2222;">
+                                    <s:actionerror cssStyle="list-style:none;"/></i> 
+                            </div>
+                        </s:if>
+                        <s:if test="hasActionMessages()">
+                            <div class="error-dis">
+                                <i class="fa fa-remove-sign" style="color: green;">
+                                    <s:actionmessage cssStyle="list-style:none"/></i>
+                            </div>  
+                        </s:if>
+                    </span>
                 </div>
-            </form>
-            <div class="es-buttonContent es-text" onclick="formSubmit()"></div>
-            <div class="es-messageContent es-text">
-                <span>
-                    <s:if test="hasActionErrors()">
-                        <div class="error-dis">
-                            <i class="fa fa-remove-sign" style="color: #ff2222;">
-                                <s:actionerror cssStyle="list-style:none;"/></i> 
-                        </div>
-                    </s:if>
-                    <s:if test="hasActionMessages()">
-                        <div class="error-dis">
-                            <i class="fa fa-remove-sign" style="color: green;">
-                                <s:actionmessage cssStyle="list-style:none"/></i>
-                        </div>  
-                    </s:if>
-                </span>
             </div>
         </div>
-    </div>
-    <script src="${pageContext.request.contextPath}/resources/assets/Js/jquery.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/Js/main.js"></script>
-</body>
+        <script src="${pageContext.request.contextPath}/resources/assets/Js/jquery.min.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/assets/Js/main.js"></script>
+    </body>
 
 </html>

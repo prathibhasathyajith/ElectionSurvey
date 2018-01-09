@@ -21,7 +21,8 @@ import java.util.logging.Logger;
  *
  * @author prathibha_s
  */
-public class VotingSummaryAction extends ActionSupport implements ModelDriven<Object>{
+public class VotingSummaryAction extends ActionSupport implements ModelDriven<Object> {
+
     VotingSummaryInputBean inputBean = new VotingSummaryInputBean();
 
     @Override
@@ -33,7 +34,7 @@ public class VotingSummaryAction extends ActionSupport implements ModelDriven<Ob
         System.out.println("called VotingSummaryAction : execute");
         return SUCCESS;
     }
-    
+
     public String view() {
         System.out.println("called VotingSummaryAction : view");
         String msg = "view";
@@ -50,13 +51,12 @@ public class VotingSummaryAction extends ActionSupport implements ModelDriven<Ob
             typeList.add(list);
 
             inputBean.setTypeList(typeList);
-            
+
             VotingSummaryDAO dao = new VotingSummaryDAO();
             dao.getProvinceList(inputBean);
             dao.getDistrictList(inputBean);
             dao.getLAList(inputBean);
             dao.getWardList(inputBean);
-            
 
         } catch (Exception e) {
             addActionError("Voting Summary error occurred while processing");
@@ -65,29 +65,33 @@ public class VotingSummaryAction extends ActionSupport implements ModelDriven<Ob
 
         return msg;
     }
-    
+
     public String load() {
         System.out.println("called VotingSummaryAction : load");
         String msg = "list";
+        String message = "";
         try {
-            if (inputBean.getWard() != null && !inputBean.getWard().isEmpty()) {
-                VotingSummaryDAO dao = new VotingSummaryDAO();
-                System.out.println("in-1");
-                List<CountVoteSummary> dataList = dao.loadDeatils(inputBean);
-                inputBean.setCountList(dataList);
-                
-//                System.out.println("count | party | %");
-//                for(CountVoteSummary ss: cs){
-//                    
-//                    System.out.println(ss.getCount()+"        "+ss.getColumName1()+"       "+ss.getPercentage1());
-//                }
-//                System.out.println("persentage " + inputBean.getFullCount());
-//                
-                
-            }else{
-                inputBean.setMessage("Empty detail");
+
+            message = this.validateInputs();
+            System.out.println("message " + message);
+            if (message.isEmpty()) {
+                if (inputBean.getWard() != null && !inputBean.getWard().isEmpty()) {
+
+                    System.out.println("ward " + inputBean.getWard());
+                    System.out.println("type " + inputBean.getType());
+
+                    VotingSummaryDAO dao = new VotingSummaryDAO();
+                    List<CountVoteSummary> dataList = dao.loadDeatils(inputBean);
+                    inputBean.setCountList(dataList);
+
+                } else {
+                    inputBean.setMessage("Empty detail");
+                }
+            } else {
+                addActionError(message);
+                inputBean.setMessage(message);
             }
-            
+
         } catch (Exception e) {
             addActionError("Voting Summary load error occurred while processing");
             Logger.getLogger(VotingSummaryAction.class.getName()).log(Level.SEVERE, null, e);
@@ -95,7 +99,7 @@ public class VotingSummaryAction extends ActionSupport implements ModelDriven<Ob
 
         return msg;
     }
-    
+
     //    ================ drop down load ===================
     public String findDistrict() throws Exception {
         System.out.println("called VotingSummaryAction: findDistrict from province");
@@ -198,4 +202,15 @@ public class VotingSummaryAction extends ActionSupport implements ModelDriven<Ob
         }
         return "list";
     }
+
+    private String validateInputs() {
+        String message = "";
+        if (inputBean.getWard() == null || inputBean.getWard().trim().isEmpty()) {
+            message = "Ward cannot be empty";
+        } else if (inputBean.getType() == null || inputBean.getType().trim().isEmpty()) {
+            message = "Search type cannot be empty";
+        }
+        return message;
+    }
+
 }

@@ -15,6 +15,7 @@
         <title>Voting Summary</title>
         <%@include file="/stylelinks.jspf" %>
         <link href="${pageContext.request.contextPath}/resources/css/multi-select.css" rel="stylesheet"/>
+        <link href="${pageContext.request.contextPath}/resources/css/table.css" rel="stylesheet"/>
         <script src="${pageContext.request.contextPath}/resources/javascript/jquery.multi-select.js" ></script>
         <script>
 
@@ -186,7 +187,6 @@
             }
 
             function changeAllFromWard(keyval) {
-
                 if (keyval == '') {
                     keyval = "empty";
                 }
@@ -253,10 +253,10 @@
             }
 
             function load() {
-//                var ward = $("#ward").val();
-                var ward = 'KURKGMCKGW';
-//                var type = $("#types").val();
-                var type = 'PARTY';
+                var ward = $("#ward").val();
+//                var ward = 'KURKGMCKGW';
+                var type = $("#types").val();
+//                var type = 'USER';
 
                 $.ajax({
                     url: '${pageContext.request.contextPath}/loadVotingSummary.action',
@@ -265,15 +265,39 @@
                     type: "POST",
                     success: function (data) {
 
-                        var detais = data.countList;
-                        $.each(detais, function (index, item) {
-                            console.log("count- " + item.count + " percntage- " + item.percentage1)
-                            $('#tablee').append("<tr><td>" + item.columName1 + "</td><td>" + item.count + "</td><td>" + item.percentage1 + "<td></tr>");
-                        });
+                        if (data.message == null) {
+                            var detais = data.countList;
 
-//                        addTable(detais);
-                        console.log("Full count- " + data.fullCount)
+                            $("#searchResults").hide();
+                            $('#table-votingSummary').empty();
+                            $('#table-Summary').empty();
+                            $("#errorMsg").empty();
 
+                            if (data.fullCount != null) {
+                                if (type == 'PARTY') {
+                                    $('#table-votingSummary').append("<tr><th>Party</th><th>Vote Count</th><th>Percentage</th></tr>");
+                                    $.each(detais, function (index, item) {
+                                        $('#table-votingSummary').append("<tr><td>" + item.columName1 + "</td><td>" + item.count + "</td><td>" + item.percentage1 + "</td></tr>");
+                                    });
+                                } else if (type == 'USER') {
+                                    $('#table-votingSummary').append("<tr><th>Candidate</th><th>Vote Count</th><th>Percentage</th><th>Party</th></tr>");
+                                    $.each(detais, function (index, item) {
+                                        $('#table-votingSummary').append("<tr><td>" + item.columName1 + "</td><td>" + item.count + "</td><td>" + item.percentage1 + "</td><td>" + item.columName3 + "</td></tr>");
+                                    });
+                                }
+                                $('#table-Summary').append("<tr><td>Total number of valid votes</td><td>" + data.fullCount + "</tr>");
+                            }else{
+                                $("#searchResults").show();
+                                $("#searchResults").text("No results found");
+                            }
+                            
+                            
+
+
+                        } else {
+                            $("#messageRes").text(data.message);
+                            $("#errorMsg").show();
+                        }
 
 
                     },
@@ -283,6 +307,19 @@
                     }
                 });
 
+            }
+
+            function resetAll() {
+                $("#searchResults").show();
+                $("#searchResults").text("Search results will show here");
+                $('#table-votingSummary').empty();
+                $('#table-Summary').empty();
+                $("#errorMsg").empty();
+                $("#province").val("");
+                $("#district").val("");
+                $("#la").val("");
+                $("#ward").val("");
+                $("#types").val("");
             }
 
 
@@ -306,32 +343,28 @@
         <jsp:include page="/navbar.jsp"/>
         <!--body content-->
         <div class="cont-body">
-            <div class="cont-breadCrumb">Candidate List Management</div>
+            <div class="cont-breadCrumb">Voting Summary</div>
             <div class="cont-msg">
-                <div class="ui-widget actionMessage" id="successMsg" style="display: none">
-                    <div class="ui-state-highlight ui-corner-all" style="padding: 0.3em 0.7em; margin-top: 20px;"> 
-                        <p><span class="ui-icon ui-icon-info" style="float: left; margin-right: 0.3em;"></span>
-                            <span>Candidate updated successfully</span></p>
-                    </div>
-                </div>
                 <div class="ui-widget actionError" id="errorMsg"  style="display: none">
                     <div class="ui-state-error ui-corner-all" style="padding: 0.3em 0.7em; margin-top: 20px;"> 
                         <p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
-                            <span>Province cannot be empty</span></p>
+                            <span id="messageRes">Voting error</span></p>
                     </div>
                 </div>
-
 
             </div>
             <div class="cont-form">
 
                 <s:form id="VotingSummaryForm" method="post" action="VotingSummary" theme="simple" cssClass="form" enctype="multipart/form-data">
-                    <div class="col-sm-12">
-                        <div class="form-group">
-                            <span style="color: red">*</span><label>List Type</label>
-                            <s:select  cssClass="form-control" id="types" list="%{typeList}"  headerValue="--List Type--" headerKey="" name="type" listKey="code" listValue="description" />
+                    <div class="row" style="margin-left: 0px;">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <span style="color: red">*</span><label>Search Type</label>
+                                <s:select  cssClass="form-control" id="types" list="%{typeList}"  headerValue="--Select Search Type--" headerKey="" name="type" listKey="code" listValue="description" />
+                            </div>
                         </div>
                     </div>
+
 
                     <div class="col-sm-3">
                         <div class="form-group">
@@ -358,18 +391,9 @@
                         </div>
                     </div>
 
-
                 </s:form>
 
-                <div id="metric_results">
-                    <table id="tablee" >
-                        <tr>
-                            <th>Party</th>
-                            <th>Count</th>
-                            <th>Percentage</th>
-                        </tr>
-                    </table>
-                </div>
+
 
                 <div class="row form-inline">
                     <div class="col-sm-12" style="margin-left: 15px;">
@@ -377,12 +401,24 @@
                             <input type="button" id="assignBut" class="btn btn-success" onclick="load()"  value="Search" />
                         </div>
                         <div class="form-group">
-                            <input type="button" id="resetBut" class="btn btn-success" onclick=""  value="Reset" />
+                            <input type="button" id="resetBut" class="btn btn-success" onclick="resetAll()"  value="Reset" />
                         </div>
                     </div>
                 </div>
-
             </div>
+
+            <div class="cont-table">
+                <div id="searchResults" style="text-align: center;font-family: Raleway">Search results will show here</div>
+                <table id="table-votingSummary" >
+
+                </table>
+            </div>
+            <div class="cont-summary">
+                <table id="table-Summary" >
+
+                </table>
+            </div>
+
         </div>
         <!--footer-->
         <jsp:include page="/footer.jsp"/>

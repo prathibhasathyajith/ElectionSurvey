@@ -78,3 +78,10 @@ header >.cont {
 .cont-body {
     padding: 60px 20px 40px 260px;
 }
+#sysType{
+    top: 26px;
+    left: 28px;
+    position: absolute;
+    font-size: 10px;
+    color: #4CAF50;
+}

@@ -7,6 +7,7 @@ package com.election.dao;
 
 import com.election.bean.CountVoteSummary;
 import com.election.bean.VotingSummaryInputBean;
+import com.election.common.dao.CommonDAO;
 import com.election.listener.HibernateInit;
 import com.election.mapping.District;
 import com.election.mapping.LocalAuthority;
@@ -351,11 +352,8 @@ public class VotingSummaryDAO {
             Query queryCount = session.createSQLQuery(sqlCount);
             List countList = queryCount.list();
 
-            System.out.println("in-2");
-
             if (countList.size() > 0) {
 
-                System.out.println("in-3");
                 String sqlSearch = "";
 
                 if (inputBean.getType().equals("PARTY")) {
@@ -389,8 +387,6 @@ public class VotingSummaryDAO {
                 for (Object[] bean : ObjetctList) {
                     CountVoteSummary countVS = new CountVoteSummary();
 
-                    System.out.println("in-4");
-
                     if (inputBean.getType().equals("PARTY")) {
                         if (bean[0] != null) {
                             countVS.setCount(String.valueOf(bean[0]));
@@ -398,7 +394,7 @@ public class VotingSummaryDAO {
                             countVS.setCount("--");
                         }
                         if (bean[1] != null) {
-                            countVS.setColumName1(String.valueOf(bean[1]));
+                            countVS.setColumName1(CommonDAO.getPartyID(String.valueOf(bean[1])).getName());
                         } else {
                             countVS.setColumName1("--");
                         }
@@ -409,7 +405,7 @@ public class VotingSummaryDAO {
                         }
 
                         double percentage = (Double.parseDouble(String.valueOf(bean[0])) / fullCount) * 100;
-                        percentage = (double)Math.round(percentage*100)/100;
+                        percentage = (double) Math.round(percentage * 100) / 100;
                         countVS.setPercentage1(percentage + "%");
 
                     } else if (inputBean.getType().equals("USER")) {
@@ -419,7 +415,7 @@ public class VotingSummaryDAO {
                             countVS.setCount("--");
                         }
                         if (bean[1] != null) {
-                            countVS.setColumName1(String.valueOf(bean[1]));
+                            countVS.setColumName1(CommonDAO.getCandidateName(String.valueOf(bean[1])).getName());
                         } else {
                             countVS.setColumName1("--");
                         }
@@ -429,13 +425,13 @@ public class VotingSummaryDAO {
                             countVS.setColumName2("--");
                         }
                         if (bean[3] != null) {
-                            countVS.setColumName3(String.valueOf(bean[3]));
+                            countVS.setColumName3(CommonDAO.getPartyID(String.valueOf(bean[3])).getName());
                         } else {
                             countVS.setColumName3("--");
                         }
 
                         double percentage = (Double.parseDouble(String.valueOf(bean[0])) / fullCount) * 100;
-                        percentage = (double)Math.round(percentage*100)/100;
+                        percentage = (double) Math.round(percentage * 100) / 100;
                         countVS.setPercentage1(percentage + "%");
                     }
 

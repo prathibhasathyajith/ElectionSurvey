@@ -6,14 +6,18 @@
 package com.election.dao;
 
 import com.election.bean.LoginInputBean;
+import com.election.common.dao.CommonDAO;
 import com.election.listener.HibernateInit;
 import com.election.mapping.Candidate;
+import com.election.mapping.Party;
 import com.election.mapping.PartyLa;
 import com.election.mapping.User;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.http.HttpSession;
+import org.apache.struts2.ServletActionContext;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -94,22 +98,29 @@ public class LoginDAO {
 
     public String checkParty(LoginInputBean inputBean) throws Exception {
         List<PartyLa> partyLa = new ArrayList<PartyLa>();
-        Session session = null;
+        Session sessionH = null;
         String des = "";
         try {
-            session = HibernateInit.sessionFactory.openSession();
+            sessionH = HibernateInit.sessionFactory.openSession();
 
 //            String hash = this.HashSHA256(inputBean.getLoginPassword());
             String hql = "from PartyLa as p where p.username =:username and LOWER(p.password)=:password order by Upper(p.username) asc";
-            Query query = session.createQuery(hql).setString("username", inputBean.getLoginUserName())
+            Query query = sessionH.createQuery(hql).setString("username", inputBean.getLoginUserName())
                     //                    .setString("password", hash.toLowerCase())
                     .setString("password", inputBean.getLoginPassword());
 
             partyLa = (List<PartyLa>) query.list();
 
             if (partyLa.size() > 0) {
+                
+                //set candidate name
+                HttpSession session = ServletActionContext.getRequest().getSession(true);
+                session.setAttribute("PARTYLAOBJECT", partyLa.get(0));
+                Party party = CommonDAO.getPartyID(partyLa.get(0).getPartyCode());
+                session.setAttribute("PARTYOBJECT", party);
+                
                 if (partyLa.get(0).getStatus().equals("ACT")) {
-                    des = "";
+                    des = "PAR";
                 } else if (partyLa.get(0).getStatus().equals("DEACT")) {
                     des = "deact";
                 }
@@ -122,8 +133,8 @@ public class LoginDAO {
             throw e;
         } finally {
             try {
-                session.flush();
-                session.close();
+                sessionH.flush();
+                sessionH.close();
             } catch (Exception e) {
                 throw e;
             }
@@ -131,25 +142,30 @@ public class LoginDAO {
 
         return des;
     }
-    
+
     public String checkCandidate(LoginInputBean inputBean) throws Exception {
         List<Candidate> candidate = new ArrayList<Candidate>();
-        Session session = null;
+        Session sessionH = null;
         String des = "";
         try {
-            session = HibernateInit.sessionFactory.openSession();
+            sessionH = HibernateInit.sessionFactory.openSession();
 
 //            String hash = this.HashSHA256(inputBean.getLoginPassword());
             String hql = "from Candidate as c where c.username =:username and LOWER(c.password)=:password order by Upper(c.username) asc";
-            Query query = session.createQuery(hql).setString("username", inputBean.getLoginUserName())
+            Query query = sessionH.createQuery(hql).setString("username", inputBean.getLoginUserName())
                     //                    .setString("password", hash.toLowerCase())
                     .setString("password", inputBean.getLoginPassword());
 
             candidate = (List<Candidate>) query.list();
 
             if (candidate.size() > 0) {
+
+                //set candidate name
+                HttpSession session = ServletActionContext.getRequest().getSession(true);
+                session.setAttribute("CANDIDATEOBJECT", candidate.get(0));
+
                 if (candidate.get(0).getStatus().equals("ACT")) {
-                    des = "";
+                    des = "CAN";
                 } else if (candidate.get(0).getStatus().equals("DEACT")) {
                     des = "deact";
                 }
@@ -162,8 +178,8 @@ public class LoginDAO {
             throw e;
         } finally {
             try {
-                session.flush();
-                session.close();
+                sessionH.flush();
+                sessionH.close();
             } catch (Exception e) {
                 throw e;
             }
