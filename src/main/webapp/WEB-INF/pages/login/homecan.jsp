@@ -40,7 +40,7 @@
                         <tr>
                             <td><s:property value="count"/></td>
                             <td><s:property value="columName1"/></td>
-                            <td><s:property value="columName2"/></td>
+                            <td><s:property value="columName4"/></td>
                             <td><s:property value="columName3"/></td>
                             <td><s:property value="percentage1"/></td>
                         </tr>

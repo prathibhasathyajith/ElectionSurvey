@@ -152,6 +152,12 @@ public class LoginCANDAO {
                     } else {
                         countVS.setColumName1("--");
                     }
+                    //ward des
+                    if (bean[2] != null) {
+                        countVS.setColumName4(CommonDAO.getWardFromCode(String.valueOf(bean[2])).getDescription());
+                    } else {
+                        countVS.setColumName4("--");
+                    }
                     if (bean[2] != null) {
                         countVS.setColumName2(String.valueOf(bean[2]));
                     } else {

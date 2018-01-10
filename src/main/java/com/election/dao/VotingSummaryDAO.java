@@ -403,6 +403,12 @@ public class VotingSummaryDAO {
                         } else {
                             countVS.setColumName2("--");
                         }
+                        //ward des
+                        if (bean[2] != null) {
+                            countVS.setColumName3(CommonDAO.getWardFromCode(String.valueOf(bean[2])).getDescription());
+                        } else {
+                            countVS.setColumName3("--");
+                        }
 
                         double percentage = (Double.parseDouble(String.valueOf(bean[0])) / fullCount) * 100;
                         percentage = (double) Math.round(percentage * 100) / 100;

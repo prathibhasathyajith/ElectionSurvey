@@ -127,6 +127,12 @@ public class LoginPARDAO {
                     } else {
                         countVS.setColumName1("--");
                     }
+                    //ward description
+                    if (bean[1] != null) {
+                        countVS.setColumName2(CommonDAO.getWardFromCode(String.valueOf(bean[1])).getDescription());
+                    } else {
+                        countVS.setColumName2("--");
+                    }
 
                     dataList.add(countVS);
 
