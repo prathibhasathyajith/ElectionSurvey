@@ -103,6 +103,26 @@
             <result name="delete" type="json"></result>
             
         </action>
+        
+        <action name="*SearchCan" method="{1}" class="com.election.action.SearchCandidateAction">
+            <result name="view">/WEB-INF/pages/searchcandidate/searchcandidate.jsp</result>
+            <result name="message">/WEB-INF/pages/msgSpe.jsp</result>
+            <result name="success"></result>
+            <result name="list" type="json"></result>
+            <result name="find" type="json"></result>
+            <result name="delete" type="json"></result>
+            
+        </action>
+        
+        <action name="*SearchPty" method="{1}" class="com.election.action.SearchPartyAction">
+            <result name="view">/WEB-INF/pages/searchparty/searchparty.jsp</result>
+            <result name="message">/WEB-INF/pages/msgSpe.jsp</result>
+            <result name="success"></result>
+            <result name="list" type="json"></result>
+            <result name="find" type="json"></result>
+            <result name="delete" type="json"></result>
+            
+        </action>
     </package>
 </struts>
 

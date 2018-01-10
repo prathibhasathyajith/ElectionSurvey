@@ -19,11 +19,14 @@
     </ul>
     <% } else if (session.getAttribute("SYSTEMUSERTYPE").equals("user")) {%>
     <ul>
-        <li><a id="nav1" href="#home">${SYSTEMUSERTYPE}</a></li>
+        <li><a id="nav9" href="#home">${SYSTEMUSERTYPE}</a></li>
+        <li><a id="nav10" href="${pageContext.request.contextPath}/viewSearchCan.action">Search Results</a></li>
+
     </ul>
     <% } else {%>
     <ul>
-        <li><a id="nav1" href="#home">${SYSTEMUSERTYPE}</a></li>
+        <li><a id="nav11" href="#home">${SYSTEMUSERTYPE}</a></li>
+        <li><a id="nav12" href="${pageContext.request.contextPath}/viewSearchPty.action">Search Results</a></li>
     </ul>    
     <% }%>
 
