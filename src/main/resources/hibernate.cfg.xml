@@ -8,7 +8,7 @@
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">password</property>
     <!--<property name="hibernate.connection.isolation">1</property>-->
-    <!--<property name="hibernate.connection.datasource">MRSJNDI2</property>-->
+    <!--<property name="hibernate.connection.datasource">ElectSvy</property>-->
     <!--<property name="hibernate.connection.verifyServerCertificate">false</property>-->
     <!--<property name="hibernate.connection.requireSSL">false</property>-->
     <property name="hibernate.connection.autocommit">true</property>

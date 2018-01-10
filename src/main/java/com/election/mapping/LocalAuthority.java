@@ -18,7 +18,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="local_authority"
-    ,catalog="elect_survey"
+    
 )
 public class LocalAuthority  implements java.io.Serializable {
 

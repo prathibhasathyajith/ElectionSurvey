@@ -18,7 +18,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="ward"
-    ,catalog="elect_survey"
+    
 )
 public class Ward  implements java.io.Serializable {
 

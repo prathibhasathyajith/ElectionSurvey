@@ -29,21 +29,21 @@ public class LoginPARDAO {
             session = HibernateInit.sessionFactory.openSession();
 
             String sqlCount = "SELECT COUNT(*) "
-                    + "FROM elect_survey.party P "
-                    + "INNER JOIN elect_survey.VOTING V ON P.PARTY_CODE = V.USER_ID "
-                    + "GROUP BY V.WARD_CODE,V.USER_TYPE "
-                    + "HAVING  V.USER_TYPE = 'PARTY' ";
+                    + "FROM party p "
+                    + "INNER JOIN voting v ON p.party_code = v.user_id "
+                    + "GROUP BY v.ward_code,v.user_type "
+                    + "HAVING  v.user_type = 'PARTY' ";
 
             Query queryCount = session.createSQLQuery(sqlCount);
             List countList = queryCount.list();
 
             if (countList.size() > 0) {
 
-                String sqlSearch = "SELECT COUNT(*) as Count, V.WARD_CODE "
-                        + "FROM elect_survey.party P "
-                        + "INNER JOIN elect_survey.VOTING V ON P.PARTY_CODE = V.USER_ID "
-                        + "GROUP BY  V.WARD_CODE,V.USER_TYPE "
-                        + "HAVING  V.USER_TYPE = 'PARTY' ";
+                String sqlSearch = "SELECT COUNT(*) as Count, v.ward_code "
+                        + "FROM party p "
+                        + "INNER JOIN voting v ON p.party_code = v.user_id "
+                        + "GROUP BY  v.ward_code,v.user_type "
+                        + "HAVING  v.user_type = 'PARTY' ";
 
                 Query querySearch = session.createSQLQuery(sqlSearch);
 
@@ -94,21 +94,21 @@ public class LoginPARDAO {
             session = HibernateInit.sessionFactory.openSession();
 
             String sqlCount = "SELECT COUNT(*) "
-                    + "FROM elect_survey.party P "
-                    + "INNER JOIN elect_survey.VOTING V ON P.PARTY_CODE = V.USER_ID "
-                    + "GROUP BY P.PARTY_CODE, V.WARD_CODE,V.USER_TYPE "
-                    + "HAVING V.USER_TYPE = 'PARTY' and P.PARTY_CODE = '" + partyCode + "' order by V.WARD_CODE asc";
+                    + "FROM party p "
+                    + "INNER JOIN voting v ON p.party_code = v.user_id "
+                    + "GROUP BY p.party_code, v.ward_code,v.user_type "
+                    + "HAVING v.user_type = 'PARTY' and p.party_code = '" + partyCode + "' order by v.ward_code asc";
 
             Query queryCount = session.createSQLQuery(sqlCount);
             List countList = queryCount.list();
 
             if (countList.size() > 0) {
 
-                String sqlSearch = "SELECT COUNT(*) as count, V.WARD_CODE "
-                        + "FROM elect_survey.party P "
-                        + "INNER JOIN elect_survey.VOTING V ON P.PARTY_CODE = V.USER_ID "
-                        + "GROUP BY P.PARTY_CODE, V.WARD_CODE,V.USER_TYPE "
-                        + "HAVING V.USER_TYPE = 'PARTY' and P.PARTY_CODE = '" + partyCode + "' order by V.WARD_CODE asc";
+                String sqlSearch = "SELECT COUNT(*) as count, v.ward_code "
+                        + "FROM party p "
+                        + "INNER JOIN voting v ON p.party_code = v.user_id "
+                        + "GROUP BY p.party_code, v.ward_code,v.user_type "
+                        + "HAVING v.user_type = 'PARTY' and p.party_code = '" + partyCode + "' order by v.ward_code asc";
 
                 Query querySearch = session.createSQLQuery(sqlSearch);
 

@@ -335,17 +335,17 @@ public class VotingSummaryDAO {
             if (inputBean.getType().equals("PARTY")) {
                 System.out.println("PARTY");
                 sqlCount = "SELECT COUNT(*) "
-                        + "FROM elect_survey.party P "
-                        + "INNER JOIN elect_survey.VOTING V ON P.PARTY_CODE = V.USER_ID "
-                        + "GROUP BY P.PARTY_CODE, V.WARD_CODE,V.USER_TYPE "
-                        + "HAVING V.WARD_CODE = '" + inputBean.getWard() + "' and V.USER_TYPE = '" + inputBean.getType() + "' ";
+                        + "FROM party p "
+                        + "INNER JOIN voting v ON p.party_code = v.user_id "
+                        + "GROUP BY p.party_code, v.ward_code,v.user_type "
+                        + "HAVING v.ward_code = '" + inputBean.getWard() + "' and v.user_type = '" + inputBean.getType() + "' ";
             } else if (inputBean.getType().equals("USER")) {
                 System.out.println("USER");
                 sqlCount = "SELECT COUNT(*) "
-                        + "FROM elect_survey.candidate c "
-                        + "INNER JOIN elect_survey.VOTING V ON c.username = V.USER_ID "
-                        + "GROUP BY c.username, V.WARD_CODE,V.USER_TYPE "
-                        + "HAVING V.WARD_CODE = '" + inputBean.getWard() + "' and V.USER_TYPE = '" + inputBean.getType() + "' ";
+                        + "FROM candidate c "
+                        + "INNER JOIN voting v ON c.username = v.user_id "
+                        + "GROUP BY c.username, v.ward_code,v.user_type "
+                        + "HAVING v.ward_code = '" + inputBean.getWard() + "' and v.user_type = '" + inputBean.getType() + "' ";
 
             }
 
@@ -358,19 +358,19 @@ public class VotingSummaryDAO {
 
                 if (inputBean.getType().equals("PARTY")) {
                     System.out.println("PARTY");
-                    sqlSearch = "SELECT COUNT(*) as count, P.PARTY_CODE, V.WARD_CODE "
-                            + "FROM elect_survey.party P "
-                            + "INNER JOIN elect_survey.VOTING V ON P.PARTY_CODE = V.USER_ID "
-                            + "GROUP BY P.PARTY_CODE, V.WARD_CODE,V.USER_TYPE "
-                            + "HAVING V.WARD_CODE = '" + inputBean.getWard() + "' and V.USER_TYPE = '" + inputBean.getType() + "' ";
+                    sqlSearch = "SELECT COUNT(*) as count, p.party_code, v.ward_code "
+                            + "FROM party p "
+                            + "INNER JOIN voting v ON p.party_code = v.user_id "
+                            + "GROUP BY p.party_code, v.ward_code,v.user_type "
+                            + "HAVING v.ward_code = '" + inputBean.getWard() + "' and v.user_type = '" + inputBean.getType() + "' ";
 
                 } else if (inputBean.getType().equals("USER")) {
                     System.out.println("USER");
-                    sqlSearch = "SELECT COUNT(*), c.username, V.WARD_CODE,c.party_code "
-                            + "FROM elect_survey.candidate c "
-                            + "INNER JOIN elect_survey.VOTING V ON c.username = V.USER_ID "
-                            + "GROUP BY c.username, V.WARD_CODE,V.USER_TYPE, c.party_code "
-                            + "HAVING V.WARD_CODE = '" + inputBean.getWard() + "' and V.USER_TYPE = '" + inputBean.getType() + "' ";
+                    sqlSearch = "SELECT COUNT(*), c.username, v.ward_code,c.party_code "
+                            + "FROM candidate c "
+                            + "INNER JOIN voting v ON c.username = v.user_id "
+                            + "GROUP BY c.username, v.ward_code,v.user_type, c.party_code "
+                            + "HAVING v.ward_code = '" + inputBean.getWard() + "' and v.user_type = '" + inputBean.getType() + "' ";
                 }
 
                 Query querySearch = session.createSQLQuery(sqlSearch);
