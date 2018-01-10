@@ -151,13 +151,15 @@ public class LoginPARDAO {
 
         if (dataListDetails.size() > 0 && dataList.size() > 0) {
             for (int i = 0; i < dataListDetails.size(); i++) {
-
-                double percentage = (Double.parseDouble(dataListDetails.get(i).getCount()) / Integer.parseInt(dataList.get(i).getCount())) * 100;
-                percentage = (double) Math.round(percentage * 100) / 100;
-                dataListDetails.get(i).setPercentage1(percentage + "");
-
+                for (int j = 0; j < dataList.size(); j++) {
+                    if (dataListDetails.get(i).getColumName1().equals(dataList.get(j).getColumName1())) {
+                        double percentage = (Double.parseDouble(dataListDetails.get(i).getCount()) / Integer.parseInt(dataList.get(j).getCount())) * 100;
+                        percentage = (double) Math.round(percentage * 100) / 100;
+                        dataListDetails.get(i).setPercentage1(percentage + "%");
+                        break;
+                    }
+                }
             }
-
         }
 
         return dataListDetails;

@@ -13,8 +13,10 @@ import org.hibernate.Session;
 import com.election.listener.HibernateInit;
 import com.election.mapping.Candidate;
 import com.election.mapping.CandidateList;
+import com.election.mapping.LocalAuthority;
 import com.election.mapping.PartyLa;
 import com.election.mapping.ServiceList;
+import com.election.mapping.Ward;
 
 /**
  *
@@ -172,6 +174,56 @@ public class CommonDAO {
             }
         }
         return serviceList;
+    }
+    
+    public static LocalAuthority getLAFromCode(String code) throws Exception {
+        LocalAuthority la = null;
+        Session session = null;
+        try {
+            session = HibernateInit.sessionFactory.openSession();
+            String sql = "from LocalAuthority as l where l.code =:code";
+            Query query = session.createQuery(sql).setString("code", code);
+
+            if (query.list().size() > 0) {
+                la = (LocalAuthority) query.list().get(0);
+            }
+            
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            try {
+                session.flush();
+                session.close();
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        return la;
+    }
+    
+    public static Ward getWardFromCode(String code) throws Exception {
+        Ward ward = null;
+        Session session = null;
+        try {
+            session = HibernateInit.sessionFactory.openSession();
+            String sql = "from Ward as w where w.code =:code";
+            Query query = session.createQuery(sql).setString("code", code);
+
+            if (query.list().size() > 0) {
+                ward = (Ward) query.list().get(0);
+            }
+            
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            try {
+                session.flush();
+                session.close();
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        return ward;
     }
     
     public static CandidateList getCandidateListID(String candidate) throws Exception {

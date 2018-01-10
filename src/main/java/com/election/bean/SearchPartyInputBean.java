@@ -5,6 +5,9 @@
  */
 package com.election.bean;
 
+import com.election.mapping.District;
+import com.election.mapping.LocalAuthority;
+import com.election.mapping.Province;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +16,7 @@ import java.util.List;
  * @author prathibha_s
  */
 public class SearchPartyInputBean {
+
     private String partyName;
     private String partyID;
     private String partyVote;
@@ -24,6 +28,15 @@ public class SearchPartyInputBean {
     private String partyFullVoteCount;
     private String partyVotePercentage;
     private String partyWardVoteCount;
+    private String message;
+    private String fullCount;
+
+    private String la;
+    private String province;
+    private String district;
+    private List<LocalAuthority> laList = new ArrayList<LocalAuthority>();
+    private List<Province> provinceList = new ArrayList<Province>();
+    private List<District> districtList = new ArrayList<District>();
 
     private String count;
     private List<CountVoteSummary> countList = new ArrayList<CountVoteSummary>();
@@ -36,12 +49,60 @@ public class SearchPartyInputBean {
         this.partyName = partyName;
     }
 
+    public String getFullCount() {
+        return fullCount;
+    }
+
+    public void setFullCount(String fullCount) {
+        this.fullCount = fullCount;
+    }
+
     public String getPartyID() {
         return partyID;
     }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     public void setPartyID(String partyID) {
         this.partyID = partyID;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    public List<Province> getProvinceList() {
+        return provinceList;
+    }
+
+    public void setProvinceList(List<Province> provinceList) {
+        this.provinceList = provinceList;
+    }
+
+    public List<District> getDistrictList() {
+        return districtList;
+    }
+
+    public void setDistrictList(List<District> districtList) {
+        this.districtList = districtList;
     }
 
     public String getPartyVote() {
@@ -132,6 +193,20 @@ public class SearchPartyInputBean {
         this.countList = countList;
     }
 
-    
-    
+    public String getLa() {
+        return la;
+    }
+
+    public void setLa(String la) {
+        this.la = la;
+    }
+
+    public List<LocalAuthority> getLaList() {
+        return laList;
+    }
+
+    public void setLaList(List<LocalAuthority> laList) {
+        this.laList = laList;
+    }
+
 }

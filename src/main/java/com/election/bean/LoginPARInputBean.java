@@ -5,6 +5,7 @@
  */
 package com.election.bean;
 
+import com.election.mapping.LocalAuthority;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * @author prathibha_s
  */
 public class LoginPARInputBean {
+
     private String partyName;
     private String partyID;
     private String partyVote;
@@ -24,6 +26,25 @@ public class LoginPARInputBean {
     private String partyFullVoteCount;
     private String partyVotePercentage;
     private String partyWardVoteCount;
+
+    private String la;
+    private List<LocalAuthority> laList = new ArrayList<LocalAuthority>();
+
+    public String getLa() {
+        return la;
+    }
+
+    public void setLa(String la) {
+        this.la = la;
+    }
+
+    public List<LocalAuthority> getLaList() {
+        return laList;
+    }
+
+    public void setLaList(List<LocalAuthority> laList) {
+        this.laList = laList;
+    }
 
     private String count;
     private List<CountVoteSummary> countList = new ArrayList<CountVoteSummary>();
@@ -131,6 +152,5 @@ public class LoginPARInputBean {
     public void setCountList(List<CountVoteSummary> countList) {
         this.countList = countList;
     }
-    
-    
+
 }
