@@ -31,8 +31,8 @@
         <div class="es-mainContent">
             <div class="es-mainbox">
                 <div class="es-textContent es-text">
-                    <span>Priority</span>
-                    <span>Banking</span>
+                    <span>Election</span>
+                    <span>Survey</span>
                     <span>Login</span>
                 </div>
                 <form id="formES" action="CheckLogin" method="post" >

@@ -70,7 +70,7 @@
                         }
                     },
                     error: function (data) {
-                        window.location = "${pageContext.request.contextPath}/LogoutLogin.action?";
+                        window.location = "${pageContext.request.contextPath}/logoutLogin.action?";
                     }
                 });
             }
@@ -95,7 +95,7 @@
                         resetFieldData();
                     },
                     error: function (data) {
-                        window.location = "${pageContext.request.contextPath}/LogoutLogin.action?";
+                        window.location = "${pageContext.request.contextPath}/logoutLogin.action?";
                     }
                 });
             }

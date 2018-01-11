@@ -81,7 +81,7 @@
                         }
                     },
                     error: function (data) {
-                        window.location = "${pageContext.request.contextPath}/LogoutLogin.action?";
+                        window.location = "${pageContext.request.contextPath}/logoutLogin.action?";
                     }
                 });
             }
@@ -106,7 +106,7 @@
                         resetFieldData();
                     },
                     error: function (data) {
-                        window.location = "${pageContext.request.contextPath}/LogoutLogin.action?";
+                        window.location = "${pageContext.request.contextPath}/logoutLogin.action?";
                     }
                 });
             }
@@ -180,7 +180,7 @@
                         $("#ward").val("");
                     },
                     error: function (data) {
-                        window.location = "${pageContext.request.contextPath}/LogoutLogin.action?";
+                        window.location = "${pageContext.request.contextPath}/logoutLogin.action?";
                     }
                 });
             }
@@ -248,7 +248,7 @@
                         $("#ward").val("");
                     },
                     error: function (data) {
-                        window.location = "${pageContext.request.contextPath}/LogoutLogin.action?";
+                        window.location = "${pageContext.request.contextPath}/logoutLogin.action?";
                     }
                 });
             }
@@ -316,7 +316,7 @@
 
                     },
                     error: function (data) {
-                        window.location = "${pageContext.request.contextPath}/LogoutLogin.action?";
+                        window.location = "${pageContext.request.contextPath}/logoutLogin.action?";
                     }
                 });
             }
@@ -386,7 +386,7 @@
                         searchParams();
                     },
                     error: function (data) {
-                        window.location = "${pageContext.request.contextPath}/LogoutLogin.action?";
+                        window.location = "${pageContext.request.contextPath}/logoutLogin.action?";
                     }
                 });
             }

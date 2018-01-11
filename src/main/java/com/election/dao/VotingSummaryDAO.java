@@ -430,6 +430,12 @@ public class VotingSummaryDAO {
                         } else {
                             countVS.setColumName2("--");
                         }
+                        //ward des
+                        if (bean[2] != null) {
+                            countVS.setColumName5(CommonDAO.getWardFromCode(String.valueOf(bean[2])).getDescription());
+                        } else {
+                            countVS.setColumName5("--");
+                        }
                         if (bean[3] != null) {
                             countVS.setColumName3(CommonDAO.getPartyID(String.valueOf(bean[3])).getName());
                         } else {

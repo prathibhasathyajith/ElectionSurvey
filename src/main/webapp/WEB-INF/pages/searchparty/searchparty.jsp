@@ -170,9 +170,9 @@
 
                             if (Number(data.fullCount)>0) {
 
-                                $('#table-votingSummary').append("<tr><th>Party</th><th>Vote Count</th><th>Percentage</th><th>Local Authority</th></tr>");
+                                $('#table-votingSummary').append("<tr><th>Ward</th><th>Vote Count</th><th>Percentage</th><th>Local Authority</th></tr>");
                                 $.each(detais, function (index, item) {
-                                    $('#table-votingSummary').append("<tr><td>" + item.columName1 + "</td><td>" + item.count + "</td><td>" + item.percentage1 + "</td><td>"+item.columName2+"</td></tr>");
+                                    $('#table-votingSummary').append("<tr><td>" + item.columName5 + "</td><td>" + item.count + "</td><td>" + item.percentage1 + "</td><td>"+item.columName4+"</td></tr>");
                                 });
 
 //                                $('#table-Summary').append("<tr><td>Total number of valid votes</td><td>" + data.fullCount + "</tr>");
