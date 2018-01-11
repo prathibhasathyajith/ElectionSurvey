@@ -110,6 +110,7 @@ public class LoginAction extends ActionSupport implements ModelDriven<Object> {
             session.setAttribute("PARTYLAOBJECT", null);
             session.setAttribute("PARTYOBJECT", null);
             session.setAttribute("CANDIDATEOBJECT", null);
+            session.setAttribute("PARTYLAOBJECTLOCALAUTHORITY", null);
             
             session.invalidate();
             result = "logout";

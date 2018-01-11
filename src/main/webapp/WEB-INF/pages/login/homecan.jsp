@@ -24,24 +24,67 @@
         <!--body content-->
         <div class="cont-body">
             <div class="cont-breadCrumb">Candidate Details</div>
-            <h4>${CANDIDATEOBJECT.username}</h4>
-            <h4>${CANDIDATEOBJECT.partyCode}</h4>
+                <div class="cont-summarycan">
+                    <table id="table-Summary" >
+                        <tr>
+                            <th>Logged Candidate Details</th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td>Logged Username (Candidate)</td>
+                            <td>${CANDIDATEOBJECT.username}</td>
+                        </tr>
+                        <tr>
+                            <td>Name</td>
+                            <td>${CANDIDATEOBJECT.name}</td>
+                        </tr>
+                        <tr>
+                            <td>Party</td>
+                            <td>${CANDIDATEOBJECT.partyCode}</td>
+                        </tr>
+                        <tr>
+                            <td>NIC</td>
+                            <td>${CANDIDATEOBJECT.nic}</td>
+                        </tr>
+                        <tr>
+                            <td>Ward</td>
+                            <td><s:property value="candidateWard"/></td>
+                        </tr>
+                        <tr>
+                            <td>Local Authority</td>
+                            <td><s:property value="candidateLa"/></td>
+                        </tr>
+                        <tr>
+                            <td>District</td>
+                            <td><s:property value="candidateDistrict"/></td>
+                        </tr>
+                        <tr>
+                            <td>Province</td>
+                            <td><s:property value="candidateProvince"/></td>
+                        </tr>
+                        
+                    </table>
+                </div>
 
             <div class="cont-table">
                 <table id="candidateLogin">
                     <tr>
                         <th>Vote Count</th>  
                         <th>Name</th>  
-                        <th>Ward Code</th>  
-                        <th>Party</th>
+                        <!--<th>Ward</th>-->  
+                        <!--<th>Party</th>-->
                         <th>Percentage</th>
                     </tr>
                     <s:iterator  value="countList">  
                         <tr>
                             <td><s:property value="count"/></td>
                             <td><s:property value="columName1"/></td>
-                            <td><s:property value="columName4"/></td>
-                            <td><s:property value="columName3"/></td>
+                            <!--<td>-->
+                                <%--<s:property value="columName4"/>--%>
+                            <!--</td>-->
+                            <!--<td>-->
+                                <%--<s:property value="columName3"/>--%>
+                            <!--</td>-->
                             <td><s:property value="percentage1"/></td>
                         </tr>
                     </s:iterator>  

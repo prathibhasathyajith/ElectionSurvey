@@ -24,19 +24,39 @@
         <!--body content-->
         <div class="cont-body">
             <div class="cont-breadCrumb">Party details</div>
-            <h4>${PARTYLAOBJECT.partyCode}</h4>
-            <h4>${PARTYOBJECT.name}</h4>
+            <div class="cont-summarycan">
+                <table id="table-Summary" >
+                    <tr>
+                        <th>Logged Candidate Details</th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td>Logged Username (Party)</td>
+                        <td>${PARTYLAOBJECT.username}</td>
+                    </tr>
+                    <tr>
+                        <td>Party</td>
+                        <td>${PARTYOBJECT.name}</td>
+                    </tr>
+                    <tr>
+                        <td>Local Authority (For username -${PARTYLAOBJECT.username})</td>
+                        <td><s:property value="la"/></td>
+                    </tr>
+                    
+                </table>
+            </div>
+           
             <div class="cont-table">
                 <table id="partyLogin">
                     <tr>
                         <th>Vote Count</th>  
-                        <th>Ward Code</th>  
+                        <th>Ward</th>  
                         <th>Percentage</th>
                     </tr>
                     <s:iterator  value="countList">  
                         <tr>
                             <td><s:property value="count"/></td>
-                            <td><s:property value="columName2"/></td>
+                            <td><s:property value="columName5"/></td>
                             <td><s:property value="percentage1"/></td>
                         </tr>
                     </s:iterator>  

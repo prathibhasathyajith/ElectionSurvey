@@ -226,6 +226,8 @@ public class CommonDAO {
         return ward;
     }
     
+    
+    
     public static CandidateList getCandidateListID(String candidate) throws Exception {
         CandidateList candidateList = null;
         Session session = null;

@@ -116,6 +116,7 @@ public class LoginDAO {
                 //set candidate name
                 HttpSession session = ServletActionContext.getRequest().getSession(true);
                 session.setAttribute("PARTYLAOBJECT", partyLa.get(0));
+                session.setAttribute("PARTYLAOBJECTLOCALAUTHORITY", partyLa.get(0).getLocalAuthority().getCode());
                 Party party = CommonDAO.getPartyID(partyLa.get(0).getPartyCode());
                 session.setAttribute("PARTYOBJECT", party);
                 

@@ -7,8 +7,10 @@ package com.election.action;
 
 import com.election.bean.CountVoteSummary;
 import com.election.bean.LoginCANInputBean;
+import com.election.common.dao.CommonDAO;
 import com.election.dao.LoginCANDAO;
 import com.election.mapping.Candidate;
+import com.election.mapping.Ward;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
@@ -44,26 +46,16 @@ public class LoginCANAction extends ActionSupport implements ModelDriven<Object>
             String sysType = (String) session.getAttribute("SYSTEMUSERTYPE");
             Candidate candidateObject = (Candidate) session.getAttribute("CANDIDATEOBJECT");
 
-            System.out.println("sysType " + sysType);
-            System.out.println("candidateObject " + candidateObject.getUsername());
-            System.out.println("candidateObject " + candidateObject.getPartyCode());
 
             LoginCANDAO dao = new LoginCANDAO();
             List<CountVoteSummary> dataListDetails = dao.getDetailsCandidate(candidateObject.getUsername(), inputBean);
             List<CountVoteSummary> dataList = dao.getPercentageCandidate(candidateObject.getUsername(), candidateObject.getWard().getCode(), inputBean);
             List<CountVoteSummary> fullDataList = dao.getFullDataCandidate(dataListDetails, inputBean.getCandidateVotePercentage());
 
-            System.out.println("dataListDetails " + dataListDetails.get(0).getCount());
-            System.out.println("dataListDetails " + dataListDetails.get(0).getColumName1());
-            System.out.println("dataListDetails " + dataListDetails.get(0).getColumName2());
-            System.out.println("dataListDetails " + dataListDetails.get(0).getColumName3());
-
             inputBean.setCountList(fullDataList);
 
-            System.out.println("dataList " + inputBean.getCandidateFullVoteCount());
-            System.out.println("dataList " + inputBean.getCandidateVotePercentage());
-            System.out.println("dataList " + dataList.get(0).getColumName2());
-            System.out.println("dataList " + dataList.get(0).getColumName3());
+            dao.getAllFromWardCode(inputBean);
+            
 
         } catch (Exception e) {
             addActionError("LoginCANAction error occurred while processing");

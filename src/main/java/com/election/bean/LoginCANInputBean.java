@@ -18,7 +18,7 @@ public class LoginCANInputBean {
     private String candidateID;
     private String candidateVote;
     private String candidateWard;
-    private String candidateDistirct;
+    private String candidateDistrict;
     private String candidateProvince;
     private String candidateLa;
     private String candidateParty;
@@ -61,13 +61,15 @@ public class LoginCANInputBean {
         this.candidateWard = candidateWard;
     }
 
-    public String getCandidateDistirct() {
-        return candidateDistirct;
+    public String getCandidateDistrict() {
+        return candidateDistrict;
     }
 
-    public void setCandidateDistirct(String candidateDistirct) {
-        this.candidateDistirct = candidateDistirct;
+    public void setCandidateDistrict(String candidateDistrict) {
+        this.candidateDistrict = candidateDistrict;
     }
+
+    
 
     public String getCandidateProvince() {
         return candidateProvince;

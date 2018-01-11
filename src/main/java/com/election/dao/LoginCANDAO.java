@@ -10,6 +10,7 @@ import com.election.bean.LoginCANInputBean;
 import com.election.bean.VotingSummaryInputBean;
 import com.election.common.dao.CommonDAO;
 import com.election.listener.HibernateInit;
+import com.election.mapping.Ward;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
@@ -158,6 +159,8 @@ public class LoginCANDAO {
                     } else {
                         countVS.setColumName4("--");
                     }
+                    
+                    inputBean.setCandidateWard(String.valueOf(bean[2]));
                     if (bean[2] != null) {
                         countVS.setColumName2(String.valueOf(bean[2]));
                     } else {
@@ -200,4 +203,33 @@ public class LoginCANDAO {
         return dataListDetails;
     }
 
+    
+    public void getAllFromWardCode(LoginCANInputBean inputBean) throws Exception {
+        Ward ward = null;
+        Session session = null;
+        try {
+            session = HibernateInit.sessionFactory.openSession();
+            String sql = "from Ward as w where w.code =:code";
+            Query query = session.createQuery(sql).setString("code", inputBean.getCandidateWard());
+
+            if (query.list().size() > 0) {
+                ward = (Ward) query.list().get(0);
+                inputBean.setCandidateWard(ward.getDescription());
+                inputBean.setCandidateLa(ward.getLocalAuthority().getDescription());
+                inputBean.setCandidateDistrict(ward.getLocalAuthority().getDistrict().getDescription());
+                inputBean.setCandidateProvince(ward.getLocalAuthority().getDistrict().getProvince().getDescription());
+            }
+            
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            try {
+                session.flush();
+                session.close();
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        
+    }
 }

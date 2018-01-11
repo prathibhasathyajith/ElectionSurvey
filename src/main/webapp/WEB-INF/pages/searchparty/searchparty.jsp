@@ -228,7 +228,7 @@
         <jsp:include page="/navbar.jsp"/>
         <!--body content-->
         <div class="cont-body">
-            <div class="cont-breadCrumb">Voting Summary</div>
+            <div class="cont-breadCrumb">Search Results (by Local Authority)</div>
             <div class="cont-msg">
                 <div class="ui-widget actionError" id="errorMsg"  style="display: none">
                     <div class="ui-state-error ui-corner-all" style="padding: 0.3em 0.7em; margin-top: 20px;"> 

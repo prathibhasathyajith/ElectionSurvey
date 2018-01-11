@@ -152,6 +152,99 @@ public class LoginPARDAO {
 
         return dataList;
     }
+    
+    public List<CountVoteSummary> getDetailsPartyLA(String partyCode, LoginPARInputBean inputBean) throws Exception {
+        List<CountVoteSummary> dataList = new ArrayList<CountVoteSummary>();
+
+        Session session = null;
+        try {
+
+            session = HibernateInit.sessionFactory.openSession();
+
+            String wardSql = "";
+            if (inputBean.getLa() == null || inputBean.getLa().trim().isEmpty()) {
+                wardSql = "";
+            } else {
+                wardSql = " and w.la_code = '" + inputBean.getLa() + "' ";
+            }
+
+            session = HibernateInit.sessionFactory.openSession();
+
+            String sqlCount = "SELECT COUNT(*) "
+                    + "FROM party p "
+                    + "INNER JOIN voting v ON p.party_code = v.user_id "
+                    + "INNER JOIN ward w ON v.ward_code = w.code "
+                    + "GROUP BY p.party_code, v.ward_code, v.user_type, w.la_code "
+                    + "HAVING v.user_type = 'PARTY' and p.party_code = '" + partyCode + "'" + wardSql + " order by v.ward_code asc";
+            System.out.println("sql " + sqlCount);
+            Query queryCount = session.createSQLQuery(sqlCount);
+            List countList = queryCount.list();
+
+            if (countList.size() > 0) {
+
+                String sqlSearch = "SELECT COUNT(*) as count, v.ward_code, w.la_code "
+                        + "FROM party p "
+                        + "INNER JOIN voting v ON p.party_code = v.user_id "
+                        + "INNER JOIN ward w ON v.ward_code = w.code "
+                        + "GROUP BY p.party_code, v.ward_code, v.user_type, w.la_code "
+                        + "HAVING v.user_type = 'PARTY' and p.party_code = '" + partyCode + "'" + wardSql + " order by v.ward_code asc";
+
+                Query querySearch = session.createSQLQuery(sqlSearch);
+
+                List<Object[]> ObjetctList = querySearch.list();
+
+                for (Object[] bean : ObjetctList) {
+                    CountVoteSummary countVS = new CountVoteSummary();
+
+                    if (bean[0] != null) {
+                        countVS.setCount(String.valueOf(bean[0]));
+                    } else {
+                        countVS.setCount("--");
+                    }
+                    //ward code
+                    if (bean[1] != null) {
+                        countVS.setColumName1(String.valueOf(bean[1]));
+                    } else {
+                        countVS.setColumName1("--");
+                    }
+                    //la code
+                    if (bean[2] != null) {
+                        countVS.setColumName2(String.valueOf(bean[2]));
+                    } else {
+                        countVS.setColumName2("--");
+                    }
+                    //la description
+                    if (bean[2] != null) {
+                        countVS.setColumName4(CommonDAO.getLAFromCode(String.valueOf(bean[2])).getDescription());
+                    } else {
+                        countVS.setColumName4("--");
+                    }
+                    //ward description
+                    if (bean[1] != null) {
+                        countVS.setColumName5(CommonDAO.getWardFromCode(String.valueOf(bean[1])).getDescription());
+                    } else {
+                        countVS.setColumName5("--");
+                    }
+
+                    dataList.add(countVS);
+
+                }
+
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            try {
+                session.flush();
+                session.close();
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+
+        return dataList;
+    }
 
     public List<CountVoteSummary> getFullDataParty(List<CountVoteSummary> dataListDetails, List<CountVoteSummary> dataList) {
 
