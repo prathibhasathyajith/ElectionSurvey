@@ -286,12 +286,12 @@
                                     });
                                 }
                                 $('#table-Summary').append("<tr><td>Total number of valid votes</td><td>" + data.fullCount + "</tr>");
-                            }else{
+                            } else {
                                 $("#searchResults").show();
                                 $("#searchResults").text("No results found");
                             }
-                            
-                            
+
+
 
 
                         } else {
@@ -310,6 +310,7 @@
             }
 
             function resetAll() {
+                changeAllFromWard('');
                 $("#searchResults").show();
                 $("#searchResults").text("Search results will show here");
                 $('#table-votingSummary').empty();

@@ -34,11 +34,11 @@ public class LoginDAO {
         try {
             session = HibernateInit.sessionFactory.openSession();
 
-//            String hash = this.HashSHA256(inputBean.getLoginPassword());
+            String hash = this.HashSHA256(inputBean.getLoginPassword());
             String hql = "from User as t where t.username =:username and LOWER(t.password)=:password and t.userType=:userType  order by Upper(t.username) asc";
             Query query = session.createQuery(hql).setString("username", inputBean.getLoginUserName())
-                    //                    .setString("password", hash.toLowerCase())
-                    .setString("password", inputBean.getLoginPassword())
+                                        .setString("password", hash.toLowerCase())
+//                    .setString("password", inputBean.getLoginPassword())
                     .setString("userType", "USR");
 
             laList = (List<User>) query.list();
@@ -103,11 +103,11 @@ public class LoginDAO {
         try {
             sessionH = HibernateInit.sessionFactory.openSession();
 
-//            String hash = this.HashSHA256(inputBean.getLoginPassword());
+            String hash = this.HashSHA256(inputBean.getLoginPassword());
             String hql = "from PartyLa as p where p.username =:username and LOWER(p.password)=:password order by Upper(p.username) asc";
             Query query = sessionH.createQuery(hql).setString("username", inputBean.getLoginUserName())
-                    //                    .setString("password", hash.toLowerCase())
-                    .setString("password", inputBean.getLoginPassword());
+                                        .setString("password", hash.toLowerCase());
+//                    .setString("password", inputBean.getLoginPassword());
 
             partyLa = (List<PartyLa>) query.list();
 
@@ -151,11 +151,11 @@ public class LoginDAO {
         try {
             sessionH = HibernateInit.sessionFactory.openSession();
 
-//            String hash = this.HashSHA256(inputBean.getLoginPassword());
+            String hash = this.HashSHA256(inputBean.getLoginPassword());
             String hql = "from Candidate as c where c.username =:username and LOWER(c.password)=:password order by Upper(c.username) asc";
             Query query = sessionH.createQuery(hql).setString("username", inputBean.getLoginUserName())
-                    //                    .setString("password", hash.toLowerCase())
-                    .setString("password", inputBean.getLoginPassword());
+                                        .setString("password", hash.toLowerCase());
+//                    .setString("password", inputBean.getLoginPassword());
 
             candidate = (List<Candidate>) query.list();
 
