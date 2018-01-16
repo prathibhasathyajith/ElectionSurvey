@@ -98,7 +98,6 @@
                     editPartyLA(null);
                 } else if (a == true && u == false) {
                     var id = $("#id").val();
-                    alert(id);
                     editPartyLA(id);
                 } else if (a == false && u == true) {
                     editPartyLA(null);

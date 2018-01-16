@@ -413,7 +413,7 @@
 
                 </table>
             </div>
-            <div class="cont-summary">
+            <div class="">
                 <table id="table-Summary" >
 
                 </table>
