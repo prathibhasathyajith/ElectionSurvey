@@ -202,7 +202,7 @@ public class CandidateAction extends ActionSupport implements ModelDriven<Object
                 candidate = dao.findCandidateById(inputBean.getCandidateId());
                 
 //                Party pty = CommonDAO.getPartyID(candidate.getPartyCode());
-                inputBean.setCandidateId(candidate.getCandidateId().toString());
+                inputBean.setCandidateId(candidate.getCandidateId()+"");
                 inputBean.setParty(candidate.getPartyCode());
                 inputBean.setWard(candidate.getWard().getCode());
                 inputBean.setName(candidate.getName());

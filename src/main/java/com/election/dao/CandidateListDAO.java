@@ -96,7 +96,7 @@ public class CandidateListDAO {
                     CandidateListBean clb = new CandidateListBean();
 
                     clb.setName(candidate.getName());
-                    clb.setCandidate(candidate.getCandidateId().toString());
+                    clb.setCandidate(candidate.getCandidateId()+"");
                     list_2.add(clb);
 
                     System.out.println("candidate " + candidate.getName());
@@ -131,7 +131,7 @@ public class CandidateListDAO {
                     CandidateListBean clb2 = new CandidateListBean();
 
                     clb2.setName(candidate_not.getName());
-                    clb2.setCandidate(candidate_not.getCandidateId().toString());
+                    clb2.setCandidate(candidate_not.getCandidateId()+"");
                     list_1.add(clb2);
 
                     System.out.println("candidate not " + candidate_not.getName());

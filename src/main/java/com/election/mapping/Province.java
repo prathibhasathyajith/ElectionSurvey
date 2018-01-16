@@ -1,5 +1,4 @@
-package com.election.mapping;
-// Generated Jan 7, 2018 2:28:48 PM by Hibernate Tools 4.3.1
+package com.election.mapping;// Generated Jan 15, 2018 9:03:36 AM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -16,7 +15,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="province"
-    
+    ,catalog="election_survey"
 )
 public class Province  implements java.io.Serializable {
 

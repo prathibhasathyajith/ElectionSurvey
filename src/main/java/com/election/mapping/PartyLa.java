@@ -1,12 +1,9 @@
-package com.election.mapping;
-// Generated Jan 7, 2018 2:28:48 PM by Hibernate Tools 4.3.1
+package com.election.mapping;// Generated Jan 15, 2018 9:03:36 AM by Hibernate Tools 4.3.1
 
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -17,12 +14,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="party_la"
-   
+    ,catalog="election_survey"
 )
 public class PartyLa  implements java.io.Serializable {
 
 
-     private Integer id;
+     private int id;
      private LocalAuthority localAuthority;
      private String partyCode;
      private String contactNo;
@@ -35,7 +32,12 @@ public class PartyLa  implements java.io.Serializable {
     public PartyLa() {
     }
 
-    public PartyLa(LocalAuthority localAuthority, String partyCode, String contactNo, String address, String username, String password, String oldPassword, String status) {
+	
+    public PartyLa(int id) {
+        this.id = id;
+    }
+    public PartyLa(int id, LocalAuthority localAuthority, String partyCode, String contactNo, String address, String username, String password, String oldPassword, String status) {
+       this.id = id;
        this.localAuthority = localAuthority;
        this.partyCode = partyCode;
        this.contactNo = contactNo;
@@ -46,15 +48,15 @@ public class PartyLa  implements java.io.Serializable {
        this.status = status;
     }
    
-     @Id @GeneratedValue(strategy=IDENTITY)
+     @Id 
 
     
     @Column(name="id", unique=true, nullable=false)
-    public Integer getId() {
+    public int getId() {
         return this.id;
     }
     
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

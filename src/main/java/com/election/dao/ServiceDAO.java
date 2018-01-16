@@ -54,7 +54,7 @@ public class ServiceDAO {
                     ServiceList serviceList = (ServiceList) it.next();
 
                     try {
-                        serviceBean.setId(serviceList.getId().toString());
+                        serviceBean.setId(serviceList.getId()+"");
                     } catch (NullPointerException npe) {
                         serviceBean.setId("--");
                     }

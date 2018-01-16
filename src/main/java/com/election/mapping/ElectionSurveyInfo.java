@@ -1,12 +1,9 @@
-package com.election.mapping;
-// Generated Jan 7, 2018 2:28:48 PM by Hibernate Tools 4.3.1
+package com.election.mapping;// Generated Jan 15, 2018 9:03:36 AM by Hibernate Tools 4.3.1
 
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -17,32 +14,37 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="election_survey_info"
-    
+    ,catalog="election_survey"
 )
 public class ElectionSurveyInfo  implements java.io.Serializable {
 
 
-     private Integer id;
+     private int id;
      private ElectionSurvey electionSurvey;
      private ServiceList serviceList;
 
     public ElectionSurveyInfo() {
     }
 
-    public ElectionSurveyInfo(ElectionSurvey electionSurvey, ServiceList serviceList) {
+	
+    public ElectionSurveyInfo(int id) {
+        this.id = id;
+    }
+    public ElectionSurveyInfo(int id, ElectionSurvey electionSurvey, ServiceList serviceList) {
+       this.id = id;
        this.electionSurvey = electionSurvey;
        this.serviceList = serviceList;
     }
    
-     @Id @GeneratedValue(strategy=IDENTITY)
+     @Id 
 
     
     @Column(name="id", unique=true, nullable=false)
-    public Integer getId() {
+    public int getId() {
         return this.id;
     }
     
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -1,5 +1,4 @@
-package com.election.mapping;
-// Generated Jan 7, 2018 2:28:48 PM by Hibernate Tools 4.3.1
+package com.election.mapping;// Generated Jan 15, 2018 9:03:36 AM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -7,8 +6,6 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -18,12 +15,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="service_list"
-    
+    ,catalog="election_survey"
 )
 public class ServiceList  implements java.io.Serializable {
 
 
-     private Integer id;
+     private int id;
      private String code;
      private String name;
      private String description;
@@ -33,7 +30,12 @@ public class ServiceList  implements java.io.Serializable {
     public ServiceList() {
     }
 
-    public ServiceList(String code, String name, String description, String status, Set<ElectionSurveyInfo> electionSurveyInfos) {
+	
+    public ServiceList(int id) {
+        this.id = id;
+    }
+    public ServiceList(int id, String code, String name, String description, String status, Set<ElectionSurveyInfo> electionSurveyInfos) {
+       this.id = id;
        this.code = code;
        this.name = name;
        this.description = description;
@@ -41,15 +43,15 @@ public class ServiceList  implements java.io.Serializable {
        this.electionSurveyInfos = electionSurveyInfos;
     }
    
-     @Id @GeneratedValue(strategy=IDENTITY)
+     @Id 
 
     
     @Column(name="id", unique=true, nullable=false)
-    public Integer getId() {
+    public int getId() {
         return this.id;
     }
     
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

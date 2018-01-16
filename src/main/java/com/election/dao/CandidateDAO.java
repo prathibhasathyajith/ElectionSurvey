@@ -65,7 +65,7 @@ public class CandidateDAO {
                     Candidate candidate = (Candidate) it.next();
 
                     try {
-                        candidateBean.setCandidateId(candidate.getCandidateId().toString());
+                        candidateBean.setCandidateId(candidate.getCandidateId()+"");
                     } catch (NullPointerException npe) {
                         candidateBean.setCandidateId("--");
                     }

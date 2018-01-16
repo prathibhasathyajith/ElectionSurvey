@@ -62,7 +62,7 @@ public class PartyLADAO {
                     PartyLa partyLa = (PartyLa) it.next();
 
                     try {
-                        partyLABean.setId(partyLa.getId().toString());
+                        partyLABean.setId(partyLa.getId()+"");
                     } catch (NullPointerException npe) {
                         partyLABean.setId("--");
                     }

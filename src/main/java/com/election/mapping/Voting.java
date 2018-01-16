@@ -1,13 +1,10 @@
-package com.election.mapping;
-// Generated Jan 7, 2018 2:28:48 PM by Hibernate Tools 4.3.1
+package com.election.mapping;// Generated Jan 15, 2018 9:03:36 AM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,12 +17,12 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="voting"
-    
+    ,catalog="election_survey"
 )
 public class Voting  implements java.io.Serializable {
 
 
-     private Integer id;
+     private int id;
      private LocalAuthority localAuthority;
      private Ward ward;
      private String vote;
@@ -36,25 +33,29 @@ public class Voting  implements java.io.Serializable {
     public Voting() {
     }
 
-    public Voting(LocalAuthority localAuthority, Ward ward, String vote, Date datetime, String userId,String userType) {
+	
+    public Voting(int id) {
+        this.id = id;
+    }
+    public Voting(int id, LocalAuthority localAuthority, Ward ward, String vote, Date datetime, String userId, String userType) {
+       this.id = id;
        this.localAuthority = localAuthority;
        this.ward = ward;
        this.vote = vote;
        this.datetime = datetime;
        this.userId = userId;
        this.userType = userType;
-       
     }
    
-     @Id @GeneratedValue(strategy=IDENTITY)
+     @Id 
 
     
     @Column(name="id", unique=true, nullable=false)
-    public Integer getId() {
+    public int getId() {
         return this.id;
     }
     
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -107,15 +108,19 @@ public class Voting  implements java.io.Serializable {
     public void setUserId(String userId) {
         this.userId = userId;
     }
-    @Column(name="user_type")
-    public String getUserType() {
-        return userType;
-    }
 
+    
+    @Column(name="user_type", length=10)
+    public String getUserType() {
+        return this.userType;
+    }
+    
     public void setUserType(String userType) {
         this.userType = userType;
     }
-   
+
+
+
 
 }
 

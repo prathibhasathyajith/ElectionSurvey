@@ -57,7 +57,7 @@ public class PartyDAO {
                     Party party = (Party) it.next();
 
                     try {
-                        partyBean.setPartyId(party.getPartyId().toString());
+                        partyBean.setPartyId(party.getPartyId()+"");
                     } catch (NullPointerException npe) {
                         partyBean.setPartyId("--");
                     }

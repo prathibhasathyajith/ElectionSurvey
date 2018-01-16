@@ -1,5 +1,4 @@
-package com.election.mapping;
-// Generated Jan 7, 2018 2:28:48 PM by Hibernate Tools 4.3.1
+package com.election.mapping;// Generated Jan 15, 2018 9:03:36 AM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -7,8 +6,6 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,12 +17,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="candidate"
-    
+    ,catalog="election_survey"
 )
 public class Candidate  implements java.io.Serializable {
 
 
-     private Integer candidateId;
+     private int candidateId;
      private Ward ward;
      private String partyCode;
      private String name;
@@ -39,12 +36,16 @@ public class Candidate  implements java.io.Serializable {
      private String oldPassword;
      private String status;
      private Set<CandidateList> candidateLists = new HashSet(0);
-     private Set<ElectionSurvey> electionSurveys = new HashSet(0);
 
     public Candidate() {
     }
 
-    public Candidate(Ward ward, String partyCode, String name, String nic, String contactNo, String address, String gender, String youth, String username, String password, String oldPassword, String status,Set<CandidateList> candidateLists, Set<ElectionSurvey> electionSurveys) {
+	
+    public Candidate(int candidateId) {
+        this.candidateId = candidateId;
+    }
+    public Candidate(int candidateId, Ward ward, String partyCode, String name, String nic, String contactNo, String address, String gender, String youth, String username, String password, String oldPassword, String status, Set<CandidateList> candidateLists) {
+       this.candidateId = candidateId;
        this.ward = ward;
        this.partyCode = partyCode;
        this.name = name;
@@ -58,18 +59,17 @@ public class Candidate  implements java.io.Serializable {
        this.oldPassword = oldPassword;
        this.status = status;
        this.candidateLists = candidateLists;
-       this.electionSurveys = electionSurveys;
     }
    
-     @Id @GeneratedValue(strategy=IDENTITY)
+     @Id 
 
     
     @Column(name="candidate_id", unique=true, nullable=false)
-    public Integer getCandidateId() {
+    public int getCandidateId() {
         return this.candidateId;
     }
     
-    public void setCandidateId(Integer candidateId) {
+    public void setCandidateId(int candidateId) {
         this.candidateId = candidateId;
     }
 
@@ -200,15 +200,6 @@ public class Candidate  implements java.io.Serializable {
     
     public void setCandidateLists(Set<CandidateList> candidateLists) {
         this.candidateLists = candidateLists;
-    }
-
-@OneToMany(fetch=FetchType.LAZY, mappedBy="candidate")
-    public Set<ElectionSurvey> getElectionSurveys() {
-        return this.electionSurveys;
-    }
-    
-    public void setElectionSurveys(Set<ElectionSurvey> electionSurveys) {
-        this.electionSurveys = electionSurveys;
     }
 
 

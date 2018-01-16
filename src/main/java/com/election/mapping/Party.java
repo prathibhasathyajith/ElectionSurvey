@@ -1,11 +1,8 @@
-package com.election.mapping;
-// Generated Jan 7, 2018 2:28:48 PM by Hibernate Tools 4.3.1
+package com.election.mapping;// Generated Jan 15, 2018 9:03:36 AM by Hibernate Tools 4.3.1
 
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -15,13 +12,13 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name="party"
-    
+    ,catalog="election_survey"
     , uniqueConstraints = @UniqueConstraint(columnNames="party_code") 
 )
 public class Party  implements java.io.Serializable {
 
 
-     private Integer partyId;
+     private int partyId;
      private String partyCode;
      private String name;
      private String description;
@@ -35,7 +32,12 @@ public class Party  implements java.io.Serializable {
     public Party() {
     }
 
-    public Party(String partyCode, String name, String description, String type, String contactNo, String email, String address, String status, byte[] image) {
+	
+    public Party(int partyId) {
+        this.partyId = partyId;
+    }
+    public Party(int partyId, String partyCode, String name, String description, String type, String contactNo, String email, String address, String status, byte[] image) {
+       this.partyId = partyId;
        this.partyCode = partyCode;
        this.name = name;
        this.description = description;
@@ -47,15 +49,15 @@ public class Party  implements java.io.Serializable {
        this.image = image;
     }
    
-     @Id @GeneratedValue(strategy=IDENTITY)
+     @Id 
 
     
     @Column(name="party_id", unique=true, nullable=false)
-    public Integer getPartyId() {
+    public int getPartyId() {
         return this.partyId;
     }
     
-    public void setPartyId(Integer partyId) {
+    public void setPartyId(int partyId) {
         this.partyId = partyId;
     }
 
