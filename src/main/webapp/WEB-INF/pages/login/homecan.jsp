@@ -85,7 +85,7 @@
                             <!--<td>-->
                                 <%--<s:property value="columName3"/>--%>
                             <!--</td>-->
-                            <td><s:property value="percentage1"/></td>
+                            <td><s:property value="percentage1"/>%</td>
                         </tr>
                     </s:iterator>  
                 </table>
