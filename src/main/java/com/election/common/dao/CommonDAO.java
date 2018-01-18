@@ -69,6 +69,33 @@ public class CommonDAO {
         return partyBean;
     }
     
+    public static PartyLa getPartyLaID(String partyCode) throws Exception {
+        
+        PartyLa partyBean = null;
+        Session session = null;
+        try {
+            session = HibernateInit.sessionFactory.openSession();
+            String sql = "from PartyLa as s where s.partyCode =:partyCode";
+            Query query = session.createQuery(sql).setString("partyCode", partyCode);
+//            partyBean = (Party) query.list().get(0);
+
+            if (query.list().size() > 0) {
+                partyBean = (PartyLa) query.list().get(0);
+            }
+            
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            try {
+                session.flush();
+                session.close();
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        return partyBean;
+    }
+    
     public static Candidate getCandidateID(String nic) throws Exception {
         
         Candidate candidateBean = null;

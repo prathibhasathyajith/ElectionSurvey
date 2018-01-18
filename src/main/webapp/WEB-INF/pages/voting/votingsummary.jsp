@@ -255,8 +255,8 @@
             function load() {
                 var ward = $("#ward").val();
 //                var ward = 'KURKGMCKGW';
-                var type = $("#types").val();
-//                var type = 'USER';
+//                var type = $("#types").val();
+                var type = 'PARTY';
 
                 $.ajax({
                     url: '${pageContext.request.contextPath}/loadVotingSummary.action',
@@ -357,14 +357,14 @@
             <div class="cont-form">
 
                 <s:form id="VotingSummaryForm" method="post" action="VotingSummary" theme="simple" cssClass="form" enctype="multipart/form-data">
-                    <div class="row" style="margin-left: 0px;">
+<!--                    <div class="row" style="margin-left: 0px;">
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <span style="color: red">*</span><label>Search Type</label>
-                                <s:select  cssClass="form-control" id="types" list="%{typeList}"  headerValue="--Select Search Type--" headerKey="" name="type" listKey="code" listValue="description" />
+                                <%--<s:select  cssClass="form-control" id="types" list="%{typeList}"  headerValue="--Select Search Type--" headerKey="" name="type" listKey="code" listValue="description" />--%>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
 
 
                     <div class="col-sm-3">

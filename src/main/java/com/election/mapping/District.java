@@ -17,7 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="district"
-    ,catalog="election_survey"
+    
 )
 public class District  implements java.io.Serializable {
 

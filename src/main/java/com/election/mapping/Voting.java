@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -17,13 +19,14 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="voting"
-    ,catalog="election_survey"
+    
 )
 public class Voting  implements java.io.Serializable {
 
 
-     private int id;
+     private Integer id;
      private LocalAuthority localAuthority;
+     private Party party;
      private Ward ward;
      private String vote;
      private Date datetime;
@@ -33,13 +36,9 @@ public class Voting  implements java.io.Serializable {
     public Voting() {
     }
 
-	
-    public Voting(int id) {
-        this.id = id;
-    }
-    public Voting(int id, LocalAuthority localAuthority, Ward ward, String vote, Date datetime, String userId, String userType) {
-       this.id = id;
+    public Voting(LocalAuthority localAuthority, Party party, Ward ward, String vote, Date datetime, String userId, String userType) {
        this.localAuthority = localAuthority;
+       this.party = party;
        this.ward = ward;
        this.vote = vote;
        this.datetime = datetime;
@@ -47,15 +46,15 @@ public class Voting  implements java.io.Serializable {
        this.userType = userType;
     }
    
-     @Id 
+     @Id @GeneratedValue(strategy=IDENTITY)
 
     
     @Column(name="id", unique=true, nullable=false)
-    public int getId() {
+    public Integer getId() {
         return this.id;
     }
     
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -67,6 +66,16 @@ public class Voting  implements java.io.Serializable {
     
     public void setLocalAuthority(LocalAuthority localAuthority) {
         this.localAuthority = localAuthority;
+    }
+
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="voted_party")
+    public Party getParty() {
+        return this.party;
+    }
+    
+    public void setParty(Party party) {
+        this.party = party;
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
@@ -119,9 +128,5 @@ public class Voting  implements java.io.Serializable {
         this.userType = userType;
     }
 
-
-
-
 }
-
 

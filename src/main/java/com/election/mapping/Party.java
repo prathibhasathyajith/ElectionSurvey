@@ -1,9 +1,15 @@
 package com.election.mapping;// Generated Jan 15, 2018 9:03:36 AM by Hibernate Tools 4.3.1
 
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -12,13 +18,13 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name="party"
-    ,catalog="election_survey"
+    
     , uniqueConstraints = @UniqueConstraint(columnNames="party_code") 
 )
 public class Party  implements java.io.Serializable {
 
 
-     private int partyId;
+     private Integer partyId;
      private String partyCode;
      private String name;
      private String description;
@@ -28,16 +34,12 @@ public class Party  implements java.io.Serializable {
      private String address;
      private String status;
      private byte[] image;
+     private Set<Voting> votings = new HashSet(0);
 
     public Party() {
     }
 
-	
-    public Party(int partyId) {
-        this.partyId = partyId;
-    }
-    public Party(int partyId, String partyCode, String name, String description, String type, String contactNo, String email, String address, String status, byte[] image) {
-       this.partyId = partyId;
+    public Party(String partyCode, String name, String description, String type, String contactNo, String email, String address, String status, byte[] image, Set<Voting> votings) {
        this.partyCode = partyCode;
        this.name = name;
        this.description = description;
@@ -47,17 +49,18 @@ public class Party  implements java.io.Serializable {
        this.address = address;
        this.status = status;
        this.image = image;
+       this.votings = votings;
     }
    
-     @Id 
+     @Id @GeneratedValue(strategy=IDENTITY)
 
     
     @Column(name="party_id", unique=true, nullable=false)
-    public int getPartyId() {
+    public Integer getPartyId() {
         return this.partyId;
     }
     
-    public void setPartyId(int partyId) {
+    public void setPartyId(Integer partyId) {
         this.partyId = partyId;
     }
 
@@ -151,9 +154,17 @@ public class Party  implements java.io.Serializable {
         this.image = image;
     }
 
+@OneToMany(fetch=FetchType.LAZY, mappedBy="party")
+    public Set<Voting> getVotings() {
+        return this.votings;
+    }
+    
+    public void setVotings(Set<Voting> votings) {
+        this.votings = votings;
+    }
+
 
 
 
 }
-
 

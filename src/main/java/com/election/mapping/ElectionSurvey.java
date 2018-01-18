@@ -18,7 +18,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="election_survey"
-    ,catalog="election_survey"
+    
 )
 public class ElectionSurvey  implements java.io.Serializable {
 

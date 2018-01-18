@@ -11,7 +11,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="mob_masterdata"
-    ,catalog="election_survey"
+    
 )
 public class MobMasterdata  implements java.io.Serializable {
 
