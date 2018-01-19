@@ -75,10 +75,11 @@ public class VotingSummaryAction extends ActionSupport implements ModelDriven<Ob
             message = this.validateInputs();
             System.out.println("message " + message);
             if (message.isEmpty()) {
-                if (inputBean.getWard() != null && !inputBean.getWard().isEmpty()) {
+                if (inputBean.getLa()!= null && !inputBean.getLa().isEmpty()) {
 
                     System.out.println("ward " + inputBean.getWard());
                     System.out.println("type " + inputBean.getType());
+                    System.out.println("la " + inputBean.getLa());
 
                     VotingSummaryDAO dao = new VotingSummaryDAO();
                     List<CountVoteSummary> dataList = dao.loadDeatils(inputBean);
@@ -205,8 +206,8 @@ public class VotingSummaryAction extends ActionSupport implements ModelDriven<Ob
 
     private String validateInputs() {
         String message = "";
-        if (inputBean.getWard() == null || inputBean.getWard().trim().isEmpty()) {
-            message = "Ward cannot be empty";
+        if (inputBean.getLa()== null || inputBean.getLa().trim().isEmpty()) {
+            message = "Local authority cannot be empty";
         } else if (inputBean.getType() == null || inputBean.getType().trim().isEmpty()) {
             message = "Search type cannot be empty";
         }

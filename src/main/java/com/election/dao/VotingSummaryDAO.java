@@ -335,10 +335,22 @@ public class VotingSummaryDAO {
             if (inputBean.getType().equals("PARTY")) {
                 System.out.println("PARTY");
 
-                sqlCount = "SELECT COUNT(*) "
-                        + "FROM voting v "
-                        + "WHERE v.ward_code = '" + inputBean.getWard() + "'";
+                if (!inputBean.getWard().equals("EMPTY")) {
+                    System.out.println("------with ward c------");
+                    sqlCount = "SELECT COUNT(*) "
+                            + "FROM voting v "
+                            + "WHERE v.ward_code = '" + inputBean.getWard() + "'";
+                } else {
+                    System.out.println("------without ward c------");
+                    sqlCount = "SELECT COUNT(*) "
+                            + "FROM voting v "
+                            + "WHERE v.la_code = '" + inputBean.getLa() + "' "
+                            + "GROUP BY v.la_code , v.voted_party ,v.ward_code ";
+                }
 
+//                sqlCount = "SELECT COUNT(*) "
+//                        + "FROM voting v "
+//                        + "WHERE v.ward_code = '" + inputBean.getWard() + "'";
 //                sqlCount = "SELECT COUNT(*) "
 //                        + "FROM party p "
 //                        + "INNER JOIN voting v ON p.party_code = v.user_id "
@@ -369,19 +381,28 @@ public class VotingSummaryDAO {
                      * election_survey_new.voting v WHERE v.ward_code =
                      * 'ANUNGPSDM6' GROUP BY v.ward_code , v.voted_party;
                      */
-                    
-                    
-                    sqlSearch = "SELECT COUNT(*) AS count, v.ward_code, v.voted_party "
-                            + "FROM voting v "
-                            + "WHERE v.ward_code = '"+inputBean.getWard()+"' "
-                            + "GROUP BY v.ward_code , v.voted_party";
-                    
+
+                    if (!inputBean.getWard().equals("EMPTY")) {
+                        System.out.println("------with ward------");
+                        sqlSearch = "SELECT COUNT(*) AS count, v.ward_code, v.voted_party ,v.la_code "
+                                + "FROM voting v "
+                                + "WHERE v.ward_code = '" + inputBean.getWard() + "' "
+                                + "GROUP BY v.ward_code , v.voted_party, v.ward_code "
+                                + "ORDER BY v.ward_code ";
+                    } else {
+                        System.out.println("------without ward------");
+                        sqlSearch = "SELECT COUNT(*) AS count ,v.ward_code, v.voted_party , v.la_code "
+                                + "FROM voting v "
+                                + "WHERE v.la_code = '" + inputBean.getLa() + "' "
+                                + "GROUP BY v.la_code , v.voted_party, v.ward_code "
+                                + "ORDER BY v.la_code ";
+                    }
+
 //                    sqlSearch = "SELECT COUNT(*) as count, p.party_code, v.ward_code "
 //                            + "FROM party p "
 //                            + "INNER JOIN voting v ON p.party_code = v.user_id "
 //                            + "GROUP BY p.party_code, v.ward_code,v.user_type "
 //                            + "HAVING v.ward_code = '" + inputBean.getWard() + "' and v.user_type = '" + inputBean.getType() + "' ";
-
                 } else if (inputBean.getType().equals("USER")) {
                     System.out.println("USER");
                     sqlSearch = "SELECT COUNT(*), c.username, v.ward_code,c.party_code "
@@ -406,11 +427,14 @@ public class VotingSummaryDAO {
                     CountVoteSummary countVS = new CountVoteSummary();
 
                     if (inputBean.getType().equals("PARTY")) {
+
+                       
                         if (bean[0] != null) {
                             countVS.setCount(String.valueOf(bean[0]));
                         } else {
                             countVS.setCount("--");
                         }
+                        //party code
                         if (bean[2] != null) {
                             countVS.setColumName1(CommonDAO.getPartyID(String.valueOf(bean[2])).getName());
                         } else {
@@ -426,6 +450,18 @@ public class VotingSummaryDAO {
                             countVS.setColumName3(CommonDAO.getWardFromCode(String.valueOf(bean[1])).getDescription());
                         } else {
                             countVS.setColumName3("--");
+                        }
+                        //la code
+                        if (bean[3] != null) {
+                            countVS.setColumName4(String.valueOf(bean[3]));
+                        } else {
+                            countVS.setColumName4("--");
+                        }
+                        //ward code
+                        if (bean[1] != null) {
+                            countVS.setColumName5(String.valueOf(bean[1]));
+                        } else {
+                            countVS.setColumName5("--");
                         }
 
                         double percentage = (Double.parseDouble(String.valueOf(bean[0])) / fullCount) * 100;

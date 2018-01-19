@@ -254,13 +254,20 @@
 
             function load() {
                 var ward = $("#ward").val();
+                var la = $("#la").val();
 //                var ward = 'KURKGMCKGW';
 //                var type = $("#types").val();
                 var type = 'PARTY';
 
+                if (ward == '') {
+                    ward = "EMPTY";
+                }
+
+
+
                 $.ajax({
                     url: '${pageContext.request.contextPath}/loadVotingSummary.action',
-                    data: {ward: ward, type: type},
+                    data: {ward: ward, type: type, la: la},
                     dataType: "json",
                     type: "POST",
                     success: function (data) {
@@ -275,10 +282,40 @@
 
                             if (data.fullCount != null) {
                                 if (type == 'PARTY') {
-                                    $('#table-votingSummary').append("<tr><th>Party</th><th>Vote Count</th><th>Percentage</th></tr>");
-                                    $.each(detais, function (index, item) {
-                                        $('#table-votingSummary').append("<tr><td>" + item.columName1 + "</td><td>" + item.count + "</td><td>" + item.percentage1 + "</td></tr>");
-                                    });
+
+                                    if (ward == 'EMPTY') {
+                                        var ward_name = "EMP";
+                                        var ward_name_temp = "TEMP";
+
+                                        $('#table-votingSummary').append("<tr><th>Ward</th><th>Party</th><th>Vote Count</th><th>Percentage</th></tr>");
+                                        $.each(detais, function (index, item) {
+                                            console.log(index);
+                                            if (ward_name == "EMP") {
+                                                $('#table-votingSummary').append("<tr><td>" + item.columName3 + "</td><td>" + item.columName1 + "</td><td>" + item.count + "</td><td>" + item.percentage1 + "</td></tr>");
+                                                ward_name = item.columName5;
+                                            } else {
+                                                if (ward_name == item.columName5) {
+                                                    $('#table-votingSummary').append("<tr><td>" + " " + "</td><td>" + item.columName1 + "</td><td>" + item.count + "</td><td>" + item.percentage1 + "</td></tr>");
+//                                                    ward_name = item.columName5;
+                                                } else {
+                                                    $('#table-votingSummary').append("<tr><td>" + item.columName3 + "</td><td>" + item.columName1 + "</td><td>" + item.count + "</td><td>" + item.percentage1 + "</td></tr>");
+//                                                    ward_name = item.columName5;
+                                                }
+//                                                $('#table-votingSummary').append("<tr><td>" + item.columName3 + "</td><td>" + item.columName1 + "</td><td>" + item.count + "</td><td>" + item.percentage1 + "</td></tr>");
+                                                ward_name = item.columName5;
+                                            }
+
+//                                            $('#table-votingSummary').append("<tr><td>" + item.columName3 + "</td><td>" + item.columName1 + "</td><td>" + item.count + "</td><td>" + item.percentage1 + "</td></tr>");
+
+                                        });
+                                    } else {
+                                        $('#table-votingSummary').append("<tr><th>Party</th><th>Vote Count</th><th>Percentage</th></tr>");
+                                        $.each(detais, function (index, item) {
+                                            $('#table-votingSummary').append("<tr><td>" + item.columName1 + "</td><td>" + item.count + "</td><td>" + item.percentage1 + "</td></tr>");
+                                        });
+                                    }
+
+
                                 } else if (type == 'USER') {
                                     $('#table-votingSummary').append("<tr><th>Candidate</th><th>Vote Count</th><th>Percentage</th><th>Party</th></tr>");
                                     $.each(detais, function (index, item) {
@@ -357,14 +394,14 @@
             <div class="cont-form">
 
                 <s:form id="VotingSummaryForm" method="post" action="VotingSummary" theme="simple" cssClass="form" enctype="multipart/form-data">
-<!--                    <div class="row" style="margin-left: 0px;">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <span style="color: red">*</span><label>Search Type</label>
-                                <%--<s:select  cssClass="form-control" id="types" list="%{typeList}"  headerValue="--Select Search Type--" headerKey="" name="type" listKey="code" listValue="description" />--%>
-                            </div>
-                        </div>
-                    </div>-->
+                    <!--                    <div class="row" style="margin-left: 0px;">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <span style="color: red">*</span><label>Search Type</label>
+                    <%--<s:select  cssClass="form-control" id="types" list="%{typeList}"  headerValue="--Select Search Type--" headerKey="" name="type" listKey="code" listValue="description" />--%>
+                </div>
+            </div>
+        </div>-->
 
 
                     <div class="col-sm-3">
