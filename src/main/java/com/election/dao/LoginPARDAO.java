@@ -29,21 +29,19 @@ public class LoginPARDAO {
             session = HibernateInit.sessionFactory.openSession();
 
             String sqlCount = "SELECT COUNT(*) "
-                    + "FROM party p "
-                    + "INNER JOIN voting v ON p.party_code = v.user_id "
-                    + "GROUP BY v.ward_code,v.user_type "
-                    + "HAVING  v.user_type = 'PARTY' ";
+                    + "FROM voting v "
+                    + "GROUP BY v.la_code,v.ward_code "
+                    + "order by v.la_code  ";
 
             Query queryCount = session.createSQLQuery(sqlCount);
             List countList = queryCount.list();
 
             if (countList.size() > 0) {
 
-                String sqlSearch = "SELECT COUNT(*) as Count, v.ward_code "
-                        + "FROM party p "
-                        + "INNER JOIN voting v ON p.party_code = v.user_id "
-                        + "GROUP BY  v.ward_code,v.user_type "
-                        + "HAVING  v.user_type = 'PARTY' ";
+                String sqlSearch = "SELECT COUNT(*),v.la_code ,v.ward_code  "
+                    + "FROM voting v "
+                    + "GROUP BY v.la_code,v.ward_code "
+                    + "order by v.la_code  ";
 
                 Query querySearch = session.createSQLQuery(sqlSearch);
 
@@ -58,11 +56,30 @@ public class LoginPARDAO {
                     } else {
                         countVS.setCount("--");
                     }
+                    //la code
                     if (bean[1] != null) {
-                        //ward cord
                         countVS.setColumName1(String.valueOf(bean[1]));
                     } else {
                         countVS.setColumName1("--");
+                    }
+                    //la desc
+                    if (bean[1] != null) {
+                        countVS.setColumName2(CommonDAO.getLAFromCode(String.valueOf(bean[1])).getDescription());
+                    } else {
+                        countVS.setColumName2("--");
+                    }
+                    
+                    //ward code
+                    if (bean[2] != null) {
+                        countVS.setColumName3(String.valueOf(bean[2]));
+                    } else {
+                        countVS.setColumName3("--");
+                    }
+                    //ward desc
+                    if (bean[2] != null) {
+                        countVS.setColumName4(CommonDAO.getWardFromCode(String.valueOf(bean[2])).getDescription());
+                    } else {
+                        countVS.setColumName4("--");
                     }
 
                     dataList.add(countVS);
@@ -88,27 +105,28 @@ public class LoginPARDAO {
     public List<CountVoteSummary> getDetailsParty(String partyCode, LoginPARInputBean inputBean) throws Exception {
         List<CountVoteSummary> dataList = new ArrayList<CountVoteSummary>();
 
+        
         Session session = null;
         try {
 
             session = HibernateInit.sessionFactory.openSession();
 
             String sqlCount = "SELECT COUNT(*) "
-                    + "FROM party p "
-                    + "INNER JOIN voting v ON p.party_code = v.user_id "
-                    + "GROUP BY p.party_code, v.ward_code,v.user_type "
-                    + "HAVING v.user_type = 'PARTY' and p.party_code = '" + partyCode + "' order by v.ward_code asc";
+                    + "FROM voting v "
+                    + "WHERE v.voted_party = '" + partyCode + "' "
+                    + "GROUP BY v.la_code, v.ward_code "
+                    + "order by v.la_code asc ";
 
             Query queryCount = session.createSQLQuery(sqlCount);
             List countList = queryCount.list();
 
             if (countList.size() > 0) {
 
-                String sqlSearch = "SELECT COUNT(*) as count, v.ward_code "
-                        + "FROM party p "
-                        + "INNER JOIN voting v ON p.party_code = v.user_id "
-                        + "GROUP BY p.party_code, v.ward_code,v.user_type "
-                        + "HAVING v.user_type = 'PARTY' and p.party_code = '" + partyCode + "' order by v.ward_code asc";
+                String sqlSearch = "SELECT COUNT(*), v.la_code, v.ward_code "
+                        + "FROM voting v "
+                        + "WHERE v.voted_party = '" + partyCode + "' "
+                        + "GROUP BY v.la_code, v.ward_code "
+                        + "order by v.la_code asc";
 
                 Query querySearch = session.createSQLQuery(sqlSearch);
 
@@ -122,16 +140,30 @@ public class LoginPARDAO {
                     } else {
                         countVS.setCount("--");
                     }
+                    //la code
                     if (bean[1] != null) {
                         countVS.setColumName1(String.valueOf(bean[1]));
                     } else {
                         countVS.setColumName1("--");
                     }
-                    //ward description
+                    //la desc
                     if (bean[1] != null) {
-                        countVS.setColumName2(CommonDAO.getWardFromCode(String.valueOf(bean[1])).getDescription());
+                        countVS.setColumName2(CommonDAO.getLAFromCode(String.valueOf(bean[1])).getDescription());
                     } else {
                         countVS.setColumName2("--");
+                    }
+                    
+                    //ward code
+                    if (bean[2] != null) {
+                        countVS.setColumName3(String.valueOf(bean[2]));
+                    } else {
+                        countVS.setColumName3("--");
+                    }
+                    //ward desc
+                    if (bean[2] != null) {
+                        countVS.setColumName4(CommonDAO.getWardFromCode(String.valueOf(bean[2])).getDescription());
+                    } else {
+                        countVS.setColumName4("--");
                     }
 
                     dataList.add(countVS);
@@ -152,7 +184,7 @@ public class LoginPARDAO {
 
         return dataList;
     }
-    
+
     public List<CountVoteSummary> getDetailsPartyLA(String partyCode, LoginPARInputBean inputBean) throws Exception {
         List<CountVoteSummary> dataList = new ArrayList<CountVoteSummary>();
 
@@ -251,7 +283,7 @@ public class LoginPARDAO {
         if (dataListDetails.size() > 0 && dataList.size() > 0) {
             for (int i = 0; i < dataListDetails.size(); i++) {
                 for (int j = 0; j < dataList.size(); j++) {
-                    if (dataListDetails.get(i).getColumName1().equals(dataList.get(j).getColumName1())) {
+                    if (dataListDetails.get(i).getColumName3().equals(dataList.get(j).getColumName3())) {
                         double percentage = (Double.parseDouble(dataListDetails.get(i).getCount()) / Integer.parseInt(dataList.get(j).getCount())) * 100;
                         percentage = (double) Math.round(percentage * 100) / 100;
                         dataListDetails.get(i).setPercentage1(percentage + "%");

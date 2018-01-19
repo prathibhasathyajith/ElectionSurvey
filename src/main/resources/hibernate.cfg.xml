@@ -3,12 +3,12 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/election_survey_new?autoReconnect=true&amp;useSSL=false</property>
-        <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password">password</property>
+        <!--<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>-->
+        <!--<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/election_survey_new?autoReconnect=true&amp;useSSL=false</property>-->
+        <!--<property name="hibernate.connection.username">root</property>-->
+        <!--<property name="hibernate.connection.password">password</property>-->
         <!--<property name="hibernate.connection.isolation">1</property>-->
-        <!--<property name="hibernate.connection.datasource">ElectSvy</property>-->
+        <property name="hibernate.connection.datasource">ElectSvy</property>
         <!--<property name="hibernate.connection.verifyServerCertificate">false</property>-->
         <!--<property name="hibernate.connection.requireSSL">false</property>-->
         <property name="hibernate.connection.autocommit">true</property>
@@ -33,24 +33,6 @@
         <mapping class="com.election.mapping.ElectionSurvey"/>
         <mapping class="com.election.mapping.District"/>
         <mapping class="com.election.mapping.LocalAuthority"/>
-        <!--    <mapping class="com.election.mapping.CandidateList"/>
-        <mapping class="com.election.mapping.Candidate"/>
-        <mapping class="com.election.mapping.District"/>
-        <mapping class="com.election.mapping.PartyLa"/>
-        <mapping class="com.election.mapping.Party"/>
-        <mapping class="com.election.mapping.ElectionSurvey"/>
-        <mapping class="com.election.mapping.Province"/>
-        <mapping class="com.election.mapping.User"/>
-        <mapping class="com.election.mapping.LocalAuthority"/>
-        <mapping class="com.election.mapping.Ward"/>
-        <mapping class="com.election.mapping.ServiceList"/>
-        <mapping class="com.election.mapping.ElectionSurveyInfo"/>
-        <mapping class="com.election.mapping.Voting"/>-->
-        <!--    <mapping class="newpackage.LocalAuthority"/>
-        <mapping class="newpackage.Province"/>
-        <mapping class="newpackage.Ward"/>
-        <mapping class="newpackage.Party"/>
-        <mapping class="newpackage.District"/>
-        <mapping class="newpackage.Voting"/>-->
+        
     </session-factory>
 </hibernate-configuration>

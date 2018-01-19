@@ -9,7 +9,7 @@
     <package name="com.election.action" namespace="/" extends="pglobal">
         
         <action name="*Login" method="{1}" class="com.election.action.LoginAction">
-            <result name="loginsuccess">/WEB-INF/pages/home.jsp</result>
+            <result name="loginsuccess" type="redirect">${pageContext.request.contextPath}/viewVotingSummary</result>
             <result name="loginsuccessCAN" type="redirect">${pageContext.request.contextPath}/viewLoginCAN</result>
             <result name="loginsuccessPAR" type="redirect">${pageContext.request.contextPath}/viewLoginPAR</result>
             <result name="loginmessage">/login.jsp</result>

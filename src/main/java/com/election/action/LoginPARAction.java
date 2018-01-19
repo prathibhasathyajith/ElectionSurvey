@@ -58,9 +58,9 @@ public class LoginPARAction extends ActionSupport implements ModelDriven<Object>
             LocalAuthority la = CommonDAO.getLAFromCode(inputBean.getLa());
             
 
-            List<CountVoteSummary> dataListDetailsLA = dao.getDetailsPartyLA(partyObject.getPartyCode(), inputBean);
+//            List<CountVoteSummary> dataListDetailsLA = dao.getDetailsPartyLA(partyObject.getPartyCode(), inputBean);
             List<CountVoteSummary> dataList = dao.getFullVoteCountParty(inputBean);
-            List<CountVoteSummary> fullDataList = dao.getFullDataParty(dataListDetailsLA, dataList);
+            List<CountVoteSummary> fullDataList = dao.getFullDataParty(dataListDetails, dataList);
 
             inputBean.setLa(la.getDescription());
             inputBean.setCountList(fullDataList);

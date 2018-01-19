@@ -50,13 +50,15 @@
                 <table id="partyLogin">
                     <tr>
                         <th>Vote Count</th>  
+                        <th>Local Authority</th>  
                         <th>Ward</th>  
                         <th>Percentage</th>
                     </tr>
                     <s:iterator  value="countList">  
                         <tr>
                             <td><s:property value="count"/></td>
-                            <td><s:property value="columName5"/></td>
+                            <td><s:property value="columName2"/></td>
+                            <td><s:property value="columName4"/></td>
                             <td><s:property value="percentage1"/></td>
                         </tr>
                     </s:iterator>  
