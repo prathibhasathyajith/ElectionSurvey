@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png">
-        <title>Election Survey</title>
+        <title>Local Government Election Campaign Review</title>
         <%@include file="/stylelinks.jspf" %>
 
 
@@ -74,7 +74,7 @@
         <div class="container">
             <div class="container">
                 <div class="col-md-12" style="margin-top: 6%"></div>
-                <div class="col-md-12"><div id="es">Election Survey</div></div>
+                <div class="col-md-12"><div id="es">Local Government Election Campaign Review</div></div>
 
                 <div class="col-md-12" id="boxx">
                     <img style="margin-left: 25%" src="resources/assets/Images/election-day.jpg" width="400" height="auto" onclick="myFunction()"/>

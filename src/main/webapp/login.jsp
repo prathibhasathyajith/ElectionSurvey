@@ -13,7 +13,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png">
-        <title>Election Survey Login</title>
+        <title>Local Government Election Campaign Review Login</title>
         <link href="${pageContext.request.contextPath}/resources/assets/Css/login.css" rel="stylesheet" />
         <script>
             function formSubmit() {
@@ -31,8 +31,8 @@
         <div class="es-mainContent">
             <div class="es-mainbox">
                 <div class="es-textContent es-text">
-                    <span>Election</span>
-                    <span>Survey</span>
+                    <span>Local Government</span>
+                    <span>Election Campaign Review</span>
                     <span>Login</span>
                 </div>
                 <form id="formES" action="CheckLogin" method="post" >

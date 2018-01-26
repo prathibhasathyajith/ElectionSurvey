@@ -68,13 +68,13 @@ body {
     margin: 12px;
 }
 .es-textContent > span:first-Child {
-    font-size: 40px;
+    font-size: 26px;
 }
 .es-textContent > span:nth-Child(2) {
-    font-size: 40px;
+    font-size: 32px;
 }
 .es-textContent > span:last-Child {
-    font-size: 20px;
+    font-size: 23px;
     font-weight: 300;
     position: absolute;
     margin: 38px 0px 0 -50px;
