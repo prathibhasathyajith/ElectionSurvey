@@ -124,7 +124,7 @@ public class LoginPARDAO {
 
                 String sqlSearch = "SELECT COUNT(*), v.la_code, v.ward_code "
                         + "FROM voting v "
-                        + "WHERE v.voted_party = '" + partyCode + "' "
+                        + "WHERE v.vote='YES' and v.voted_party = '" + partyCode + "' "
                         + "GROUP BY v.la_code, v.ward_code "
                         + "order by v.la_code asc";
 

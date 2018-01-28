@@ -372,6 +372,7 @@ public class VotingSummaryDAO {
             if (countList.size() > 0) {
 
                 String sqlSearch = "";
+                String sqlSearch_forCount = "";
 
                 if (inputBean.getType().equals("PARTY")) {
                     System.out.println("PARTY");
@@ -386,12 +387,25 @@ public class VotingSummaryDAO {
                         System.out.println("------with ward------");
                         sqlSearch = "SELECT COUNT(*) AS count, v.ward_code, v.voted_party ,v.la_code "
                                 + "FROM voting v "
-                                + "WHERE v.ward_code = '" + inputBean.getWard() + "' "
-                                + "GROUP BY v.ward_code , v.voted_party, v.ward_code "
+                                + "WHERE v.vote='YES' and v.ward_code = '" + inputBean.getWard() + "' "
+                                + "GROUP BY v.ward_code , v.voted_party ,v.la_code "
                                 + "ORDER BY v.ward_code ";
+
+                        sqlSearch_forCount = "SELECT COUNT(*) AS count, v.ward_code, v.voted_party ,v.la_code "
+                                + "FROM voting v "
+                                + "WHERE v.ward_code = '" + inputBean.getWard() + "' "
+                                + "GROUP BY v.ward_code , v.voted_party ,v.la_code "
+                                + "ORDER BY v.ward_code ";
+
                     } else {
                         System.out.println("------without ward------");
                         sqlSearch = "SELECT COUNT(*) AS count ,v.ward_code, v.voted_party , v.la_code "
+                                + "FROM voting v "
+                                + "WHERE v.vote='YES' and v.la_code = '" + inputBean.getLa() + "' "
+                                + "GROUP BY v.la_code , v.voted_party, v.ward_code "
+                                + "ORDER BY v.la_code ";
+
+                        sqlSearch_forCount = "SELECT COUNT(*) AS count ,v.ward_code, v.voted_party , v.la_code "
                                 + "FROM voting v "
                                 + "WHERE v.la_code = '" + inputBean.getLa() + "' "
                                 + "GROUP BY v.la_code , v.voted_party, v.ward_code "
@@ -413,13 +427,21 @@ public class VotingSummaryDAO {
                 }
 
                 Query querySearch = session.createSQLQuery(sqlSearch);
+                Query querySearchCount = session.createSQLQuery(sqlSearch_forCount);
 
                 List<Object[]> ObjetctList = querySearch.list();
+                List<Object[]> ObjetctListCount = querySearchCount.list();
 
                 int fullCount = 0;
+                int fullCount_new = 0;
 
                 for (Object[] bean : ObjetctList) {
                     fullCount += Integer.parseInt(String.valueOf(bean[0]));
+
+                }
+                
+                for (Object[] bean : ObjetctListCount) {
+                    fullCount_new += Integer.parseInt(String.valueOf(bean[0]));
 
                 }
 
@@ -428,7 +450,6 @@ public class VotingSummaryDAO {
 
                     if (inputBean.getType().equals("PARTY")) {
 
-                       
                         if (bean[0] != null) {
                             countVS.setCount(String.valueOf(bean[0]));
                         } else {
@@ -464,7 +485,7 @@ public class VotingSummaryDAO {
                             countVS.setColumName5("--");
                         }
 
-                        double percentage = (Double.parseDouble(String.valueOf(bean[0])) / fullCount) * 100;
+                        double percentage = (Double.parseDouble(String.valueOf(bean[0])) / fullCount_new) * 100;
                         percentage = (double) Math.round(percentage * 100) / 100;
                         countVS.setPercentage1(percentage + "%");
 
@@ -505,7 +526,7 @@ public class VotingSummaryDAO {
 
                 }
 
-                inputBean.setFullCount(fullCount + "");
+                inputBean.setFullCount(fullCount_new + "");
             }
         } catch (Exception e) {
             throw e;
