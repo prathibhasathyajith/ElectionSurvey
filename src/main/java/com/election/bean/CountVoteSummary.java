@@ -17,6 +17,8 @@ public class CountVoteSummary {
     private String columName3;
     private String columName4;
     private String columName5;
+    private String yesCount;
+    private String noCount;
     private String percentage1;
 
     public String getCount() {
@@ -74,5 +76,22 @@ public class CountVoteSummary {
     public void setPercentage1(String percentage1) {
         this.percentage1 = percentage1;
     }
+
+    public String getYesCount() {
+        return yesCount;
+    }
+
+    public void setYesCount(String yesCount) {
+        this.yesCount = yesCount;
+    }
+
+    public String getNoCount() {
+        return noCount;
+    }
+
+    public void setNoCount(String noCount) {
+        this.noCount = noCount;
+    }
+    
 
 }

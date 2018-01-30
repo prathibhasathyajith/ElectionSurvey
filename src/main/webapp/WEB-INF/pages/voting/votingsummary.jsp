@@ -287,18 +287,18 @@
                                         var ward_name = "EMP";
                                         var ward_name_temp = "TEMP";
 
-                                        $('#table-votingSummary').append("<tr><th>Ward</th><th>Party</th><th>Vote Count</th><th>Percentage</th></tr>");
+                                        $('#table-votingSummary').append("<tr><th>Ward</th><th>Party</th><th>Vote Count</th><th>Percentage</th><th>NO Count</th></tr>");
                                         $.each(detais, function (index, item) {
                                             console.log(index);
                                             if (ward_name == "EMP") {
-                                                $('#table-votingSummary').append("<tr><td>" + item.columName3 + "</td><td>" + item.columName1 + "</td><td>" + item.count + "</td><td>" + item.percentage1 + "</td></tr>");
+                                                $('#table-votingSummary').append("<tr><td>" + item.columName3 + "</td><td>" + item.columName1 + "</td><td>" + item.count + "</td><td>" + item.percentage1 + "</td><td>"+item.noCount+"</td></tr>");
                                                 ward_name = item.columName5;
                                             } else {
                                                 if (ward_name == item.columName5) {
-                                                    $('#table-votingSummary').append("<tr><td>" + " " + "</td><td>" + item.columName1 + "</td><td>" + item.count + "</td><td>" + item.percentage1 + "</td></tr>");
+                                                    $('#table-votingSummary').append("<tr><td>" + " " + "</td><td>" + item.columName1 + "</td><td>" + item.count + "</td><td>" + item.percentage1 + "</td><td>"+item.noCount+"</td></tr>");
 //                                                    ward_name = item.columName5;
                                                 } else {
-                                                    $('#table-votingSummary').append("<tr><td>" + item.columName3 + "</td><td>" + item.columName1 + "</td><td>" + item.count + "</td><td>" + item.percentage1 + "</td></tr>");
+                                                    $('#table-votingSummary').append("<tr><td>" + item.columName3 + "</td><td>" + item.columName1 + "</td><td>" + item.count + "</td><td>" + item.percentage1 + "</td><td>"+item.noCount+"</td></tr>");
 //                                                    ward_name = item.columName5;
                                                 }
 //                                                $('#table-votingSummary').append("<tr><td>" + item.columName3 + "</td><td>" + item.columName1 + "</td><td>" + item.count + "</td><td>" + item.percentage1 + "</td></tr>");
@@ -309,9 +309,9 @@
 
                                         });
                                     } else {
-                                        $('#table-votingSummary').append("<tr><th>Party</th><th>Vote Count</th><th>Percentage</th></tr>");
+                                        $('#table-votingSummary').append("<tr><th>Party</th><th>Vote Count</th><th>Percentage</th><th>NO Count</th></tr>");
                                         $.each(detais, function (index, item) {
-                                            $('#table-votingSummary').append("<tr><td>" + item.columName1 + "</td><td>" + item.count + "</td><td>" + item.percentage1 + "</td></tr>");
+                                            $('#table-votingSummary').append("<tr><td>" + item.columName1 + "</td><td>" + item.count + "</td><td>" + item.percentage1 + "</td><td>"+item.noCount+"</td></tr>");
                                         });
                                     }
 

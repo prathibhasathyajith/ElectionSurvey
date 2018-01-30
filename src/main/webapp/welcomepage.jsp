@@ -69,7 +69,7 @@
 
 
     </style>
-    <body style="background-color: #01b0a9">
+    <body style="background-color: #a32588">
 
         <div class="container">
             <div class="container">

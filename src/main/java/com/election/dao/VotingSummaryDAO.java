@@ -452,6 +452,9 @@ public class VotingSummaryDAO {
 
                         if (bean[0] != null) {
                             countVS.setCount(String.valueOf(bean[0]));
+                            countVS.setYesCount(String.valueOf(bean[0]));
+                            int nocount = fullCount_new-Integer.parseInt(String.valueOf(bean[0]));
+                            countVS.setNoCount(nocount+"");
                         } else {
                             countVS.setCount("--");
                         }
@@ -484,6 +487,10 @@ public class VotingSummaryDAO {
                         } else {
                             countVS.setColumName5("--");
                         }
+                        
+                        
+                        
+                        
 
                         double percentage = (Double.parseDouble(String.valueOf(bean[0])) / fullCount_new) * 100;
                         percentage = (double) Math.round(percentage * 100) / 100;

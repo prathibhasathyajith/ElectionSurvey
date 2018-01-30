@@ -3,7 +3,7 @@
     width: 240px;
     height: 670px;
     padding: 150px 10px 10px 0;
-    background-color: #082a34;
+    background-color: #b84199;
     font-family: raleway;
     font-size: 12px;
     position: fixed;
@@ -30,7 +30,7 @@
 }
 
 .nav-bar ul > li a.active {
-    background-color: #4CAF50;
+    background-color: #f195da;
     color: white;
     /*
     background: linear-gradient(to right, #082a34 0%, #082a34 9%, #0055cf 100%);
@@ -47,7 +47,7 @@
 .nav-bar>span {
     margin: 0px 0px 0 15px;
     color: #ffffff;
-    background-color: #009688;
+    background-color: #9a9a9a;
     padding: 2px 5px 3px 5px;
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
