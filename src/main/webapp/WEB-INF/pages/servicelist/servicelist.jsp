@@ -218,7 +218,7 @@
                                     button="true"
                                     href="%{uploadurl}"
                                     disabled="#vupload"
-                                    value="Upload Merchant Customer"
+                                    value="Upload Service List"
                                     id="uploadButton"  
                                     cssClass="btn btn-warning"
                                     cssStyle="margin-left:30px"

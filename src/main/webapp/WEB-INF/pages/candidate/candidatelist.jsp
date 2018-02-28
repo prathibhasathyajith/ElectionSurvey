@@ -403,7 +403,7 @@
                     <div class="col-sm-3">
                         <div class="form-group">
                             <span style="color: red">*</span><label>Province</label>
-                            <s:select onchange="changeDistrictFromProvince(this.value);" cssClass="form-control" id="province" list="%{provinceList}"  headerValue="--Select Party--" headerKey="" name="province" listKey="code" listValue="description" />
+                            <s:select onchange="changeDistrictFromProvince(this.value);" cssClass="form-control" id="province" list="%{provinceList}"  headerValue="--Select Province--" headerKey="" name="province" listKey="code" listValue="description" />
                         </div>
                     </div>
                     <div class="col-sm-3">

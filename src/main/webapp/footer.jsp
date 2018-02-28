@@ -6,7 +6,7 @@
 
 <footer>
     <div class="cont-foo">
-        some footer with version number
+        Local Government Election Campaign Review version 02.00
     </div>
     <script src="${pageContext.request.contextPath}/resources/javascript/main.js" ></script>
 </footer>

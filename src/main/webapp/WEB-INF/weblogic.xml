@@ -15,5 +15,5 @@
   <session-descriptor>
     <cookie-name>mpicookie</cookie-name>
   </session-descriptor>
-  <context-root>/Election_Survey_V1.05</context-root>
+  <context-root>/Election_Survey_V2.00</context-root>
 </weblogic-web-app>
