@@ -14,6 +14,7 @@
         <li><a id="nav5" href="${pageContext.request.contextPath}/viewCandidateList.action">Candidate List Management</a></li>
         <li><a id="nav6" href="${pageContext.request.contextPath}/viewService.action">Service List Management</a></li>
         <li><a id="nav7" href="${pageContext.request.contextPath}/viewVotingSummary.action">Voting Summary</a></li>
+        <li><a id="nav8" href="${pageContext.request.contextPath}/viewServiceSummary.action">Service Summary</a></li>
         <!--<li><a id="nav8" href="#about">About</a></li>-->
     </ul>
     <% } else if (session.getAttribute("SYSTEMUSERTYPE").equals("user")) {%>

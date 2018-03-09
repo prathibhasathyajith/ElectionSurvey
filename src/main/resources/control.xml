@@ -104,6 +104,16 @@
             
         </action>
         
+        <action name="*ServiceSummary" method="{1}" class="com.election.action.ServiceSummaryAction">
+            <result name="view">/WEB-INF/pages/servicesummary/servicesummary.jsp</result>
+            <result name="message">/WEB-INF/pages/msgSpe.jsp</result>
+            <result name="success"></result>
+            <result name="list" type="json"></result>
+            <result name="find" type="json"></result>
+            <result name="delete" type="json"></result>
+            
+        </action>
+        
         <action name="*SearchCan" method="{1}" class="com.election.action.SearchCandidateAction">
             <result name="view">/WEB-INF/pages/searchcandidate/searchcandidate.jsp</result>
             <result name="message">/WEB-INF/pages/msgSpe.jsp</result>

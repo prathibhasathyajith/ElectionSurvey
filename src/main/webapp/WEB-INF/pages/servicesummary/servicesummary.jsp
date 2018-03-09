@@ -12,7 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Voting Summary</title>
+        <title>Service Summary</title>
         <%@include file="/stylelinks.jspf" %>
         <link href="${pageContext.request.contextPath}/resources/css/multi-select.css" rel="stylesheet"/>
         <link href="${pageContext.request.contextPath}/resources/css/table.css" rel="stylesheet"/>
@@ -25,7 +25,7 @@
                     keyval = "empty";
                 }
                 $.ajax({
-                    url: '${pageContext.request.contextPath}/findDistrictVotingSummary.action',
+                    url: '${pageContext.request.contextPath}/findDistrictServiceSummary.action',
                     data: {province: keyval},
                     dataType: "json",
                     type: "POST",
@@ -53,7 +53,7 @@
                     keyval = "empty";
                 }
                 $.ajax({
-                    url: '${pageContext.request.contextPath}/findLAVotingSummary.action',
+                    url: '${pageContext.request.contextPath}/findLAServiceSummary.action',
                     data: {district: keyval},
                     dataType: "json",
                     type: "POST",
@@ -123,7 +123,7 @@
                     keyval = "empty";
                 }
                 $.ajax({
-                    url: '${pageContext.request.contextPath}/findWardVotingSummary.action',
+                    url: '${pageContext.request.contextPath}/findWardServiceSummary.action',
                     data: {la: keyval},
                     dataType: "json",
                     type: "POST",
@@ -191,7 +191,7 @@
                     keyval = "empty";
                 }
                 $.ajax({
-                    url: '${pageContext.request.contextPath}/findAllVotingSummary.action',
+                    url: '${pageContext.request.contextPath}/findAllServiceSummary.action',
                     data: {ward: keyval},
                     dataType: "json",
                     type: "POST",
@@ -255,25 +255,16 @@
             function load() {
                 var ward = $("#ward").val();
                 var la = $("#la").val();
-//                var ward = 'KURKGMCKGW';
-//                var type = $("#types").val();
-                var type = 'PARTY';
-
-                if (ward == '') {
-                    ward = "EMPTY";
-                }
-
-
 
                 $.ajax({
-                    url: '${pageContext.request.contextPath}/loadVotingSummary.action',
-                    data: {ward: ward, type: type, la: la},
+                    url: '${pageContext.request.contextPath}/loadServiceServiceSummary.action',
+                    data: {ward: ward, la: la},
                     dataType: "json",
                     type: "POST",
                     success: function (data) {
 
                         if (data.message == null) {
-                            var detais = data.countList;
+                            var detais = data.tableList;
 
                             $("#searchResults").hide();
                             $('#table-votingSummary').empty();
@@ -281,55 +272,16 @@
                             $("#errorMsg").empty();
 
                             if (data.fullCount != null) {
-                                if (type == 'PARTY') {
 
-                                    if (ward == 'EMPTY') {
-                                        var ward_name = "EMP";
-                                        var ward_name_temp = "TEMP";
-
-                                        $('#table-votingSummary').append("<tr><th>Ward</th><th>Party</th><th>Vote Count</th><th>Percentage</th><th>NO Count</th></tr>");
-                                        $.each(detais, function (index, item) {
-                                            console.log(index);
-                                            if (ward_name == "EMP") {
-                                                $('#table-votingSummary').append("<tr><td>" + item.columName3 + "</td><td>" + item.columName1 + "</td><td>" + item.count + "</td><td>" + item.percentage1 + "</td><td>"+item.noCount+"</td></tr>");
-                                                ward_name = item.columName5;
-                                            } else {
-                                                if (ward_name == item.columName5) {
-                                                    $('#table-votingSummary').append("<tr><td>" + " " + "</td><td>" + item.columName1 + "</td><td>" + item.count + "</td><td>" + item.percentage1 + "</td><td>"+item.noCount+"</td></tr>");
-//                                                    ward_name = item.columName5;
-                                                } else {
-                                                    $('#table-votingSummary').append("<tr><td>" + item.columName3 + "</td><td>" + item.columName1 + "</td><td>" + item.count + "</td><td>" + item.percentage1 + "</td><td>"+item.noCount+"</td></tr>");
-//                                                    ward_name = item.columName5;
-                                                }
-//                                                $('#table-votingSummary').append("<tr><td>" + item.columName3 + "</td><td>" + item.columName1 + "</td><td>" + item.count + "</td><td>" + item.percentage1 + "</td></tr>");
-                                                ward_name = item.columName5;
-                                            }
-
-//                                            $('#table-votingSummary').append("<tr><td>" + item.columName3 + "</td><td>" + item.columName1 + "</td><td>" + item.count + "</td><td>" + item.percentage1 + "</td></tr>");
-
-                                        });
-                                    } else {
-                                        $('#table-votingSummary').append("<tr><th>Party</th><th>Vote Count</th><th>Percentage</th><th>NO Count</th></tr>");
-                                        $.each(detais, function (index, item) {
-                                            $('#table-votingSummary').append("<tr><td>" + item.columName1 + "</td><td>" + item.count + "</td><td>" + item.percentage1 + "</td><td>"+item.noCount+"</td></tr>");
-                                        });
-                                    }
-
-
-                                } else if (type == 'USER') {
-                                    $('#table-votingSummary').append("<tr><th>Candidate</th><th>Vote Count</th><th>Percentage</th><th>Party</th></tr>");
-                                    $.each(detais, function (index, item) {
-                                        $('#table-votingSummary').append("<tr><td>" + item.columName1 + "</td><td>" + item.count + "</td><td>" + item.percentage1 + "</td><td>" + item.columName3 + "</td></tr>");
-                                    });
-                                }
-                                $('#table-Summary').append("<tr><td>Total number of valid votes</td><td>" + data.fullCount + "</tr>");
+                                $('#table-votingSummary').append("<tr><th>Service</th><th>Count</th><th>Percentage</th></tr>");
+                                $.each(detais, function (index, item) {
+                                    $('#table-votingSummary').append("<tr><td>" + item.servicename + "</td><td>" + item.count + "</td><td>" + item.LApercentage + "</td></tr>");
+                                });
+                                $('#table-Summary').append("<tr><td>Total number of services</td><td>" + data.fullCount + "</tr>");
                             } else {
                                 $("#searchResults").show();
                                 $("#searchResults").text("No results found");
                             }
-
-
-
 
                         } else {
                             $("#messageRes").text(data.message);
@@ -381,7 +333,7 @@
         <jsp:include page="/navbar.jsp"/>
         <!--body content-->
         <div class="cont-body">
-            <div class="cont-breadCrumb">Voting Summary</div>
+            <div class="cont-breadCrumb">Service Summary</div>
             <div class="cont-msg">
                 <div class="ui-widget actionError" id="errorMsg"  style="display: none">
                     <div class="ui-state-error ui-corner-all" style="padding: 0.3em 0.7em; margin-top: 20px;"> 
@@ -393,7 +345,7 @@
             </div>
             <div class="cont-form">
 
-                <s:form id="VotingSummaryForm" method="post" action="VotingSummary" theme="simple" cssClass="form" enctype="multipart/form-data">
+                <s:form id="ServiceSummaryForm" method="post" action="ServiceSummary" theme="simple" cssClass="form" enctype="multipart/form-data">
                     <!--                    <div class="row" style="margin-left: 0px;">
                                             <div class="col-sm-6">
                                                 <div class="form-group">
